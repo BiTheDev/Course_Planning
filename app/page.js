@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import majorData from "@/data/majordata";
 
 export default function Home() {
-const [selectedMajor, setSelectedMajor] = useState('');
+  const [selectedMajor, setSelectedMajor] = useState("");
   const router = useRouter();
 
   const handleMajorChange = (e) => {
@@ -23,14 +23,36 @@ const [selectedMajor, setSelectedMajor] = useState('');
         </h1>
       </section>
       <section className="p-10">
-        <label htmlFor="major-select" className="block text-lg font-medium text-gray-700">Select a Major:</label>
-        <select id="major-select" value={selectedMajor} onChange={handleMajorChange} className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-black">
+        <label
+          htmlFor="major-select"
+          className="block text-lg font-medium text-gray-700"
+        >
+          Select a Major:
+        </label>
+        <select
+          id="major-select"
+          value={selectedMajor}
+          onChange={handleMajorChange}
+          className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        >
           <option value="">Please choose an option</option>
           {majorData.map((major) => (
-            <option key={major.id} value={major.name}>{major.name}</option>
+            <option key={major.id} value={major.name}>
+              {major.name}
+            </option>
           ))}
         </select>
-        <button onClick={goToMajorOverview} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">View Major Overview</button>
+        <button
+          onClick={goToMajorOverview}
+          disabled={!selectedMajor}
+          className={`mt-4 px-4 py-2 rounded ${
+            selectedMajor
+              ? "bg-blue-500 text-white"
+              : "bg-gray-500 text-gray-300"
+          }`} // Conditional styling based on whether a major is selected
+        >
+          View Major Overview
+        </button>
       </section>
       <section className="p-10">
         <h2 className="text-2xl font-semibold">User Manual & FAQ</h2>
