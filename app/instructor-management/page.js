@@ -1,5 +1,8 @@
-import { useState, useEffect } from 'react';
-
+"use client";
+import { useState, useEffect } from "react";
+import InstructorUpdateForm from "@/components/Forms/InstructorUpdateForm";
+import CreateInstructorForm from "@/components/Forms/CreateInstructorForm";
+import MainLayout from "../MainLayout";
 const InstructorManagementPage = () => {
   const [instructors, setInstructors] = useState([]);
 
@@ -9,11 +12,11 @@ const InstructorManagementPage = () => {
     // Update the state with the fetched instructors
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/instructors');
+        const response = await fetch("/api/instructors");
         const data = await response.json();
         setInstructors(data);
       } catch (error) {
-        console.error('Error fetching instructors:', error);
+        console.error("Error fetching instructors:", error);
       }
     };
 
@@ -39,21 +42,23 @@ const InstructorManagementPage = () => {
   };
 
   return (
-    <div>
-      <h1>Instructor Management</h1>
-      {/* Display detailed instructor information */}
-      <ul>
-        {instructors.map((instructor) => (
-          <li key={instructor.id}>{instructor.name}</li>
-        ))}
-      </ul>
+    <MainLayout>
+      <div>
+        <h1>Instructor Management</h1>
+        {/* Display detailed instructor information */}
+        <ul>
+          {instructors.map((instructor) => (
+            <li key={instructor.id}>{instructor.name}</li>
+          ))}
+        </ul>
 
-      {/* Instructor Update Form */}
-      <InstructorUpdateForm onInstructorUpdate={handleInstructorUpdate} />
+        {/* Instructor Update Form */}
+        <InstructorUpdateForm onInstructorUpdate={handleInstructorUpdate} />
 
-      {/* Create Instructor Form */}
-      <CreateInstructorForm onInstructorAddition={handleInstructorAddition} />
-    </div>
+        {/* Create Instructor Form */}
+        <CreateInstructorForm onInstructorAddition={handleInstructorAddition} />
+      </div>
+    </MainLayout>
   );
 };
 
