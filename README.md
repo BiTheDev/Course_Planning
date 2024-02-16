@@ -50,6 +50,8 @@ erDiagram
     
 
     Admin {
+        enum regular_admin
+        enum super_admin
         string admin_id
         string admin_name
     }
@@ -57,7 +59,7 @@ erDiagram
     Instructor {
         string instructor_name
         string[] course_teachable
-        Time preferred_time
+        Time[] preferred_time
     }
     Program ||--o{ Admin: Has
     Program ||--o{ Instructor: Has
@@ -70,13 +72,21 @@ erDiagram
         string room
     }
 
+    Classroom{
+        string room_number
+        int max_capacity
+
+    }
+    Section ||--|| Classroom: Occupies
+
     Section {
         string course_name
         string instructor_name
-        string room
+        string room_number
         Time section_time
     }
     Course||--o{ Section: ConsistsOf 
 
     Instructor ||--o{ Section: GeneratedByAlgo
+
 ```
