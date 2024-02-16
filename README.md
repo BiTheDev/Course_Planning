@@ -34,3 +34,49 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+## ERD [WIP]
+```mermaid
+erDiagram
+    Semester ||--o{ Program: ConsistsOf 
+    Semester {
+        string  semester_name
+    }
+
+    Program {
+        string program_name
+    }
+    
+
+    Admin {
+        string admin_id
+        string admin_name
+    }
+
+    Instructor {
+        string instructor_name
+        string[] course_teachable
+        Time preferred_time
+    }
+    Program ||--o{ Admin: Has
+    Program ||--o{ Instructor: Has
+    Program ||--o{ Course: Has
+
+    Course {
+        string register_code
+        string course_id
+        string course_name
+        string room
+    }
+
+    Section {
+        string course_name
+        string instructor_name
+        string room
+        Time section_time
+    }
+    Course||--o{ Section: ConsistsOf 
+
+    Instructor ||--o{ Section: GeneratedByAlgo
+```
