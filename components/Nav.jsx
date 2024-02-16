@@ -13,7 +13,7 @@ const Nav = () => {
         </Link>
         <div className="hidden md:flex space-x-4">
         <Link
-            href="/major-overview?major=CS_Align"
+            href="/major-overview"
             className="hover:text-gray-300"
           >
             Major Overview

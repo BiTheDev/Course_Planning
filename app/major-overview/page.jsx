@@ -1,13 +1,12 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import { MajorProvider, useMajor } from "../../components/MajorProvider";
+import {useMajor } from "../../components/MajorProvider";
 import majorData from "@/data/majordata";
 import { useEffect, useState } from "react";
 import MainLayout from "../MainLayout";
 const MajorOverview = () => {
-  const { setMajor } = useMajor();
-  const searchParams = useSearchParams();
-  const majorName = searchParams.get("major");
+  const { major, setMajor } = useMajor();
+  const majorName = major;
   const [selectedTerm, setSelectedTerm] = useState("");
   const [availableTerms, setAvailableTerms] = useState([]);
 

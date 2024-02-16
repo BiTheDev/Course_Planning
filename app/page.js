@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useMajor } from "@/components/MajorProvider";
 import majorData from "@/data/majordata";
 
 export default function Home() {
   const [selectedMajor, setSelectedMajor] = useState("");
+  const { updateMajor } = useMajor();
   const router = useRouter();
 
   const handleMajorChange = (e) => {
@@ -13,7 +15,8 @@ export default function Home() {
   };
 
   const goToMajorOverview = () => {
-    router.push(`/major-overview?major=${selectedMajor}`);
+    updateMajor(selectedMajor);
+    router.push("/major-overview");
   };
   return (
     <main className="min-h-screen flex flex-col justify-center items-center">
