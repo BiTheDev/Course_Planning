@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
-
+"use client";
+import { useState, useEffect } from "react";
+import MainLayout from "../MainLayout";
 const ClassroomAllocationPage = () => {
   const [classrooms, setClassrooms] = useState([]);
 
@@ -9,11 +10,11 @@ const ClassroomAllocationPage = () => {
     // Update the state with the fetched classrooms
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/classrooms');
+        const response = await fetch("/api/classrooms");
         const data = await response.json();
         setClassrooms(data);
       } catch (error) {
-        console.error('Error fetching classrooms:', error);
+        console.error("Error fetching classrooms:", error);
       }
     };
 
@@ -21,19 +22,24 @@ const ClassroomAllocationPage = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Classroom Allocation</h1>
-      {/* Display detailed information of classroom capacity, room number, and assigned courses */}
-      <ul>
-        {classrooms.map((classroom) => (
-          <li key={classroom.id}>
-            <strong>Room Number:</strong> {classroom.roomNumber}<br />
-            <strong>Capacity:</strong> {classroom.capacity}<br />
-            <strong>Assigned Courses:</strong> {classroom.assignedCourses.join(', ')}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <MainLayout>
+      <div>
+        <h1>Classroom Allocation</h1>
+        {/* Display detailed information of classroom capacity, room number, and assigned courses */}
+        <ul>
+          {classrooms.map((classroom) => (
+            <li key={classroom.id}>
+              <strong>Room Number:</strong> {classroom.roomNumber}
+              <br />
+              <strong>Capacity:</strong> {classroom.capacity}
+              <br />
+              <strong>Assigned Courses:</strong>{" "}
+              {classroom.assignedCourses.join(", ")}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </MainLayout>
   );
 };
 

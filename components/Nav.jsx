@@ -12,16 +12,25 @@ const Nav = () => {
           NEU
         </Link>
         <div className="hidden md:flex space-x-4">
+        <Link
+            href="/major-overview"
+            className="hover:text-gray-300"
+          >
+            Major Overview
+          </Link>
           <Link
             href="/course-management"
             className="hover:text-gray-300"
           >
             Course Management
           </Link>
-          <Link href="/" className="hover:text-gray-300">
+          <Link href="/instructor-management" className="hover:text-gray-300">
+            Instructor Management
+          </Link>
+          <Link href="/classroom-allocation" className="hover:text-gray-300">
             Classroom Allocation
           </Link>
-          <Link href="/" className="hover:text-gray-300">
+          <Link href="/master-schedule" className="hover:text-gray-300">
             Master Schedule
           </Link>
         </div>

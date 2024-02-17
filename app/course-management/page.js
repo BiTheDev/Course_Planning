@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react';
-
+"use client";
+import { useState, useEffect } from "react";
+import CreateCourseForm from "@/components/Forms/CreateCourseForm";
+import MainLayout from "../MainLayout";
 const CourseManagementPage = () => {
   const [courses, setCourses] = useState([]);
 
@@ -9,11 +11,11 @@ const CourseManagementPage = () => {
     // Update the state with the fetched courses
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/courses');
+        const response = await fetch("/api/courses");
         const data = await response.json();
         setCourses(data);
       } catch (error) {
-        console.error('Error fetching courses:', error);
+        console.error("Error fetching courses:", error);
       }
     };
 
@@ -27,18 +29,20 @@ const CourseManagementPage = () => {
   };
 
   return (
-    <div>
-      <h1>Course Management</h1>
-      {/* Display current course schedule */}
-      <ul>
-        {courses.map((course) => (
-          <li key={course.id}>{course.name}</li>
-        ))}
-      </ul>
+    <MainLayout>
+      <div>
+        <h1>Course Management</h1>
+        {/* Display current course schedule */}
+        <ul>
+          {courses.map((course) => (
+            <li key={course.id}>{course.name}</li>
+          ))}
+        </ul>
 
-      {/* Create Course Form */}
-      <CreateCourseForm onCourseScheduling={handleCourseScheduling} />
-    </div>
+        {/* Create Course Form */}
+        <CreateCourseForm onCourseScheduling={handleCourseScheduling} />
+      </div>
+    </MainLayout>
   );
 };
 
