@@ -46,8 +46,8 @@ erDiagram
 
     Program {
         string program_name
+        string semester
     }
-    
 
     Admin {
         enum regular_admin
@@ -57,9 +57,12 @@ erDiagram
     }
 
     Instructor {
-        string instructor_name
-        string[] course_teachable
-        Time[] preferred_time
+        string first_name
+        string last_name
+        string[] courses_teachable
+        int maxCourse
+        String[] preferred_time
+        enum type
     }
     Program ||--o{ Admin: Has
     Program ||--o{ Instructor: Has
@@ -69,12 +72,17 @@ erDiagram
         string register_code
         string course_id
         string course_name
-        string room
+        string semester
+        string classroom
+        string[] instructors
     }
 
     Classroom{
+        string building_number
         string room_number
         int max_capacity
+        string[] features
+        string[] availability
 
     }
     Section ||--|| Classroom: Occupies
