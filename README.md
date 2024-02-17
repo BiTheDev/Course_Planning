@@ -62,7 +62,7 @@ erDiagram
         string[] courses_teachable
         int maxCourse
         String[] preferred_time
-        enum type [fulltime]
+        enum fulltime
         enum parttime
     }
     Program ||--o{ Admin: Has
