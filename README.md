@@ -42,11 +42,14 @@ erDiagram
     Semester ||--o{ Program: ConsistsOf 
     Semester {
         string  semester_name
+        Program[] programs
     }
 
     Program {
         string program_name
         string semester
+        Instructor[] instructors
+        Course[] courses
     }
 
     Admin {
@@ -78,6 +81,8 @@ erDiagram
         string[] instructors
     }
 
+    Course }o--o{ Instructor
+
     Classroom{
         string building_number
         string room_number
@@ -85,8 +90,8 @@ erDiagram
         string[] features
         string[] availability
 
-    }
-    Section ||--|| Classroom: Occupies
+    } 
+    Classroom ||--o{ Section OccupiedBy
 
     Section {
         string course_name
