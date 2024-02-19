@@ -4,6 +4,11 @@ const SemesterSchema = new Schema({
         type: String,
         required : true
     },
+    programs: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Program',
+      }],
+
 });
 const Semester = models.Semester || model('Semester', SemesterSchema);
 export default Semester;

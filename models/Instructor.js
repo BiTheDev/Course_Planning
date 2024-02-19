@@ -1,30 +1,32 @@
-import { Schema, model, models } from 'mongoose';
+import { Schema, model, models } from "mongoose";
 
 const InstructorSchema = new Schema({
-    firstName: {
-        type: String,
-        required: true
+  name: {
+    type: String,
+    required: true,
+  },
+  teachableCourses: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Course",
     },
-    lastName: {
-        type: String,
-        required: true
+  ],
+  maxCourse: {
+    type: Number,
+  },
+  preferenceTime: [
+    {
+      type: String,
     },
-    teachableCourses: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Course',
-    }],
-    maxCourse: {
-        type: Number,
-    },
-    preferenceTime: [{
-        type: String,
-    }],
-    instructorType: {
-        type: String,
-        enum: ['Full-Time', 'Part-Time'],
-        default: 'Full-Time'
-    },
+  ],
+  instructorType: {
+    type: String,
+    enum: ["Full-Time", "Part-Time"],
+    default: "Full-Time",
+  },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
+  updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
 });
 
-const Instructor = models.Instructor || model('Instructor', InstructorSchema);
+const Instructor = models.Instructor || model("Instructor", InstructorSchema);
 export default Instructor;
