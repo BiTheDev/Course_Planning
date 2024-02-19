@@ -39,7 +39,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## ERD [WIP]
 ```mermaid
 erDiagram
-    Semester ||--o{ Program: ConsistsOf 
+    Semester ||--|{ Program: ConsistsOf 
     Semester {
         string  semester_name
         Program[] programs
@@ -68,9 +68,9 @@ erDiagram
         enum fulltime
         enum parttime
     }
-    Program ||--o{ Admin: Has
-    Program ||--o{ Instructor: Has
-    Program ||--o{ Course: Has
+    Program ||--|| Admin: Has
+    Program ||--|{ Instructor: Has
+    Program }|--|{ Course: ConsistOf
 
     Course {
         string register_code
@@ -81,7 +81,7 @@ erDiagram
         string[] instructors
     }
 
-    Course }o--o{ Instructor
+    Course }|--|{ Instructor: TaughtBy
 
     Classroom{
         string building_number
@@ -91,7 +91,7 @@ erDiagram
         string[] availability
 
     } 
-    Classroom ||--o{ Section OccupiedBy
+    Classroom ||--o{ Section: OccupiedBy
 
     Section {
         string course_name
@@ -99,7 +99,7 @@ erDiagram
         string room_number
         Time section_time
     }
-    Course||--o{ Section: ConsistsOf 
+    Course||--|{ Section: ConsistsOf 
 
     Instructor ||--o{ Section: GeneratedByAlgo
 
