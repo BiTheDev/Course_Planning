@@ -5,18 +5,9 @@ const CourseSchema = new Schema({
         type: String,
         required: [true, 'Title is required.'],
     },
-    semesters: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Semester',
-    }],
-    classroom: {
-        type: Schema.Types.ObjectId,
-        ref: 'Classroom',
-    },
-    instructors: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Instructor',
-    }],
+  programs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Program' }],
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
+  updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
 });
 
 const Course = models.Course || model('Course', CourseSchema);

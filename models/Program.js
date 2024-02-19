@@ -1,6 +1,6 @@
 import { Schema, model, models } from 'mongoose';
 
-const MajorSchema = new Schema({
+const ProgramSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -11,5 +11,5 @@ const MajorSchema = new Schema({
   }],
 });
 
-const Major = models.Major || model('Major', MajorSchema);
-export default Major;
+const Program = models.Program || model('Program', ProgramSchema);
+export default Program;
