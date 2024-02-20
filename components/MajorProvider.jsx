@@ -8,6 +8,7 @@ export const useMajor = () => useContext(MajorContext);
 
 export const MajorProvider = ({ children }) => {
     const [major, setMajor] = useState(null);
+    const [admin, setAdmin] = useState(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -22,8 +23,12 @@ export const MajorProvider = ({ children }) => {
         setMajor(newMajor);
     };
 
+    const updateAdmin = (newAdmin) => { // Add method to update admin
+        setAdmin(newAdmin);
+    };
+
     return (
-        <MajorContext.Provider value={{ major, setMajor, updateMajor }}>
+        <MajorContext.Provider value={{ major, setMajor, updateMajor, admin, updateAdmin }}>
             {children}
         </MajorContext.Provider>
     );
