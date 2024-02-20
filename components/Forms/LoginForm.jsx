@@ -46,7 +46,7 @@ const LoginForm = () => {
             console.log(values);
           const loginSuccess = await onLogin(values); // Await the login logic
           if (loginSuccess) {
-            updateAdmin(values.username); // Update admin state with username
+            updateAdmin(values); // Update admin state with username
             router.push("/program-selector"); // Redirect to major selector page
           } else {
             // Handle login failure (e.g., set error state, show message)
