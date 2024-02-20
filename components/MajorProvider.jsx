@@ -17,14 +17,23 @@ export const MajorProvider = ({ children }) => {
         if (majorQueryParam) {
             setMajor(majorQueryParam);
         }
+
+         // Retrieve admin info from localStorage
+         const storedAdmin = localStorage.getItem('admin');
+         if (storedAdmin) {
+             setAdmin(JSON.parse(storedAdmin));
+         }
     }, [router.query?.major]);
 
     const updateMajor = (newMajor) => {
         setMajor(newMajor);
     };
 
-    const updateAdmin = (newAdmin) => { // Add method to update admin
+
+    const updateAdmin = (newAdmin) => {
         setAdmin(newAdmin);
+        // Store admin info in localStorage
+        localStorage.setItem('admin', JSON.stringify(newAdmin));
     };
 
     return (
