@@ -4,9 +4,10 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMajor } from "@/components/MajorProvider";
 import majorData from "@/data/majordata";
+import MainLayout from "../MainLayout";
 const ProgramSelector = () => {
   const [selectedMajor, setSelectedMajor] = useState("");
-  const { updateMajor } = useMajor();
+  const { updateMajor, admin } = useMajor();
   const router = useRouter();
 
   const handleMajorChange = (e) => {
@@ -18,12 +19,13 @@ const ProgramSelector = () => {
     router.push("/major-overview");
   };
   return (
-    <main className="min-h-screen flex flex-col justify-center items-center">
-      <section className="text-center p-10">
-        <h1 className="text-4xl font-bold">
-          Northeastern University Course Scheduling System
-        </h1>
-      </section>
+    <MainLayout>
+      {admin && (
+        <div className="my-4">
+          <p>Welcome, {admin.username}!</p>{" "}
+          {/* Assuming 'admin' is a string like the username. Adjust if 'admin' is an object. */}
+        </div>
+      )}
       <section className="p-10">
         <label
           htmlFor="major-select"
@@ -56,18 +58,7 @@ const ProgramSelector = () => {
           View Major Overview
         </button>
       </section>
-      <section className="p-10">
-        <h2 className="text-2xl font-semibold">User Manual & FAQ</h2>
-        <div className="mt-4">
-          <p>
-            <strong>How to use the app:</strong> Detailed user manual goes here.
-          </p>
-          <p>
-            <strong>FAQ:</strong> Frequently asked questions and answers.
-          </p>
-        </div>
-      </section>
-    </main>
+    </MainLayout>
   );
 };
 
