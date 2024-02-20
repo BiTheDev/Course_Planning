@@ -12,7 +12,7 @@ const AdminSchema = new Schema({
     default: 'Regular'
   },
   createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'Admin', // Reference to another Admin who created this Admin
     required: function() { return this.adminType === 'Regular'; } // This field is required for Regular admins, assuming only Super admins can create admins
   },
@@ -21,4 +21,4 @@ const AdminSchema = new Schema({
 });
 
 const Admin = models.Admin || model("Admin", AdminSchema);
-export default Classroom;
+export default Admin;

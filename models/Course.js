@@ -5,9 +5,12 @@ const CourseSchema = new Schema({
         type: String,
         required: [true, 'Title is required.'],
     },
-  programs: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Program' }],
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
-  updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin' },
+    code: {
+      type: Number,
+  },
+  programs: [{ type: Schema.Types.ObjectId, ref: 'Program' }],
+  createdBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
+  updatedBy: { type: Schema.Types.ObjectId, ref: 'Admin' },
 });
 
 const Course = models.Course || model('Course', CourseSchema);
