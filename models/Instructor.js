@@ -24,8 +24,8 @@ const InstructorSchema = new Schema({
     enum: ["Full-Time", "Part-Time"],
     default: "Full-Time",
   },
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
-  updatedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Admin" },
+  createdBy: { type: Schema.Types.ObjectId, ref: "Admin" },
+  updatedBy: { type: Schema.Types.ObjectId, ref: "Admin" },
 });
 
 const Instructor = models.Instructor || model("Instructor", InstructorSchema);

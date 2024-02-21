@@ -8,6 +8,7 @@ export const useMajor = () => useContext(MajorContext);
 
 export const MajorProvider = ({ children }) => {
     const [major, setMajor] = useState(null);
+    const [admin, setAdmin] = useState(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -16,14 +17,27 @@ export const MajorProvider = ({ children }) => {
         if (majorQueryParam) {
             setMajor(majorQueryParam);
         }
+
+         // Retrieve admin info from localStorage
+         const storedAdmin = localStorage.getItem('admin');
+         if (storedAdmin) {
+             setAdmin(JSON.parse(storedAdmin));
+         }
     }, [router.query?.major]);
 
     const updateMajor = (newMajor) => {
         setMajor(newMajor);
     };
 
+
+    const updateAdmin = (newAdmin) => {
+        setAdmin(newAdmin);
+        // Store admin info in localStorage
+        localStorage.setItem('admin', JSON.stringify(newAdmin));
+    };
+
     return (
-        <MajorContext.Provider value={{ major, setMajor, updateMajor }}>
+        <MajorContext.Provider value={{ major, setMajor, updateMajor, admin, updateAdmin }}>
             {children}
         </MajorContext.Provider>
     );
