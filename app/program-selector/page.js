@@ -16,7 +16,7 @@ const ProgramSelector = () => {
 
   const goToMajorOverview = () => {
     updateMajor(selectedMajor);
-    router.push("/major-overview");
+    router.push("/program-overview");
   };
   return (
     <MainLayout>
