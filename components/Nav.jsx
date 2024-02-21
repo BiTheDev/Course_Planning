@@ -20,7 +20,7 @@ const Nav = () => {
         </Link>
         <div className="hidden md:flex space-x-4">
           <Link href="/program-overview" className="hover:text-gray-300">
-            Major Overview
+            Program Overview
           </Link>
           {admin && (
             <Link href="/course-management" className="hover:text-gray-300">

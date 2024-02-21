@@ -31,7 +31,7 @@ const ProgramSelector = () => {
           htmlFor="major-select"
           className="block text-lg font-medium text-gray-700"
         >
-          Select a Major:
+          Select a Program:
         </label>
         <select
           id="major-select"
