@@ -5,7 +5,11 @@ const CourseSchema = new Schema({
         type: String,
         required: [true, 'Title is required.'],
     },
-    code: {
+    identifyCode: {
+      type: String,
+      required: [true, 'Title is required.'],
+  },
+    registrationCode: {
       type: Number,
   },
   programs: [{ type: Schema.Types.ObjectId, ref: 'Program' }],
