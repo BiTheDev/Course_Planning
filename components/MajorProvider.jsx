@@ -9,6 +9,7 @@ export const useMajor = () => useContext(MajorContext);
 export const MajorProvider = ({ children }) => {
     const [major, setMajor] = useState(null);
     const [admin, setAdmin] = useState(null);
+    const [courses, setCourses] = useState([]);
     const router = useRouter();
 
     useEffect(() => {
@@ -23,7 +24,18 @@ export const MajorProvider = ({ children }) => {
          if (storedAdmin) {
              setAdmin(JSON.parse(storedAdmin));
          }
+         fetchCourses();
     }, [router.query?.major]);
+
+    const fetchCourses = async () => {
+        const response = await fetch("/api/course");
+        if (response.ok) {
+            const data = await response.json();
+            setCourses(data);
+        } else {
+            console.error("Failed to fetch courses");
+        }
+    };
 
     const updateMajor = (newMajor) => {
         setMajor(newMajor);
@@ -37,7 +49,7 @@ export const MajorProvider = ({ children }) => {
     };
 
     return (
-        <MajorContext.Provider value={{ major, setMajor, updateMajor, admin, updateAdmin }}>
+        <MajorContext.Provider value={{ major, setMajor, updateMajor, admin, updateAdmin, courses, fetchCourses }}>
             {children}
         </MajorContext.Provider>
     );

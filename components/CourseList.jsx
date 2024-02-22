@@ -1,23 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useMajor } from "./MajorProvider";
 
 const CourseList = () => {
-  const [courses, setCourses] = useState([]);
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      const response = await fetch("/api/course");
-      if (response.ok) {
-        const data = await response.json();
-        setCourses(data);
-      } else {
-        console.error("Failed to fetch courses");
-      }
-    };
-
-    fetchCourses();
-  }, []);
+    const { courses } = useMajor();
 
   return (
     <div className="container mx-auto p-4">
