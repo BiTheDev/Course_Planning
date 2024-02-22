@@ -4,7 +4,11 @@ import React, { useState, useEffect } from "react";
 import { useMajor } from "./MajorProvider";
 
 const CourseList = () => {
-    const { courses } = useMajor();
+    const { courses, setEditingCourse } = useMajor();
+
+    const handleEdit = (course) => {
+        setEditingCourse(course); // Set the course to be edited in the context
+      };
 
   return (
     <div className="container mx-auto p-4">
@@ -37,7 +41,19 @@ const CourseList = () => {
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
+                Teachable Instructors
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
                 Registration Code
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Action
               </th>
             </tr>
           </thead>
@@ -60,10 +76,20 @@ const CourseList = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-500">
+                    {course.teachableInstructor?.map((instructor) => instructor.title).join(", ")}
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
                     {course.registrationCode}
                   </div>
                 </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+            <button onClick={() => handleEdit(course)} className="text-indigo-600 hover:text-indigo-900">
+              Edit
+            </button>
+          </td>
               </tr>
             ))}
           </tbody>
