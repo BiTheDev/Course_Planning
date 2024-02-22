@@ -2,6 +2,7 @@
 import CreateCourseForm from "@/components/Forms/CreateCourseForm";
 import MainLayout from "../MainLayout";
 import CourseList from "@/components/CourseList";
+import UpdateCourseForm from "@/components/Forms/UpdateCourseForm";
 const CourseManagementPage = () => {
 
   return (
@@ -12,6 +13,7 @@ const CourseManagementPage = () => {
 
         {/* Create Course Form */}
         <CreateCourseForm  />
+        <UpdateCourseForm/>
       </div>
     </MainLayout>
   );
