@@ -34,14 +34,21 @@ const Settings = () => {
   return (
     <MainLayout>
       <div className="container mx-auto px-4 py-8">
-
-        <CreateProgramForm onProgramCreated={afterCreateProgram} />
-        <ProgramDropdown
-          programs={programs}
-          selectedProgram={program}
-          onProgramChange={handleProgramChange}
-        />
-        <CreateSemesterForm selectedProgram={programs} />
+        <div className="flex flex-col md:flex-row md:justify-between">
+          <div className="flex-1 mb-8 md:mb-0">
+            <CreateProgramForm onProgramCreated={afterCreateProgram} />
+          </div>
+          {/* Group ProgramDropdown and CreateSemesterForm together in a flex column */}
+          <div className="flex-1 mb-8 md:mb-0 flex flex-col">
+            <ProgramDropdown
+              programs={programs}
+              selectedProgram={program}
+              onProgramChange={handleProgramChange}
+            />
+            {/* Move CreateSemesterForm here, under ProgramDropdown */}
+            <CreateSemesterForm programs={programs} selectedProgram={programs} handleProgramChange={handleProgramChange} />
+          </div>
+        </div>
       </div>
     </MainLayout>
   );
