@@ -1,15 +1,27 @@
 import { Schema, model, models } from "mongoose";
 
 const SectionSchema = new Schema({
-    course: { type: Schema.Types.ObjectId, ref: 'Course' },
-    semester: { type: Schema.Types.ObjectId, ref: 'Semester' },
-    instructor: { type: Schema.Types.ObjectId, ref: 'Instructor' },
-    classroom: { type: Schema.Types.ObjectId, ref: 'Classroom' },
-    schedule: {
-      day: String,
-      startTime: String,
-      endTime: String,
+    course:{
+      type :String
     },
+    professor:{
+      type: String
+    },
+    preference:{
+      type:Array
+    },
+    lab: {
+      type: Boolean,
+      required: true,
+    },
+    duration: {
+      type: number,
+      required: true,
+    },
+    student:{
+      type:Number
+    },
+    createdBy: { type: Schema.Types.ObjectId, ref: "Admin" },
 
   // Additional fields can be added as needed
 });
