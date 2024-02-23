@@ -32,9 +32,9 @@ const Nav = () => {
               Instructor Management
             </Link>
           )}
-          <Link href="/classroom-allocation" className="hover:text-gray-300">
+          {/* <Link href="/classroom-allocation" className="hover:text-gray-300">
             Classroom Allocation
-          </Link>
+          </Link> */}
           <Link href="/master-schedule" className="hover:text-gray-300">
             Master Schedule
           </Link>
