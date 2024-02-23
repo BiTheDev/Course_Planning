@@ -43,13 +43,16 @@ const CreateProgramForm = ( { onProgramCreated }) => {
   };
 
   return (
-    <div className="p-5 max-w-md mx-auto">
+    <div className="container mx-auto px-4 py-8">
+      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h1 className="text-2xl mb-6">Create Program</h1>
+
       <Formik
         initialValues={{ title: '' }}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <Form>
             <div className="mb-4">
               <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">
                 Program Title
@@ -72,6 +75,7 @@ const CreateProgramForm = ( { onProgramCreated }) => {
           </Form>
         )}
       </Formik>
+      </div>
     </div>
   );
 };

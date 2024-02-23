@@ -5,6 +5,7 @@ import { useMajor } from "@/components/MajorProvider";
 import ProgramDropdown from "@/components/ProgramDropdown"; // Import the ProgramDropdown component
 import CreateProgramForm from "@/components/Forms/CreateProgramForm";
 import CreateSemesterForm from "@/components/Forms/CreateSemesterForm";
+import CreateCourseForm from "@/components/Forms/CreateCourseForm";
 
 const Settings = () => {
   const { updateProgram, program } = useMajor();
@@ -37,6 +38,7 @@ const Settings = () => {
         <div className="flex flex-col md:flex-row md:justify-between">
           <div className="flex-1 mb-8 md:mb-0">
             <CreateProgramForm onProgramCreated={afterCreateProgram} />
+            <CreateCourseForm/>
           </div>
           {/* Group ProgramDropdown and CreateSemesterForm together in a flex column */}
           <div className="flex-1 mb-8 md:mb-0 flex flex-col">

@@ -9,9 +9,6 @@ const CourseSchema = new Schema({
     type: String,
     required: [true, "Title is required."],
   },
-  registrationCode: {
-    type: Number,
-  },
   teachableInstructor: [
     {
       type: Schema.Types.ObjectId,
