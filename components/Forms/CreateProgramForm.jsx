@@ -4,7 +4,7 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useMajor } from '@/components/MajorProvider'; // Adjust the path as necessary
 
-const CreateProgramForm = () => {
+const CreateProgramForm = ( { onProgramCreated }) => {
   const { admin } = useMajor(); // Access the admin object from the context
 
   const handleSubmit = async (values, actions) => {
@@ -32,6 +32,7 @@ const CreateProgramForm = () => {
 
       // Handle success - clear form, show success message, etc.
       actions.resetForm();
+      onProgramCreated();
       alert('Program created successfully!');
     } catch (error) {
       console.error('Error creating program:', error);
