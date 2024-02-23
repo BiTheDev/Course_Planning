@@ -18,7 +18,7 @@ const CreateProgramForm = () => {
     const submissionData = { ...values, adminName: admin.username };
 
     try {
-      const response = await fetch('/api/program', { // Adjust this URL to your API endpoint
+      const response = await fetch('/api/program/create', { // Adjust this URL to your API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
