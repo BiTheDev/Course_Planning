@@ -5,9 +5,9 @@ const ProgramSchema = new Schema({
     type: String,
     required: true,
   },
-  courses: [{
+  semesters: [{
     type: Schema.Types.ObjectId,
-    ref: 'Course',
+    ref: 'Semester',
   }],
   createdBy: { type: Schema.Types.ObjectId, ref: "Admin" },
   updatedBy: { type: Schema.Types.ObjectId, ref: "Admin" },
