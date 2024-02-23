@@ -35,6 +35,7 @@ export const MajorProvider = ({ children }) => {
   const updateProgram = (newProgram) => {
     setProgram(newProgram);
   };
+  
 
   const updateAdmin = (newAdmin) => {
     setAdmin(newAdmin);
