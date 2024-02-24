@@ -1,6 +1,3 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
 import { useMajor } from "./MajorProvider";
 
 const CourseList = () => {
