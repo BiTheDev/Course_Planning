@@ -25,7 +25,7 @@ const CourseList = () => {
               >
                 Identify Code
               </th>
-              <th
+              {/* <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
@@ -36,7 +36,7 @@ const CourseList = () => {
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Associated Programs
-              </th>
+              </th> */}
               <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -47,7 +47,7 @@ const CourseList = () => {
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Registration Code
+                Semester
               </th>
               <th
                 scope="col"
@@ -65,7 +65,7 @@ const CourseList = () => {
                     {course.identifyCode}
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+                {/* <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
                     {course.title}
                   </div>
@@ -74,7 +74,7 @@ const CourseList = () => {
                   <div className="text-sm text-gray-500">
                     {course.programs.map((program) => program.title).join(", ")}
                   </div>
-                </td>
+                </td> */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-500">
                     {course.teachableInstructor?.map((instructor) => instructor.title).join(", ")}
@@ -82,7 +82,7 @@ const CourseList = () => {
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
-                    {course.registrationCode}
+                    {course?.semesters}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
