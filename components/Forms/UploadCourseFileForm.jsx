@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { useMajor } from "@/components/MajorProvider";
 
 const UploadCourseFileForm = () => {
-  const { admin } = useMajor(); // Access the admin object from the context
+  const { admin, fetchCourses } = useMajor(); // Access the admin object from the context
 
   const handleSubmit = async (values, actions) => {
     if (!admin) {
@@ -30,6 +30,7 @@ const UploadCourseFileForm = () => {
       }
 
       actions.resetForm();
+      fetchCourses();
       alert("Course file successfully!");
     } catch (error) {
       console.error("Error uploading course file:", error);
