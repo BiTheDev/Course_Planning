@@ -45,17 +45,22 @@ const CreateCourseForm = () => {
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <h1 className="text-2xl mb-6">Create Course</h1>
         <Formik
-          initialValues={{ title: "", identifyCode: ""}}
+          initialValues={{ maxSections: 1, identifyCode: ""}}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
           {({ setFieldValue, isSubmitting, errors, touched }) => (
             <Form>
-              <FormField label="Course Title" name="title" type="text" />
+              {/* <FormField label="Course Title" name="title" type="text" /> */}
               <FormField
                 label="Identify Code"
                 name="identifyCode"
                 type="text"
+              />
+              <FormField
+                label="Max Sections"
+                name="maxSections"
+                type="number"
               />
               <button
                 type="submit"
