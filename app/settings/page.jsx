@@ -6,6 +6,7 @@ import ProgramDropdown from "@/components/ProgramDropdown"; // Import the Progra
 import CreateProgramForm from "@/components/Forms/CreateProgramForm";
 import CreateSemesterForm from "@/components/Forms/CreateSemesterForm";
 import CreateCourseForm from "@/components/Forms/CreateCourseForm";
+import UploadCourseFileForm from "@/components/Forms/UploadCourseFileForm";
 
 const Settings = () => {
   const { updateProgram, program } = useMajor();
@@ -39,6 +40,7 @@ const Settings = () => {
           <div className="flex-1 mb-8 md:mb-0">
             <CreateProgramForm onProgramCreated={afterCreateProgram} />
             <CreateCourseForm/>
+            <UploadCourseFileForm/>
           </div>
           {/* Group ProgramDropdown and CreateSemesterForm together in a flex column */}
           <div className="flex-1 mb-8 md:mb-0 flex flex-col">
