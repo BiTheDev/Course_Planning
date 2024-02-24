@@ -16,11 +16,10 @@ const UploadCourseFileForm = () => {
 
     try {
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", values.file);
       const response = await fetch("/api/course/import", {
         method: "POST",
         headers: {
-          "Content-Type": "text/csv",
           "X-Admin-Name": admin.username,
         },
         body: formData,
