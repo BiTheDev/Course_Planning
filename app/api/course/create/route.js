@@ -1,10 +1,10 @@
 import { connectToDB } from "@/utils/mongodbUtil";
 import Course from "@/models/Course";
-import Semester from "@/models/Semester";
+// import Semester from "@/models/Semester";
 import Admin from "@/models/Admin";
 
 export const POST = async (request) => {
-    const { title, identifyCode, semesterIds, adminName } = await request.json();
+    const {identifyCode, maxSections,semesterIds, adminName } = await request.json();
 
     try {
         await connectToDB();
@@ -17,8 +17,9 @@ export const POST = async (request) => {
 
         // Create new course
         const newCourse = await Course.create({
-            title,
+            // title,
             identifyCode,
+            maxSections,
             semesters: semesterIds,
             createdBy: admin._id,
             updatedBy: admin._id,
