@@ -49,29 +49,40 @@ export const POST = async (request) => {
           courses.push(data);
         })
         .on("end", async () => {
-          try {
-            // Create course entries in the database
-            console.log("All courses:", courses);
-            const createdCourses = await Course.insertMany(
-              courses.map((course) => ({
-                identifyCode: course.identifyCode,
-                maxSections: parseInt(course.maxSections, 10),
-                createdBy: admin._id,
-                updatedBy: admin._id,
-              }))
-            );
-            resolve(
-              new Response(JSON.stringify(createdCourses), { status: 201 })
-            );
-          } catch (dbError) {
-            console.error("Database error:", dbError);
-            reject(
-              new Response(
-                JSON.stringify({ error: "Database error", detail: dbError }),
-                { status: 500 }
-              )
-            );
-          }
+            try {
+                const bulkOps = []; // Array to hold bulk operations
+            
+                for (const course of courses) {
+                  const existingCourse = await Course.findOne({ identifyCode: course.identifyCode });
+                  
+                  if (!existingCourse) {
+                    // If the course doesn't exist, prepare to insert it
+                    bulkOps.push({
+                      insertOne: {
+                        document: {
+                          ...course,
+                          maxSections: parseInt(course.maxSections, 10), // Convert maxSections from String to Number
+                          createdBy: admin._id,
+                          updatedBy: admin._id,
+                        }
+                      }
+                    });
+                  } // Optionally, else block for updating existing documents or other operations
+                }
+            
+                if (bulkOps.length > 0) {
+                  // Execute all bulk operations
+                  const result = await Course.bulkWrite(bulkOps);
+                  console.log("Bulk write result:", result);
+                } else {
+                  console.log("No new courses to add.");
+                }
+            
+                resolve(new Response(JSON.stringify({ message: 'Operation completed successfully' }), { status: 200 }));
+              } catch (dbError) {
+                console.error("Database error during bulk operation:", dbError);
+                reject(new Response(JSON.stringify({ error: 'Database error', detail: dbError }), { status: 500 }));
+              }
         })
         .on("error", (streamError) => {
           console.error("Stream error:", streamError);
