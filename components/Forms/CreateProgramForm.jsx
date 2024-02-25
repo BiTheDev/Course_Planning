@@ -4,7 +4,7 @@ import React from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useMajor } from '@/components/MajorProvider'; // Adjust the path as necessary
 
-const CreateProgramForm = () => {
+const CreateProgramForm = ( { onProgramCreated }) => {
   const { admin } = useMajor(); // Access the admin object from the context
 
   const handleSubmit = async (values, actions) => {
@@ -18,7 +18,7 @@ const CreateProgramForm = () => {
     const submissionData = { ...values, adminName: admin.username };
 
     try {
-      const response = await fetch('/api/program', { // Adjust this URL to your API endpoint
+      const response = await fetch('/api/program/create', { // Adjust this URL to your API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -32,6 +32,7 @@ const CreateProgramForm = () => {
 
       // Handle success - clear form, show success message, etc.
       actions.resetForm();
+      onProgramCreated();
       alert('Program created successfully!');
     } catch (error) {
       console.error('Error creating program:', error);
@@ -42,13 +43,16 @@ const CreateProgramForm = () => {
   };
 
   return (
-    <div className="p-5 max-w-md mx-auto">
+    <div className="container mx-auto px-4 py-8">
+      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h1 className="text-2xl mb-6">Create Program</h1>
+
       <Formik
         initialValues={{ title: '' }}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <Form>
             <div className="mb-4">
               <label htmlFor="title" className="block text-gray-700 text-sm font-bold mb-2">
                 Program Title
@@ -71,6 +75,7 @@ const CreateProgramForm = () => {
           </Form>
         )}
       </Formik>
+      </div>
     </div>
   );
 };

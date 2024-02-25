@@ -1,10 +1,10 @@
 import { connectToDB } from "@/utils/mongodbUtil";
 import Course from "@/models/Course";
-import Program from "@/models/Program";
+// import Semester from "@/models/Semester";
 import Admin from "@/models/Admin";
 
 export const POST = async (request) => {
-    const { title, identifyCode, registrationCode, programs, adminName } = await request.json();
+    const {identifyCode, maxSections,semesterIds, adminName } = await request.json();
 
     try {
         await connectToDB();
@@ -17,18 +17,18 @@ export const POST = async (request) => {
 
         // Create new course
         const newCourse = await Course.create({
-            title,
+            // title,
             identifyCode,
-            registrationCode,
-            programs, // Array of selected program IDs
+            maxSections,
+            semesters: semesterIds,
             createdBy: admin._id,
             updatedBy: admin._id,
         });
 
-        // Update each selected program to include the new course
-        await Promise.all(programs.map(async (programId) => {
-            await Program.findByIdAndUpdate(programId, { $addToSet: { courses: newCourse._id } });
-        }));
+        // Update each selected semester to include the new course
+        // await Promise.all(semesterIds.map(async (semesterId) => {
+        //     await Semester.findByIdAndUpdate(semesterId, { $addToSet: { courses: newCourse._id } });
+        // }));
 
         return new Response(JSON.stringify(newCourse), { status: 201 });
     } catch (error) {
