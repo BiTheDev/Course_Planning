@@ -1,11 +1,12 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import { Formik, Form } from "formik";
 import { useMajor } from "@/components/MajorProvider";
 
 const UploadCourseFileForm = () => {
-  const { admin, fetchCourses } = useMajor(); // Access the admin object from the context
+  const { admin, fetchCourses } = useMajor();
+  const fileInputRef = useRef(); // Create a ref for the file input
 
   const handleSubmit = async (values, actions) => {
     if (!admin) {
@@ -31,7 +32,12 @@ const UploadCourseFileForm = () => {
 
       actions.resetForm();
       fetchCourses();
-      alert("Course file successfully!");
+      alert("Course file uploaded successfully!");
+
+      // Clear the file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     } catch (error) {
       console.error("Error uploading course file:", error);
       alert("Error uploading course file. Please try again.");
@@ -59,6 +65,7 @@ const UploadCourseFileForm = () => {
                   id="file"
                   name="file"
                   type="file"
+                  ref={fileInputRef} // Attach the ref to the file input
                   onChange={(event) => {
                     setFieldValue("file", event.currentTarget.files[0]);
                   }}
