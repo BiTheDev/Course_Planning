@@ -49,7 +49,7 @@ const CreateSemesterForm = () => {
   }
 
   return (
-    <div className="pt-5 max-w-md mx-auto">
+    <div className="pt-5 ">
       <p className="mb-4">
         You are currently adding terms to: <strong>{program.title}</strong>
       </p>
