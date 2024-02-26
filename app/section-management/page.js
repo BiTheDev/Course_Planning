@@ -44,10 +44,15 @@ const SectionManagement = () => {
         );
       case "addCourseToSemester":
         return <AddCourseToSemesterForm />;
+        case "addInstructorToCourses":
+        return <p>Add Instructor to Course Form goes here</p>;
+        case "createSection":
+        return <p>Create section form goes here</p>;
       case "courseList":
         return <p>course list</p>;
       case "sectionInfo":
         return <p>section info</p>;
+
       default:
         return null;
     }
@@ -80,6 +85,18 @@ const SectionManagement = () => {
                 onClick={() => setActiveTab("addCourseToSemester")}
               >
                 Add Courses To Semester
+              </button>
+              <button
+                className={tabClass("addInstructorToCourses")}
+                onClick={() => setActiveTab("addInstructorToCourses")}
+              >
+                Add Instructor To Courses
+              </button>
+              <button
+                className={tabClass("createSection")}
+                onClick={() => setActiveTab("createSection")}
+              >
+                Create Section
               </button>
               <button
                 className={tabClass("courseList")}
