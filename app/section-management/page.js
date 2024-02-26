@@ -6,6 +6,7 @@ import Dropdown from "@/components/Dropdown";
 import CreateSemesterForm from "@/components/Forms/CreateSemesterForm";
 import AddCourseToSemesterForm from "@/components/Forms/AddCourseToSemesterForm";
 import { useMajor } from "@/components/MajorProvider";
+import '../custom.css';
 
 const SectionManagement = () => {
   const { updateProgram, program, fetchSemesterOnProgram } =
@@ -52,6 +53,9 @@ const SectionManagement = () => {
     }
   };
 
+  const tabClass = (tabName) => 
+    `tab-button rounded-xl ${activeTab === tabName ? "active" : ""}`;
+
   return (
     <MainLayout>
       <div className="flex flex-col space-y-4">
@@ -64,27 +68,27 @@ const SectionManagement = () => {
         />
         {program && (
           <>
-            <div className="flex justify-between">
+            <div className="tabs">
               <button
-                className="tab-button rounded-xl"
+                className={tabClass("createSemester")}
                 onClick={() => setActiveTab("createSemester")}
               >
                 Create Semester
               </button>
               <button
-                className="tab-button rounded-xl"
+                className={tabClass("addCourseToSemester")}
                 onClick={() => setActiveTab("addCourseToSemester")}
               >
                 Add Courses To Semester
               </button>
               <button
-                className="tab-button rounded-xl"
+                className={tabClass("courseList")}
                 onClick={() => setActiveTab("courseList")}
               >
                 Course List
               </button>
               <button
-                className="tab-button rounded-xl"
+                className={tabClass("sectionInfo")}
                 onClick={() => setActiveTab("sectionInfo")}
               >
                 Section Info
