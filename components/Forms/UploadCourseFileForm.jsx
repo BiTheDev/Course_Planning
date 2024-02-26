@@ -49,7 +49,7 @@ const UploadCourseFileForm = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h1 className="text-2xl mb-6">Upload Courses</h1>
+        <h1 className="text-2xl mb-6">Upload Courses (CSV file only)</h1>
 
         <Formik initialValues={{ file: null }} onSubmit={handleSubmit}>
           {({ setFieldValue, isSubmitting }) => (

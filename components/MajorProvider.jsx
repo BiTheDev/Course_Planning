@@ -10,7 +10,9 @@ export const useMajor = () => useContext(MajorContext);
 export const MajorProvider = ({ children }) => {
   const [program, setProgram] = useState(null); // This can be used to store the selected program object
   const [admin, setAdmin] = useState(null);
-  const [courses, setCourses] = useState([]);
+  const [allCourses, setAllCourses] = useState([]);
+  const [semesters, setSemesters] = useState(null);
+  const [semesterCourses, setSemesterCourses] = useState(null);
   const [editingCourse, setEditingCourse] = useState(null);
   const router = useRouter();
 
@@ -19,23 +21,46 @@ export const MajorProvider = ({ children }) => {
     if (storedAdmin) {
       setAdmin(JSON.parse(storedAdmin));
     }
-    fetchCourses();
+    // fetchAllCourses();
   }, []);
 
-  const fetchCourses = async () => {
+  const fetchAllCourses = async () => {
     const response = await fetch("/api/course");
     if (response.ok) {
       const data = await response.json();
-      setCourses(data);
+      setAllCourses(data);
     } else {
       console.error("Failed to fetch courses");
     }
   };
 
+  const fetchSemesterOnProgram = async (programId) => {
+    const response = await fetch(`/api/program/${programId}/semester`);
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setSemesters(data.semesters);
+    }
+  };
+
+  // const fetchCoursesOnSemester = async (semesterId) => {
+  //   const response = await fetch("/api/semester/courses");
+  //   if (response.ok) {
+  //     const data = await response.json();
+  //   }
+  // };
+
+  // const updateSemester = async () => {
+  //   setSemester();
+  // };
+
+  // const updateCoursesOnSemester = async () => {
+  //   setSemesterCourses();
+  // };
+
   const updateProgram = (newProgram) => {
     setProgram(newProgram);
   };
-  
 
   const updateAdmin = (newAdmin) => {
     setAdmin(newAdmin);
@@ -50,14 +75,14 @@ export const MajorProvider = ({ children }) => {
     <MajorContext.Provider
       value={{
         program,
-       updateProgram,
+        updateProgram,
         admin,
         updateAdmin,
-        courses,
-        fetchCourses,
-        editingCourse,
-        setEditingCourse,
-        clearEditingCourse,
+        allCourses,
+        fetchAllCourses,
+        fetchSemesterOnProgram,
+        // fetchCoursesOnSemester,
+        semesters,
       }}
     >
       {children}
