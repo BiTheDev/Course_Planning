@@ -1,17 +1,12 @@
 import { useMajor } from "./MajorProvider";
 
-const CourseList = () => {
-    const { courses, setEditingCourse } = useMajor();
+const SemesterCourseList = () => {
+  const { courses } = useMajor();
 
-    const handleEdit = (course) => {
-        setEditingCourse(course); // Set the course to be edited in the context
-      };
 
   return (
     <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-semibold mb-4">
-        Courses and Associated Programs
-      </h2>
+      <h2 className="text-2xl font-semibold mb-4">Courses Information</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -46,12 +41,12 @@ const CourseList = () => {
               >
                 Semester
               </th>
-              <th
+              {/* <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
                 Action
-              </th>
+              </th> */}
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -74,7 +69,9 @@ const CourseList = () => {
                 </td> */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-500">
-                    {course.teachableInstructor?.map((instructor) => instructor.title).join(", ")}
+                    {course.teachableInstructor
+                      ?.map((instructor) => instructor.title)
+                      .join(", ")}
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
@@ -82,11 +79,11 @@ const CourseList = () => {
                     {course?.semesters}
                   </div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                {/* <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
             <button onClick={() => handleEdit(course)} className="text-indigo-600 hover:text-indigo-900">
               Edit
             </button>
-          </td>
+          </td> */}
               </tr>
             ))}
           </tbody>
@@ -101,4 +98,4 @@ const CourseList = () => {
   );
 };
 
-export default CourseList;
+export default SemesterCourseList;
