@@ -1,12 +1,12 @@
 "use client";
 import MainLayout from "../MainLayout";
-import CourseList from "@/components/CourseList";
+import SemesterCourseList from "@/components/SemesterCourseList";
 const CourseManagementPage = () => {
 
   return (
     <MainLayout>
       <div>
-        <CourseList/>
+        <SemesterCourseList/>
       </div>
     </MainLayout>
   );
