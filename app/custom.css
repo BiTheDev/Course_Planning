@@ -1,0 +1,28 @@
+/* CSS */
+.tab-button {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    margin-right: 0.25rem;
+    border-bottom: 3px solid transparent; /* default state */
+    transition: all 0.3s ease; /* smooth transition */
+  }
+  
+  .tab-button:hover,
+  .tab-button.active {
+    border-bottom: 3px solid #007bff; /* active/hover state */
+    color: #007bff;
+  }
+  
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid #ccc; /* underline across tabs */
+  }
+  
+  .tab-content {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    margin-top: 0.5rem;
+  }
+  

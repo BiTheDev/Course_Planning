@@ -31,19 +31,3 @@ body {
     text-wrap: balance;
   }
 }
-
-.tab-button {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  margin-right: 0.25rem;
-}
-.tab-button:hover {
-  background-color: #e7e7e7;
-}
-.tab-content {
-  border: 1px solid #ccc;
-  padding: 1rem;
-  margin-top: 0.5rem;
-}
