@@ -5,7 +5,7 @@ import { Formik, Form, Field } from "formik";
 import { useMajor } from "@/components/MajorProvider"; // Ensure the path is correct
 
 const CreateSemesterForm = () => {
-  const { program, admin } = useMajor(); // Access the current program and admin from context
+  const { program, admin, fetchSemesterOnProgram } = useMajor(); // Access the current program and admin from context
 
   const handleSubmit = async (values, actions) => {
     if (!admin || !program) {
@@ -35,6 +35,7 @@ const CreateSemesterForm = () => {
 
       // Handle success - clear form, show success message, etc.
       actions.resetForm();
+      fetchSemesterOnProgram(program._id);
       alert("Semester created successfully!");
     } catch (error) {
       console.error("Error creating semester:", error);
