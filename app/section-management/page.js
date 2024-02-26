@@ -8,10 +8,9 @@ import AddCourseToSemesterForm from "@/components/Forms/AddCourseToSemesterForm"
 import { useMajor } from "@/components/MajorProvider";
 
 const SectionManagement = () => {
-  const { updateProgram, program, semesters, fetchSemesterOnProgram } =
+  const { updateProgram, program, fetchSemesterOnProgram } =
     useMajor();
   const [programs, setPrograms] = useState([]);
-  const [showCreateSemesterForm, setShowCreateSemesterForm] = useState(false);
   const [activeTab, setActiveTab] = useState("createSemester");
 
   useEffect(() => {
@@ -29,8 +28,6 @@ const SectionManagement = () => {
       console.log(selectedProgram);
       updateProgram(selectedProgram);
       fetchSemesterOnProgram(selectedProgram._id);
-      // Reset CreateSemesterForm visibility when program changes
-      setShowCreateSemesterForm(false);
     }
   };
 
@@ -45,7 +42,7 @@ const SectionManagement = () => {
           />
         );
       case "addCourseToSemester":
-        return <AddCourseToSemesterForm semesters={semesters} />;
+        return <AddCourseToSemesterForm />;
       case "courseList":
         return <p>course list</p>;
       case "sectionInfo":
