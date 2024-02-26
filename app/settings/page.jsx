@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import MainLayout from "../MainLayout";
 import { useMajor } from "@/components/MajorProvider";
-import ProgramDropdown from "@/components/ProgramDropdown"; // Import the ProgramDropdown component
+import ProgramDropdown from "@/components/Dropdown"; // Import the ProgramDropdown component
 import CreateProgramForm from "@/components/Forms/CreateProgramForm";
 import CreateSemesterForm from "@/components/Forms/CreateSemesterForm";
 import CreateCourseForm from "@/components/Forms/CreateCourseForm";
