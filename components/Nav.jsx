@@ -23,8 +23,8 @@ const Nav = () => {
             Program Overview
           </Link>
           {admin && (
-            <Link href="/course-management" className="hover:text-gray-300">
-              Course Management
+            <Link href="/section-management" className="hover:text-gray-300">
+              Section Management
             </Link>
           )}
           {admin && (
