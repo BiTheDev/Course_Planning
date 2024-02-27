@@ -59,7 +59,7 @@ const UploadCourseFileForm = () => {
                   htmlFor="file"
                   className="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  Upload CSV (Please follow the header format xxx)
+                  Upload CSV 
                 </label>
                 <input
                   id="file"
