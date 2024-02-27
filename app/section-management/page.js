@@ -7,6 +7,7 @@ import CreateSemesterForm from "@/components/Forms/CreateSemesterForm";
 import AddCourseToSemesterForm from "@/components/Forms/AddCourseToSemesterForm";
 import SemesterInstructorList from "@/components/SemesterInstructorList"; // Step 1
 import { useMajor } from "@/components/MajorProvider";
+import AddInstructorToCourseForm from "@/components/Forms/AddInstructorToCourseForm";
 import '../custom.css';
 
 const SectionManagement = () => {
@@ -46,7 +47,7 @@ const SectionManagement = () => {
       case "addCourseToSemester":
         return <AddCourseToSemesterForm />;
         case "addInstructorToCourses":
-        return <p>Add Instructor to Course Form goes here</p>;
+        return <AddInstructorToCourseForm/>;
         case "createSection":
         return <p>Create section form goes here</p>;
       case "courseList":
