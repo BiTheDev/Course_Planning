@@ -20,11 +20,11 @@ export const MajorProvider = ({ children }) => {
     if (storedAdmin) {
       setAdmin(JSON.parse(storedAdmin));
     }
-    fetchCourses();
-    fetchInstructors(); // Fetch instructors when the component mounts
+    fetchAllCourses();
+    fetchAllInstructors(); // Fetch instructors when the component mounts
   }, []);
 
-  const fetchCourses = async () => {
+  const fetchAllCourses = async () => {
     const response = await fetch("/api/course");
     if (response.ok) {
       const data = await response.json();
@@ -34,7 +34,7 @@ export const MajorProvider = ({ children }) => {
     }
   };
 
-  const fetchInstructors = async () => {
+  const fetchAllInstructors = async () => {
     const response = await fetch("/api/instructor");
     if (response.ok) {
       const data = await response.json();
@@ -65,9 +65,9 @@ export const MajorProvider = ({ children }) => {
         admin,
         updateAdmin,
         courses,
-        fetchCourses,
+        fetchAllCourses,
         instructors,
-        fetchInstructors,
+        fetchAllInstructors,
         editingCourse,
         setEditingCourse,
         clearEditingCourse,

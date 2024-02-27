@@ -20,7 +20,7 @@ const AddCourseToSemesterForm = () => {
       fetch(`/api/semester/${selectedSemester._id}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
+          console.log(data);
           // Filter out courses that are already in the semester
           const semesterCoursesIds = new Set(data.courses.map((c) => c._id));
           const filteredCourses = allCourses.filter(
@@ -28,7 +28,9 @@ const AddCourseToSemesterForm = () => {
           );
           setAvailableCourses(filteredCourses);
         })
-        .catch((error) => console.error("Error fetching semester details:", error));
+        .catch((error) =>
+          console.error("Error fetching semester details:", error)
+        );
     }
   }, [selectedSemester, allCourses]);
 
@@ -46,13 +48,17 @@ const AddCourseToSemesterForm = () => {
   const handleSubmit = async (values, actions) => {
     console.log(values.courses);
     try {
-      const response = await fetch(`/api/semester/${selectedSemester._id}/addCourses`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ courses: values.courses }),
-      });
+      const response = await fetch(
+        `/api/semester/${selectedSemester._id}/addCourses`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ courses: values.courses }),
+        }
+      );
 
-      if (!response.ok) throw new Error("Failed to update semester with new courses");
+      if (!response.ok)
+        throw new Error("Failed to update semester with new courses");
 
       alert("Courses added successfully to the semester!");
       actions.resetForm();
@@ -90,7 +96,10 @@ const AddCourseToSemesterForm = () => {
                   );
                 }}
               />
-              <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded">
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white rounded"
+              >
                 Submit
               </button>
             </Form>
