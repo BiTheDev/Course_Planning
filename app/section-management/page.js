@@ -5,6 +5,7 @@ import SemesterCourseList from "@/components/SemesterCourseList";
 import Dropdown from "@/components/Dropdown";
 import CreateSemesterForm from "@/components/Forms/CreateSemesterForm";
 import AddCourseToSemesterForm from "@/components/Forms/AddCourseToSemesterForm";
+import SemesterInstructorList from "@/components/SemesterInstructorList"; // Step 1
 import { useMajor } from "@/components/MajorProvider";
 import '../custom.css';
 
@@ -52,6 +53,8 @@ const SectionManagement = () => {
         return <p>course list</p>;
       case "sectionInfo":
         return <p>section info</p>;
+      case "instructorList": 
+        return <SemesterInstructorList />; 
 
       default:
         return null;
@@ -103,6 +106,12 @@ const SectionManagement = () => {
                 onClick={() => setActiveTab("courseList")}
               >
                 Course List
+              </button>
+              <button 
+                className={tabClass("instructorList")} 
+                onClick={() => setActiveTab("instructorList")} 
+              >
+                Instructor List
               </button>
               <button
                 className={tabClass("sectionInfo")}
