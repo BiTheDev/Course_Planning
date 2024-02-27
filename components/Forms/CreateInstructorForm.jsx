@@ -11,7 +11,8 @@ const CreateInstructorForm = () => {
           initialValues={{
             name: "",
             email: "",
-            teachableCourse: "",
+            teachableCourses: "",
+            maxCourses: "",
             preferredTime: "",
           }}
           validationSchema={Yup.object({
@@ -19,7 +20,8 @@ const CreateInstructorForm = () => {
             email: Yup.string()
               .email("Invalid email address")
               .required("Required"),
-            teachableCourse: Yup.string().required("Required"),
+            teachableCourses: Yup.string().required("Required"),
+            maxCourses: Yup.string().required("Required"),
             preferredTime: Yup.string().required("Required"),
           })}
           onSubmit={(values, { setSubmitting }) => {
@@ -33,10 +35,11 @@ const CreateInstructorForm = () => {
             <FormField label="Name" name="name" type="text" />
             <FormField label="Email Address" name="email" type="email" />
             <FormField
-              label="Teachable Course"
-              name="teachableCourse"
+              label="Teachable Courses"
+              name="teachableCourses"
               type="text"
             />
+            <FormField label="Max Courses" name="maxCourses" type="text" />
             <FormField
               label="Preferred Time"
               name="preferredTime"

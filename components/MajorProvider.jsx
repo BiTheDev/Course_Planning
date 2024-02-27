@@ -13,6 +13,7 @@ export const MajorProvider = ({ children }) => {
   const [allCourses, setAllCourses] = useState([]);
   const [semesters, setSemesters] = useState(null);
   const [semesterCourses, setSemesterCourses] = useState(null);
+  const [instructors, setInstructors] = useState([]);
   const [editingCourse, setEditingCourse] = useState(null);
   const router = useRouter();
 
@@ -21,7 +22,8 @@ export const MajorProvider = ({ children }) => {
     if (storedAdmin) {
       setAdmin(JSON.parse(storedAdmin));
     }
-    // fetchAllCourses();
+    fetchAllCourses();
+    fetchInstructors(); // Fetch instructors when the component mounts
   }, []);
 
   const fetchAllCourses = async () => {
@@ -34,6 +36,16 @@ export const MajorProvider = ({ children }) => {
     }
   };
 
+  const fetchInstructors = async () => {
+    const response = await fetch("/api/instructor");
+    if (response.ok) {
+      const data = await response.json();
+      setInstructors(data);
+    } else {
+      console.error("Failed to fetch instructors");
+    }
+  };
+
   const fetchSemesterOnProgram = async (programId) => {
     const response = await fetch(`/api/program/${programId}/semester`);
     if (response.ok) {
@@ -42,21 +54,6 @@ export const MajorProvider = ({ children }) => {
       setSemesters(data.semesters);
     }
   };
-
-  // const fetchCoursesOnSemester = async (semesterId) => {
-  //   const response = await fetch("/api/semester/courses");
-  //   if (response.ok) {
-  //     const data = await response.json();
-  //   }
-  // };
-
-  // const updateSemester = async () => {
-  //   setSemester();
-  // };
-
-  // const updateCoursesOnSemester = async () => {
-  //   setSemesterCourses();
-  // };
 
   const updateProgram = (newProgram) => {
     setProgram(newProgram);
@@ -80,9 +77,13 @@ export const MajorProvider = ({ children }) => {
         updateAdmin,
         allCourses,
         fetchAllCourses,
+        instructors,
+        fetchInstructors,
+        editingCourse,
+        setEditingCourse,
+        clearEditingCourse,
         fetchSemesterOnProgram,
-        // fetchCoursesOnSemester,
-        semesters,
+        semesters
       }}
     >
       {children}

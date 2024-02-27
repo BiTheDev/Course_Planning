@@ -5,6 +5,7 @@ import SemesterCourseList from "@/components/SemesterCourseList";
 import Dropdown from "@/components/Dropdown";
 import CreateSemesterForm from "@/components/Forms/CreateSemesterForm";
 import AddCourseToSemesterForm from "@/components/Forms/AddCourseToSemesterForm";
+import SemesterInstructorList from "@/components/SemesterInstructorList"; // Step 1
 import { useMajor } from "@/components/MajorProvider";
 import '../custom.css';
 
@@ -44,21 +45,19 @@ const SectionManagement = () => {
         );
       case "addCourseToSemester":
         return <AddCourseToSemesterForm />;
-        case "addInstructorToCourses":
-        return <p>Add Instructor to Course Form goes here</p>;
-        case "createSection":
-        return <p>Create section form goes here</p>;
       case "courseList":
-        return <p>course list</p>;
+        return <SemesterCourseList/>;
       case "sectionInfo":
         return <p>section info</p>;
+      case "instructorList": 
+        return <SemesterInstructorList />; 
 
       default:
         return null;
     }
   };
 
-  const tabClass = (tabName) => 
+  const tabClass = (tabName) =>
     `tab-button rounded-xl ${activeTab === tabName ? "active" : ""}`;
 
   return (
@@ -87,22 +86,16 @@ const SectionManagement = () => {
                 Add Courses To Semester
               </button>
               <button
-                className={tabClass("addInstructorToCourses")}
-                onClick={() => setActiveTab("addInstructorToCourses")}
-              >
-                Add Instructor To Courses
-              </button>
-              <button
-                className={tabClass("createSection")}
-                onClick={() => setActiveTab("createSection")}
-              >
-                Create Section
-              </button>
-              <button
                 className={tabClass("courseList")}
                 onClick={() => setActiveTab("courseList")}
               >
                 Course List
+              </button>
+              <button 
+                className={tabClass("instructorList")} 
+                onClick={() => setActiveTab("instructorList")} 
+              >
+                Instructor List
               </button>
               <button
                 className={tabClass("sectionInfo")}
