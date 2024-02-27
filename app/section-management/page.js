@@ -46,7 +46,7 @@ const SectionManagement = () => {
       case "addCourseToSemester":
         return <AddCourseToSemesterForm />;
       case "courseList":
-        return <p>course list</p>;
+        return <SemesterCourseList/>;
       case "sectionInfo":
         return <p>section info</p>;
       case "instructorList": 

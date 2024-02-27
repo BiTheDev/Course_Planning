@@ -1,8 +1,15 @@
+"use client";
+import { useEffect } from "react";
+
 import { useMajor } from "./MajorProvider";
 
 const SemesterCourseList = () => {
-  const { courses } = useMajor();
+  const { allCourses, fetchAllCourses } = useMajor();
+  
 
+  useEffect(() => {
+    fetchAllCourses();
+  }, []);
 
   return (
     <div className="container mx-auto p-4">
@@ -39,7 +46,7 @@ const SemesterCourseList = () => {
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Semester
+                Available Semesters
               </th>
               {/* <th
                 scope="col"
@@ -50,7 +57,7 @@ const SemesterCourseList = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {courses.map((course) => (
+            {allCourses.map((course) => (
               <tr key={course._id}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm font-medium text-gray-900">
@@ -75,8 +82,10 @@ const SemesterCourseList = () => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">
-                    {course?.semesters}
+                  <div className="text-sm text-gray-500">
+                    {course.semesters
+                      ?.map((semester) => semester.term)
+                      .join(", ")}
                   </div>
                 </td>
                 {/* <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
@@ -89,7 +98,7 @@ const SemesterCourseList = () => {
           </tbody>
         </table>
       </div>
-      {courses.length === 0 && (
+      {allCourses.length === 0 && (
         <div className="text-center py-4">
           <p className="text-gray-500">No courses found.</p>
         </div>
