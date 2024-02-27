@@ -5,7 +5,7 @@ import Dropdown from "../Dropdown";
 import { useMajor } from "../MajorProvider";
 
 const AddInstructorToCourseForm = () => {
-  const { courses, instructors, fetchAllCourses, fetchAllInstructors } =
+  const { allCourses, instructors, fetchAllCourses, fetchAllInstructors } =
     useMajor();
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedInstructors, setSelectedInstructors] = useState([]);
@@ -16,7 +16,7 @@ const AddInstructorToCourseForm = () => {
   }, []);
 
   const handleCourseChange = (courseId) => {
-    const course = courses.find((c) => c._id === courseId);
+    const course = allCourses.find((c) => c._id === courseId);
     setSelectedCourse(course);
     setSelectedInstructors([]); // Reset selected instructors when changing course
   };
@@ -44,7 +44,7 @@ const AddInstructorToCourseForm = () => {
     }
   };
 
-  const courseOptions = courses.map((course) => ({
+  const courseOptions = allCourses.map((course) => ({
     value: course._id,
     label: course.identifyCode,
   }));
@@ -57,7 +57,7 @@ const AddInstructorToCourseForm = () => {
   return (
     <div className="container mx-auto p-4">
       <Dropdown
-        data={courses}
+        data={allCourses}
         onDataChange={handleCourseChange}
         selectedData={selectedCourse}
         dropDownType="Course"
