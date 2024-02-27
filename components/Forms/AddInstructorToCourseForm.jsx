@@ -59,6 +59,7 @@ const AddInstructorToCourseForm = () => {
       <Dropdown
         data={courses}
         onDataChange={handleCourseChange}
+        selectedData={selectedCourse}
         dropDownType="Course"
         labelProperty="identifyCode"
       />
