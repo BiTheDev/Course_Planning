@@ -30,7 +30,6 @@ const MajorOverview = () => {
     console.log(selectedSemesterId);
   };
 
-
   return (
     <MainLayout>
       <div className="container mx-auto px-4 py-8">

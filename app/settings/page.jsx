@@ -22,12 +22,14 @@ const Settings = () => {
           <div className="flex-1 mb-8 md:mb-0">
             <CreateProgramForm onProgramCreated={afterCreateProgram} />
             <CreateCourseForm />
-            <CreateInstructorForm />
             <UploadCourseFileForm />
             <UploadInstructorFileForm />
           </div>
           {/* Group ProgramDropdown and CreateSemesterForm together in a flex column */}
-          <div className="flex-1 mb-8 md:mb-0 flex flex-col"></div>
+          <div className="flex-1 mb-8 md:mb-0 flex flex-col">
+            <CreateInstructorForm />
+            <UploadInstructorFileForm />
+          </div>
         </div>
       </div>
     </MainLayout>
