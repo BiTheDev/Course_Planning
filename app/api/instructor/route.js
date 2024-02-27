@@ -1,5 +1,6 @@
 import { connectToDB } from "@/utils/mongodbUtil";
 import Instructor from "@/models/Instructor";
+<<<<<<< HEAD
 import Admin from "@/models/Admin";
 
 export const POST = async (request) => {
@@ -59,6 +60,15 @@ export const PUT = async (request) => {
         }
 
         return new Response(JSON.stringify(updatedInstructor), { status: 200 });
+=======
+
+export const GET = async (request) => {
+    try {
+        await connectToDB();
+
+        const instructors = await Instructor.find({})
+        return new Response(JSON.stringify(instructors), { status: 200 });
+>>>>>>> 5e1970d (added api/instructors; updated instructor components; updated settings)
     } catch (error) {
         console.error(error);
         return new Response(JSON.stringify({ error: 'Server error' }), { status: 500 });
