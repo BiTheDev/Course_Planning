@@ -10,7 +10,9 @@ export const useMajor = () => useContext(MajorContext);
 export const MajorProvider = ({ children }) => {
   const [program, setProgram] = useState(null); // This can be used to store the selected program object
   const [admin, setAdmin] = useState(null);
-  const [courses, setCourses] = useState([]);
+  const [allCourses, setAllCourses] = useState([]);
+  const [semesters, setSemesters] = useState(null);
+  const [semesterCourses, setSemesterCourses] = useState(null);
   const [instructors, setInstructors] = useState([]);
   const [editingCourse, setEditingCourse] = useState(null);
   const router = useRouter();
@@ -20,15 +22,15 @@ export const MajorProvider = ({ children }) => {
     if (storedAdmin) {
       setAdmin(JSON.parse(storedAdmin));
     }
-    fetchCourses();
+    fetchAllCourses();
     fetchInstructors(); // Fetch instructors when the component mounts
   }, []);
 
-  const fetchCourses = async () => {
+  const fetchAllCourses = async () => {
     const response = await fetch("/api/course");
     if (response.ok) {
       const data = await response.json();
-      setCourses(data);
+      setAllCourses(data);
     } else {
       console.error("Failed to fetch courses");
     }
@@ -41,6 +43,15 @@ export const MajorProvider = ({ children }) => {
       setInstructors(data);
     } else {
       console.error("Failed to fetch instructors");
+    }
+  };
+
+  const fetchSemesterOnProgram = async (programId) => {
+    const response = await fetch(`/api/program/${programId}/semester`);
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setSemesters(data.semesters);
     }
   };
 
@@ -64,13 +75,15 @@ export const MajorProvider = ({ children }) => {
         updateProgram,
         admin,
         updateAdmin,
-        courses,
-        fetchCourses,
+        allCourses,
+        fetchAllCourses,
         instructors,
         fetchInstructors,
         editingCourse,
         setEditingCourse,
         clearEditingCourse,
+        fetchSemesterOnProgram,
+        semesters
       }}
     >
       {children}
