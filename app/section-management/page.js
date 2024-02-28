@@ -8,6 +8,7 @@ import AddCourseToSemesterForm from "@/components/Forms/AddCourseToSemesterForm"
 import SemesterInstructorList from "@/components/SemesterInstructorList"; // Step 1
 import { useMajor } from "@/components/MajorProvider";
 import AddInstructorToCourseForm from "@/components/Forms/AddInstructorToCourseForm";
+import CreateSectionForm from "@/components/Forms/CreateSectionForm";
 import '../custom.css';
 
 const SectionManagement = () => {
@@ -53,6 +54,8 @@ const SectionManagement = () => {
         return <SemesterCourseList/>;
       case "instructorList": 
         return <SemesterInstructorList />; 
+        case "createSection":
+          return <CreateSectionForm/>;
       case "sectionInfo":
         return <p>section info</p>;
       default:
@@ -105,6 +108,12 @@ const SectionManagement = () => {
                 onClick={() => setActiveTab("instructorList")} 
               >
                 Instructor List
+              </button>
+              <button
+                className={tabClass("createSection")}
+                onClick={() => setActiveTab("createSection")}
+              >
+                Create Section
               </button>
               <button
                 className={tabClass("sectionInfo")}
