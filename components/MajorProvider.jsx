@@ -23,7 +23,7 @@ export const MajorProvider = ({ children }) => {
       setAdmin(JSON.parse(storedAdmin));
     }
     fetchAllCourses();
-    fetchInstructors(); // Fetch instructors when the component mounts
+    fetchAllInstructors(); // Fetch instructors when the component mounts
   }, []);
 
   const fetchAllCourses = async () => {
@@ -36,7 +36,7 @@ export const MajorProvider = ({ children }) => {
     }
   };
 
-  const fetchInstructors = async () => {
+  const fetchAllInstructors = async () => {
     const response = await fetch("/api/instructor");
     if (response.ok) {
       const data = await response.json();
@@ -78,12 +78,12 @@ export const MajorProvider = ({ children }) => {
         allCourses,
         fetchAllCourses,
         instructors,
-        fetchInstructors,
+        fetchAllInstructors,
         editingCourse,
         setEditingCourse,
         clearEditingCourse,
         fetchSemesterOnProgram,
-        semesters
+        semesters,
       }}
     >
       {children}

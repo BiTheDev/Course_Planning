@@ -23,4 +23,6 @@ export const PATCH = async (request, { params }) => {
         console.error(error);
         return new Response(JSON.stringify({ error: 'Server error' }), { status: 500 });
     }
+
 };
+
