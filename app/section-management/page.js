@@ -7,6 +7,7 @@ import CreateSemesterForm from "@/components/Forms/CreateSemesterForm";
 import AddCourseToSemesterForm from "@/components/Forms/AddCourseToSemesterForm";
 import SemesterInstructorList from "@/components/SemesterInstructorList"; // Step 1
 import { useMajor } from "@/components/MajorProvider";
+import AddInstructorToCourseForm from "@/components/Forms/AddInstructorToCourseForm";
 import '../custom.css';
 
 const SectionManagement = () => {
@@ -43,21 +44,23 @@ const SectionManagement = () => {
             handleProgramChange={handleProgramChange}
           />
         );
+      
       case "addCourseToSemester":
         return <AddCourseToSemesterForm />;
+      case "addInstructorToCourses":
+        return <AddInstructorToCourseForm/>;
       case "courseList":
         return <SemesterCourseList/>;
-      case "sectionInfo":
-        return <p>section info</p>;
       case "instructorList": 
         return <SemesterInstructorList />; 
-
+      case "sectionInfo":
+        return <p>section info</p>;
       default:
         return null;
     }
   };
 
-  const tabClass = (tabName) =>
+  const tabClass = (tabName) => 
     `tab-button rounded-xl ${activeTab === tabName ? "active" : ""}`;
 
   return (
@@ -84,6 +87,12 @@ const SectionManagement = () => {
                 onClick={() => setActiveTab("addCourseToSemester")}
               >
                 Add Courses To Semester
+              </button>
+              <button
+                className={tabClass("addInstructorToCourses")}
+                onClick={() => setActiveTab("addInstructorToCourses")}
+              >
+                Add Instructor To Courses
               </button>
               <button
                 className={tabClass("courseList")}

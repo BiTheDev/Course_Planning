@@ -5,7 +5,6 @@ import { useMajor } from "./MajorProvider";
 
 const SemesterCourseList = () => {
   const { allCourses, fetchAllCourses } = useMajor();
-  
 
   useEffect(() => {
     fetchAllCourses();
