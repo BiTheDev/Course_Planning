@@ -13,6 +13,7 @@ export const MajorProvider = ({ children }) => {
   const [allCourses, setAllCourses] = useState([]);
   const [semesters, setSemesters] = useState(null);
   const [semesterCourses, setSemesterCourses] = useState(null);
+  const [courseInstructors, setCourseInstructors] = useState(null);
   const [instructors, setInstructors] = useState([]);
   const [editingCourse, setEditingCourse] = useState(null);
   const router = useRouter();
@@ -50,10 +51,26 @@ export const MajorProvider = ({ children }) => {
     const response = await fetch(`/api/program/${programId}/semester`);
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       setSemesters(data.semesters);
     }
   };
+
+  const fetchCoursesOnSemester = async (semesterId) =>{
+    const response = await fetch(`/api/semester/${semesterId}/course`);
+    if(response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setSemesterCourses(data.courses);
+    }
+  }
+
+  const fetchInstructorsOnCourse = async (courseId) =>{
+    const response = await fetch(`/api/course/${courseId}/instructor`);
+    if(response.ok) {
+      const data = await response.json();
+      setCourseInstructors(data.teachableInstructors);
+    }
+  }
 
   const updateProgram = (newProgram) => {
     setProgram(newProgram);
@@ -83,6 +100,10 @@ export const MajorProvider = ({ children }) => {
         setEditingCourse,
         clearEditingCourse,
         fetchSemesterOnProgram,
+        fetchCoursesOnSemester,
+        fetchInstructorsOnCourse,
+        courseInstructors,
+        semesterCourses,
         semesters,
       }}
     >
