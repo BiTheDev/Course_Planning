@@ -10,7 +10,7 @@ export const PUT = async (request, { params }) => {
         // Update the course with the new instructors
         const updatedCourse = await Course.findByIdAndUpdate(
             params.id,
-            { $addToSet: { teachableInstructors: instructors } },
+            { $set: { teachableInstructors: instructors } },
             { new: true }
         );
 

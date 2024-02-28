@@ -12,7 +12,6 @@ const Settings = () => {
     // Fetch programs again to get the updated list including the newly created one
     const response = await fetch("/api/program");
     const data = await response.json();
-    setPrograms(data);
   };
 
   return (
@@ -23,7 +22,6 @@ const Settings = () => {
             <CreateProgramForm onProgramCreated={afterCreateProgram} />
             <CreateCourseForm />
             <UploadCourseFileForm />
-            <UploadInstructorFileForm />
           </div>
           {/* Group ProgramDropdown and CreateSemesterForm together in a flex column */}
           <div className="flex-1 mb-8 md:mb-0 flex flex-col">
