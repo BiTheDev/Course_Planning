@@ -34,3 +34,73 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+
+## ERD [WIP]
+```mermaid
+erDiagram
+    Semester ||--|{ Program: ConsistsOf 
+    Semester {
+        string  semester_name
+        Program[] programs
+    }
+
+    Program {
+        string program_name
+        string semester
+        Instructor[] instructors
+        Course[] courses
+    }
+
+    Admin {
+        enum regular_admin
+        enum super_admin
+        string admin_id
+        string admin_name
+    }
+
+    Instructor {
+        string first_name
+        string last_name
+        string[] courses_teachable
+        int maxCourse
+        String[] preferred_time
+        enum fulltime
+        enum parttime
+    }
+    Program ||--|| Admin: Has
+    Program ||--|{ Instructor: Has
+    Program }|--|{ Course: ConsistOf
+
+    Course {
+        string register_code
+        string course_id
+        string course_name
+        string semester
+        string classroom
+        string[] instructors
+    }
+
+    Course }|--|{ Instructor: TaughtBy
+
+    Classroom{
+        string building_number
+        string room_number
+        int max_capacity
+        string[] features
+        string[] availability
+
+    } 
+    Classroom ||--o{ Section: OccupiedBy
+
+    Section {
+        string course_name
+        string instructor_name
+        string room_number
+        Time section_time
+    }
+    Course||--|{ Section: ConsistsOf 
+
+    Instructor ||--o{ Section: GeneratedByAlgo
+
+```
