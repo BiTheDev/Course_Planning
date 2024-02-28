@@ -7,7 +7,7 @@ export const PUT = async (request, {params}) =>{
     try {
         await connectToDB();
 
-        const addCourseToSemester = await Semester.findByIdAndUpdate(params.id, {$set: {courses}}, { new: true }).populate('courses');
+        const addCourseToSemester = await Semester.findByIdAndUpdate(params.id, {$set: {courses}}, { new: true });
 
         if (!addCourseToSemester) {
             return new Response(JSON.stringify({ error: 'Semester id not found' }), { status: 404 });

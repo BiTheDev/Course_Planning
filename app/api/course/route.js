@@ -6,7 +6,7 @@ export const GET = async (request) => {
     try {
         await connectToDB();
 
-        const courses = await Course.find({}).populate("semesters").populate("teachableInstructor");
+        const courses = await Course.find({}).populate("semesters").populate("teachableInstructors");
         return new Response(JSON.stringify(courses), { status: 200 });
     } catch (error) {
         console.error(error);

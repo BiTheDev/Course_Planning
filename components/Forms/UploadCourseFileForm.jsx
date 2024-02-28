@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { useMajor } from "@/components/MajorProvider";
 
 const UploadCourseFileForm = () => {
-  const { admin, fetchCourses } = useMajor();
+  const { admin } = useMajor();
   const fileInputRef = useRef(); // Create a ref for the file input
 
   const handleSubmit = async (values, actions) => {
@@ -31,7 +31,6 @@ const UploadCourseFileForm = () => {
       }
 
       actions.resetForm();
-      fetchCourses();
       alert("Course file uploaded successfully!");
 
       // Clear the file input

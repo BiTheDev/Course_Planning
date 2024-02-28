@@ -12,7 +12,6 @@ const Settings = () => {
     // Fetch programs again to get the updated list including the newly created one
     const response = await fetch("/api/program");
     const data = await response.json();
-    setPrograms(data);
   };
 
   return (

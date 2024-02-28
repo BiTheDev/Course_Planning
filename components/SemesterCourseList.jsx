@@ -75,8 +75,8 @@ const SemesterCourseList = () => {
                 </td> */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-500">
-                    {course.teachableInstructor
-                      ?.map((instructor) => instructor.title)
+                    {course.teachableInstructors
+                      ?.map((instructor) => instructor.name)
                       .join(", ")}
                   </div>
                 </td>
