@@ -67,6 +67,23 @@ export const MajorProvider = ({ children }) => {
     }
   };
 
+  const fetchInstructorsOnCourse = async (courseId) =>{
+    const response = await fetch(`/api/course/${courseId}/instructor`);
+    if(response.ok) {
+      const data = await response.json();
+      setCourseInstructors(data.teachableInstructors);
+    }
+  }
+  
+  const fetchCoursesOnSemester = async (semesterId) =>{
+    const response = await fetch(`/api/semester/${semesterId}/course`);
+    if(response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setSemesterCourses(data.courses);
+    }
+  }
+
   const updateProgram = (newProgram) => {
     setProgram(newProgram);
   };
