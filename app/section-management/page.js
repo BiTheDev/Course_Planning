@@ -9,6 +9,7 @@ import SemesterInstructorList from "@/components/SemesterInstructorList"; // Ste
 import { useMajor } from "@/components/MajorProvider";
 import AddInstructorToCourseForm from "@/components/Forms/AddInstructorToCourseForm";
 import CreateSectionForm from "@/components/Forms/CreateSectionForm";
+import SemesterSectionList from "@/components/SemesterSectionList";
 import '../custom.css';
 
 const SectionManagement = () => {
@@ -57,7 +58,7 @@ const SectionManagement = () => {
         case "createSection":
           return <CreateSectionForm/>;
       case "sectionInfo":
-        return <p>section info</p>;
+        return <SemesterSectionList />; 
       default:
         return null;
     }
