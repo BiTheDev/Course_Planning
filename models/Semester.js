@@ -13,7 +13,7 @@ const SemesterSchema = new Schema({
       ref: "Course",
     },
   ],
-  Section:[
+  sections:[
     {
       type: Schema.Types.ObjectId,
       ref: "Section",
