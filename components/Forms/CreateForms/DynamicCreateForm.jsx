@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useMajor } from "@/components/General/MajorProvider";
 const DynamicCreateForm = ({
-    formTitle,
+  formTitle,
   initialValues,
   validationSchema,
   fields,
@@ -11,13 +11,28 @@ const DynamicCreateForm = ({
   errorMessage,
   onFormSubmitted,
 }) => {
-    const {admin} = useMajor();
+  const { admin, program, fetchSemesterOnProgram } = useMajor();
+
+  let isSemesterForm = formTitle == "Create Semester";
 
   const handleSubmit = async (values, actions) => {
-    const data = {
+    let data = {};
+    if (isSemesterForm && (!admin || !program)) {
+      alert(
+        "Admin or Program information is missing. Please ensure you are logged in and a program is selected."
+      );
+      actions.setSubmitting(false);
+      return;
+    }
+    if (isSemesterForm) {
+      data = { ...values, programId: program._id, adminName: admin.username };
+    } else {
+      data = {
         ...values,
         adminName: admin.username,
       };
+    }
+
     try {
       const response = await fetch(apiEndpoint, {
         method: "POST",
@@ -28,9 +43,11 @@ const DynamicCreateForm = ({
       });
 
       if (!response.ok) throw new Error("Network response was not ok");
-      alert(successMessage);
+
       if (onFormSubmitted) onFormSubmitted();
+      if (isSemesterForm) fetchSemesterOnProgram(program._id);
       actions.resetForm();
+      alert(successMessage);
     } catch (error) {
       console.error("Error:", error);
       alert(errorMessage);
@@ -39,10 +56,14 @@ const DynamicCreateForm = ({
     actions.setSubmitting(false);
   };
 
+  if (isSemesterForm && !program) {
+    return <div>Please select a program to add a semester to.</div>;
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h1 className="text-2xl mb-6">{formTitle}</h1>
+        <h1 className="text-2xl mb-6">{formTitle}</h1>
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
@@ -62,6 +83,7 @@ const DynamicCreateForm = ({
                     id={field.name}
                     name={field.name}
                     type={field.type}
+                    placeholder={field?.placeholder}
                     className="py-2 px-4 border border-gray-300 rounded-md shadow-sm w-full"
                   />
                   <ErrorMessage
