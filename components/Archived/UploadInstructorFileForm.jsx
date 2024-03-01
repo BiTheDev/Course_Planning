@@ -4,7 +4,7 @@ import { useMajor } from "@/components/General/MajorProvider";
 
 const UploadInstructorForm = () => {
   const { admin, fetchInstructors } = useMajor();
-  const fileInputRef = useRef(); // Create a ref for the file input
+  const fileInputRef = useRef();
 
   const handleSubmit = async (values, actions) => {
     if (!admin) {
