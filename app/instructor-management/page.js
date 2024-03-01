@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import InstructorUpdateForm from "@/components/Forms/InstructorUpdateForm";
-import CreateInstructorForm from "@/components/Forms/CreateInstructorForm";
+import InstructorUpdateForm from "@/components/Forms/UpdateForms/InstructorUpdateForm";
+import CreateInstructorForm from "@/components/Forms/CreateForms/CreateInstructorForm";
 import MainLayout from "../MainLayout";
 const InstructorManagementPage = () => {
   const [instructors, setInstructors] = useState([]);

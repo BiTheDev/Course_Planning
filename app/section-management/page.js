@@ -1,15 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import MainLayout from "../MainLayout";
-import SemesterCourseList from "@/components/SemesterCourseList";
-import Dropdown from "@/components/Dropdown";
-import CreateSemesterForm from "@/components/Forms/CreateSemesterForm";
-import AddCourseToSemesterForm from "@/components/Forms/AddCourseToSemesterForm";
-import SemesterInstructorList from "@/components/SemesterInstructorList"; // Step 1
-import { useMajor } from "@/components/MajorProvider";
-import AddInstructorToCourseForm from "@/components/Forms/AddInstructorToCourseForm";
-import CreateSectionForm from "@/components/Forms/CreateSectionForm";
-import SemesterSectionList from "@/components/SemesterSectionList";
+import SemesterCourseList from "@/components/SemesterComponents/SemesterCourseList";
+import Dropdown from "@/components/General/Dropdown";
+import CreateSemesterForm from "@/components/Forms/CreateForms/CreateSemesterForm";
+import AddCourseToSemesterForm from "@/components/Forms/UpdateForms/AddCourseToSemesterForm";
+import SemesterInstructorList from "@/components/SemesterComponents/SemesterInstructorList"; // Step 1
+import { useMajor } from "@/components/General/MajorProvider";
+import AddInstructorToCourseForm from "@/components/Forms/UpdateForms/AddInstructorToCourseForm";
+import CreateSectionForm from "@/components/Forms/CreateForms/CreateSectionForm";
+import SemesterSectionList from "@/components/SemesterComponents/SemesterSectionList";
 import '../custom.css';
 
 const SectionManagement = () => {

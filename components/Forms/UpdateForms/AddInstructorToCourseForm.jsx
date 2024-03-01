@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { Formik, Form } from "formik";
-import Dropdown from "../Dropdown";
-import { useMajor } from "../MajorProvider";
+import Dropdown from "../../General/Dropdown";
+import { useMajor } from "../../General/MajorProvider";
 
 const AddInstructorToCourseForm = () => {
   const { allCourses, instructors, fetchAllCourses, fetchAllInstructors } =

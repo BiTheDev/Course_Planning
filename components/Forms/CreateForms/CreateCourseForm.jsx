@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useMajor } from "../MajorProvider";
+import { useMajor } from "../../General/MajorProvider";
 import Select from 'react-select';
 import * as Yup from "yup";
 const CreateCourseForm = () => {

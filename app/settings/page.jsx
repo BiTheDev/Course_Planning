@@ -1,11 +1,11 @@
 "use client";
 import React from "react";
 import MainLayout from "../MainLayout";
-import CreateProgramForm from "@/components/Forms/CreateProgramForm";
-import CreateCourseForm from "@/components/Forms/CreateCourseForm";
-import UploadCourseFileForm from "@/components/Forms/UploadCourseFileForm";
-import UploadInstructorFileForm from "@/components/Forms/UploadInstructorFileForm";
-import CreateInstructorForm from "@/components/Forms/CreateInstructorForm";
+import CreateProgramForm from "@/components/Forms/CreateForms/CreateProgramForm";
+import CreateCourseForm from "@/components/Forms/CreateForms/CreateCourseForm";
+import UploadCourseFileForm from "@/components/Forms/ImportForms/UploadCourseFileForm";
+import UploadInstructorFileForm from "@/components/Forms/ImportForms/UploadInstructorFileForm";
+import CreateInstructorForm from "@/components/Forms/CreateForms/CreateInstructorForm";
 
 const Settings = () => {
   const afterCreateProgram = async () => {

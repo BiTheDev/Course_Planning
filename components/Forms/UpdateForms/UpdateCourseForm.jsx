@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import Select from 'react-select';
-import { useMajor } from '../MajorProvider';// Adjust the path as needed
+import { useMajor } from '../../General/MajorProvider';// Adjust the path as needed
 
 const UpdateCourseForm = () => {
   const { editingCourse, fetchCourses,clearEditingCourse } = useMajor(); // Use editingCourse from context

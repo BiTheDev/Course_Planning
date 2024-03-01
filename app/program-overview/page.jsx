@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import MainLayout from "../MainLayout";
-import { useMajor } from "@/components/MajorProvider";
-import Dropdown from "@/components/Dropdown"; // Import the new component
+import { useMajor } from "@/components/General/MajorProvider";
+import Dropdown from "@/components/General/Dropdown"; // Import the new component
 
 const MajorOverview = () => {
   const { updateProgram, program, fetchSemesterOnProgram, semesters } =

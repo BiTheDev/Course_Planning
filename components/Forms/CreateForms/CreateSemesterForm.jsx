@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Formik, Form, Field } from "formik";
-import { useMajor } from "@/components/MajorProvider"; // Ensure the path is correct
+import { useMajor } from "@/components/General/MajorProvider"; // Ensure the path is correct
 
 const CreateSemesterForm = () => {
   const { program, admin, fetchSemesterOnProgram } = useMajor(); // Access the current program and admin from context
