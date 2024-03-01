@@ -1,15 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import MainLayout from "../MainLayout";
-import SemesterCourseList from "@/components/SemesterComponents/SemesterCourseList";
 import Dropdown from "@/components/General/Dropdown";
 import CreateSemesterForm from "@/components/Forms/CreateForms/CreateSemesterForm";
 import AddCourseToSemesterForm from "@/components/Forms/UpdateForms/AddCourseToSemesterForm";
-import SemesterInstructorList from "@/components/SemesterComponents/SemesterInstructorList"; // Step 1
 import { useMajor } from "@/components/General/MajorProvider";
 import AddInstructorToCourseForm from "@/components/Forms/UpdateForms/AddInstructorToCourseForm";
 import CreateSectionForm from "@/components/Forms/CreateForms/CreateSectionForm";
-import SemesterSectionList from "@/components/SemesterComponents/SemesterSectionList";
+// import SemesterSectionList from "@/components/SemesterComponents/SemesterSectionList";
+// import SemesterCourseList from "@/components/SemesterComponents/SemesterCourseList";
+// import SemesterInstructorList from "@/components/SemesterComponents/SemesterInstructorList";
+import DynamicSemesterInfoList from "@/components/DynamicSemesterInfoList";
 import '../custom.css';
 
 const SectionManagement = () => {
@@ -36,6 +37,33 @@ const SectionManagement = () => {
     }
   };
 
+  const instructorColumns = [
+    { key: 'name', header: 'Name' },
+    { key: 'teachableCourses', header: 'Teachable Courses', render: (item) => item.teachableCourses.map((course) => course.identifyCode).join(", ") },
+    { key: 'maxCourse', header: 'Max Courses' },
+    { key: 'preferenceTime', header: 'Preference Time', render: (item) => item.preferenceTime.join(", ") },
+    { key: 'instructorType', header: 'Instructor Type' },
+  ];
+
+  const courseColumns = [
+    { key: 'identifyCode', header: 'Identify Code' },
+    // Assuming teachableInstructors is an array of instructor names
+    { key: 'teachableInstructors', header: 'Teachable Instructors', render: (item) => item.teachableInstructors.map(instructor => instructor.name).join(", ") },
+    // Assuming semesters is an array of semester terms
+    { key: 'semesters', header: 'Available Semesters', render: (item) => item.semesters.map(semester => semester.term).join(", ") },
+  ];
+
+  const sectionColumns = [
+    { key: 'courseCode', header: 'Course Code' },
+    { key: 'professor', header: 'Professor' },
+    { key: 'lab', header: 'Lab', render: (item) => item.lab ? "Yes" : "No" },
+    { key: 'duration', header: 'Duration', render: (item) => `${item.duration} minutes` },
+    { key: 'registrationCode', header: 'Registration Code' },
+    { key: 'students', header: 'Number of Students' },
+  ];
+  
+
+
   const renderActiveTab = () => {
     switch (activeTab) {
       case "createSemester":
@@ -52,13 +80,13 @@ const SectionManagement = () => {
       case "addInstructorToCourses":
         return <AddInstructorToCourseForm/>;
       case "courseList":
-        return <SemesterCourseList/>;
-      case "instructorList": 
-        return <SemesterInstructorList />; 
+        return <DynamicSemesterInfoList ListType="courses" ListColumns={courseColumns}/>;
+      case "instructorList":
+        return   <DynamicSemesterInfoList ListType="instructors" ListColumns={instructorColumns} />
         case "createSection":
           return <CreateSectionForm/>;
       case "sectionInfo":
-        return <SemesterSectionList />; 
+        return <DynamicSemesterInfoList ListType="sections" ListColumns={sectionColumns}/>;
       default:
         return null;
     }
