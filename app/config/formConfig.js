@@ -61,7 +61,7 @@ export const semesterFormConfig = {
   validationSchema: Yup.object({
     term: Yup.string().required("Semester term is required"),
   }),
-  fields: [{ name: "title", type: "text", label: "Program Title", placeholder: "e.g., Fall 2024" }],
+  fields: [{ name: "term", type: "text", label: "Semester Term", placeholder: "e.g., Fall 2024" }],
   apiEndpoint: "/api/semester/create",
   successMessage: "Semester created successfully!",
   errorMessage: "Error creating semester. Please try again.",

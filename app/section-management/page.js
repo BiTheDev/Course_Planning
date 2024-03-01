@@ -2,15 +2,17 @@
 import React, { useEffect, useState } from "react";
 import MainLayout from "../MainLayout";
 import Dropdown from "@/components/General/Dropdown";
-import CreateSemesterForm from "@/components/Forms/CreateForms/CreateSemesterForm";
+// import CreateSemesterForm from "@/components/Forms/CreateForms/CreateSemesterForm";
 import AddCourseToSemesterForm from "@/components/Forms/UpdateForms/AddCourseToSemesterForm";
 import { useMajor } from "@/components/General/MajorProvider";
 import AddInstructorToCourseForm from "@/components/Forms/UpdateForms/AddInstructorToCourseForm";
 import CreateSectionForm from "@/components/Forms/CreateForms/CreateSectionForm";
+import DynamicCreateForm from "@/components/Forms/CreateForms/DynamicCreateForm";
 // import SemesterSectionList from "@/components/SemesterComponents/SemesterSectionList";
 // import SemesterCourseList from "@/components/SemesterComponents/SemesterCourseList";
 // import SemesterInstructorList from "@/components/SemesterComponents/SemesterInstructorList";
 import DynamicSemesterInfoList from "@/components/DynamicSemesterInfoList";
+import { semesterFormConfig } from "../config/formConfig";
 import '../custom.css';
 
 const SectionManagement = () => {
@@ -67,13 +69,7 @@ const SectionManagement = () => {
   const renderActiveTab = () => {
     switch (activeTab) {
       case "createSemester":
-        return (
-          <CreateSemesterForm
-            programs={programs}
-            selectedProgram={program}
-            handleProgramChange={handleProgramChange}
-          />
-        );
+        return <DynamicCreateForm {...semesterFormConfig} />;
       
       case "addCourseToSemester":
         return <AddCourseToSemesterForm />;
