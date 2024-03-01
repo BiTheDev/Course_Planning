@@ -3,10 +3,8 @@ import React from "react";
 import MainLayout from "../MainLayout";
 import CreateProgramForm from "@/components/Forms/CreateForms/CreateProgramForm";
 import CreateCourseForm from "@/components/Forms/CreateForms/CreateCourseForm";
-import UploadCourseFileForm from "@/components/Forms/ImportForms/UploadCourseFileForm";
-import UploadInstructorFileForm from "@/components/Forms/ImportForms/UploadInstructorFileForm";
 import CreateInstructorForm from "@/components/Forms/CreateForms/CreateInstructorForm";
-
+import UploadForm from "@/components/UploadForm";
 const Settings = () => {
   const afterCreateProgram = async () => {
     // Fetch programs again to get the updated list including the newly created one
@@ -21,12 +19,21 @@ const Settings = () => {
           <div className="flex-1 mb-8 md:mb-0">
             <CreateProgramForm onProgramCreated={afterCreateProgram} />
             <CreateCourseForm />
-            <UploadCourseFileForm />
+            <UploadForm
+              formText="Courses"
+              errorFormText="courses"
+              apiRoute="/api/course/import"
+              HeaderFormat="(Please follow the header format xxx)"
+            />
           </div>
-          {/* Group ProgramDropdown and CreateSemesterForm together in a flex column */}
           <div className="flex-1 mb-8 md:mb-0 flex flex-col">
-          <CreateInstructorForm />
-          <UploadInstructorFileForm />
+            <CreateInstructorForm />
+            <UploadForm
+              formText="Instructors"
+              errorFormText="instructors"
+              apiRoute="/api/instructor/import"
+              HeaderFormat="(Please follow the header format xxx)"
+            />
           </div>
         </div>
       </div>
