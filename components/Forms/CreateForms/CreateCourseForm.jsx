@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useMajor } from "../../General/MajorProvider";
+import { useMajor } from "@/components/General/MajorProvider";
 import Select from 'react-select';
 import * as Yup from "yup";
 const CreateCourseForm = () => {
@@ -33,7 +33,7 @@ const CreateCourseForm = () => {
       actions.resetForm();
       fetchCourses();
     } catch (error) {
-      console.error("Error creating course:", error);
+      // console.error("Error creating course:", error);
       alert("Error creating course");
     }
 

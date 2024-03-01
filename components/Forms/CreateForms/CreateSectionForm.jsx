@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useMajor } from "../../General/MajorProvider";
+import { useMajor } from "@/components/General/MajorProvider";
 import Dropdown from "../../General/Dropdown";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 const CreateSectionForm = () => {

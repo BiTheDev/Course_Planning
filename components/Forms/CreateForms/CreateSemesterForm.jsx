@@ -18,7 +18,7 @@ const CreateSemesterForm = () => {
 
     // Include the admin ID and the program ID in the submission data
     const submissionData = { ...values, programId: program._id, adminName: admin.username };
-    console.log(submissionData);
+    // console.log(submissionData);
     try {
       const response = await fetch("/api/semester/create", {
         // Adjust this URL to your API endpoint
