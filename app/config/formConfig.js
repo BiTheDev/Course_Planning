@@ -66,3 +66,40 @@ export const semesterFormConfig = {
   successMessage: "Semester created successfully!",
   errorMessage: "Error creating semester. Please try again.",
 };
+
+
+export const addCourseToSemesterConfig = {
+  formType: "AddCourseToSemester",
+  fetchRelatedDataUrl: (semesterId) => `/api/semester/${semesterId}`, // Adjust the endpoint as needed
+  submitUrl: (semesterId) => `/api/semester/${semesterId}/addCourses`,
+  relatedAvailableIds: (data)=> new Set(data.courses.map((c) => c._id)),
+  filteredRelatedIds :(allCourses, semesterCoursesIds) => allCourses.filter(
+    (course) => !semesterCoursesIds.has(course._id)
+  ),
+  filteredOptions : (availableCourses) => availableCourses.map((course) => ({
+    value: course._id,
+    label: course.identifyCode,
+  })),
+  dropdownType: "Semester",
+  dropdownLabelProperty: "term",
+  successMessage: "Courses added successfully to the semester!",
+  errorMessage: "Error adding courses to semester.",
+};
+
+export const addInstructorToCourseConfig = {
+  formType: "AddInstructorToCourse",
+  fetchRelatedDataUrl: (courseId) => `/api/course/${courseId}`, // Adjust the endpoint as needed
+  submitUrl: (courseId) => `/api/course/${courseId}/addInstructors`,
+  relatedAvailableIds: (data)=> new Set(data.teachableInstructors.map((c) => c._id)),
+  filteredRelatedIds :(instructors, courseInstructorId) => instructors.filter(
+    (instructor) => !courseInstructorId.has(instructor._id)
+  ),
+  filteredOptions : (availableInstructors) => availableInstructors.map((instructor) => ({
+    value: instructor._id,
+    label: instructor.name,
+  })),
+  dropdownType: "Course",
+  dropdownLabelProperty: "identifyCode",
+  successMessage: "Instructors added successfully to the course!",
+  errorMessage: "Error adding instructors to course.",
+};
