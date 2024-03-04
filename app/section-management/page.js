@@ -2,13 +2,14 @@
 import React, { useEffect, useState } from "react";
 import MainLayout from "../MainLayout";
 import Dropdown from "@/components/General/Dropdown";
-import AddCourseToSemesterForm from "@/components/Forms/UpdateForms/AddCourseToSemesterForm";
+// import AddCourseToSemesterForm from "@/components/Forms/UpdateForms/AddCourseToSemesterForm";
 import { useMajor } from "@/components/General/MajorProvider";
-import AddInstructorToCourseForm from "@/components/Forms/UpdateForms/AddInstructorToCourseForm";
+// import AddInstructorToCourseForm from "@/components/Forms/UpdateForms/AddInstructorToCourseForm";
 import CreateSectionForm from "@/components/Forms/CreateForms/CreateSectionForm";
 import DynamicCreateForm from "@/components/Forms/CreateForms/DynamicCreateForm";
 import DynamicSemesterInfoList from "@/components/DynamicSemesterInfoList";
-import { semesterFormConfig} from "../config/formConfig";
+import DynamicAddToForm from "@/components/Forms/UpdateForms/DynamicAddToForm";
+import { semesterFormConfig, addCourseToSemesterConfig, addInstructorToCourseConfig} from "../config/formConfig";
 import { instructorColumns, courseColumns, sectionColumns } from "../config/columnConfig";
 import "../custom.css";
 
@@ -42,13 +43,9 @@ const SectionManagement = () => {
         return <DynamicCreateForm {...semesterFormConfig} />;
 
       case "addCourseToSemester":
-        return (
-          <AddCourseToSemesterForm/>
-        );
+        return <DynamicAddToForm {...addCourseToSemesterConfig} />;
       case "addInstructorToCourse":
-        return (
-          <AddInstructorToCourseForm/>
-        );
+        return <DynamicAddToForm {...addInstructorToCourseConfig} />;
       case "courseList":
         return (
           <DynamicSemesterInfoList
