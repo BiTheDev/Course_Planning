@@ -70,7 +70,7 @@ export const semesterFormConfig = {
 
 export const addCourseToSemesterConfig = {
   formType: "AddCourseToSemester",
-  fetchRelatedDataUrl: (semesterId) => `/api/semester/${semesterId}`, // Adjust the endpoint as needed
+  fetchRelatedDataUrl: (semesterId) => `/api/semester/${semesterId}/courses`, // Adjust the endpoint as needed
   submitUrl: (semesterId) => `/api/semester/${semesterId}/addCourses`,
   relatedAvailableIds: (data)=> new Set(data.courses.map((c) => c._id)),
   filteredRelatedIds :(allCourses, semesterCoursesIds) => allCourses.filter(
@@ -88,7 +88,7 @@ export const addCourseToSemesterConfig = {
 
 export const addInstructorToCourseConfig = {
   formType: "AddInstructorToCourse",
-  fetchRelatedDataUrl: (courseId) => `/api/course/${courseId}`, // Adjust the endpoint as needed
+  fetchRelatedDataUrl: (courseId) => `/api/course/${courseId}/instructors`, // Adjust the endpoint as needed
   submitUrl: (courseId) => `/api/course/${courseId}/addInstructors`,
   relatedAvailableIds: (data)=> new Set(data.teachableInstructors.map((c) => c._id)),
   filteredRelatedIds :(instructors, courseInstructorId) => instructors.filter(
