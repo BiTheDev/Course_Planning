@@ -60,7 +60,7 @@ export const MajorProvider = ({ children }) => {
   };
 
   const fetchSemesterOnProgram = async (programId) => {
-    const response = await fetch(`/api/program/${programId}/semester`);
+    const response = await fetch(`/api/program/${programId}/semesters`);
     if (response.ok) {
       const data = await response.json();
       setSemesters(data.semesters);
@@ -68,7 +68,7 @@ export const MajorProvider = ({ children }) => {
   };
 
   const fetchInstructorsOnCourse = async (courseId) =>{
-    const response = await fetch(`/api/course/${courseId}/instructor`);
+    const response = await fetch(`/api/course/${courseId}/instructors`);
     if(response.ok) {
       const data = await response.json();
       setCourseInstructors(data.teachableInstructors);
@@ -76,7 +76,7 @@ export const MajorProvider = ({ children }) => {
   }
   
   const fetchCoursesOnSemester = async (semesterId) =>{
-    const response = await fetch(`/api/semester/${semesterId}/course`);
+    const response = await fetch(`/api/semester/${semesterId}/courses`);
     if(response.ok) {
       const data = await response.json();
       console.log(data);
