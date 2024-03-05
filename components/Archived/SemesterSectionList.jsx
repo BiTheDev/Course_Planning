@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useMajor } from "./MajorProvider";
+import { useMajor } from "../General/MajorProvider";
 
 const SemesterSectionList = () => {
   const { semesterSections, fetchAllSections } = useMajor();

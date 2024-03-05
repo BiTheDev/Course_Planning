@@ -1,9 +1,11 @@
+"use client";
+
 import React, { useRef } from "react";
 import { Formik, Form } from "formik";
-import { useMajor } from "@/components/MajorProvider";
+import { useMajor } from "@/components/General/MajorProvider";
 
-const UploadInstructorForm = () => {
-  const { admin, fetchInstructors } = useMajor();
+const UploadCourseFileForm = () => {
+  const { admin } = useMajor();
   const fileInputRef = useRef(); // Create a ref for the file input
 
   const handleSubmit = async (values, actions) => {
@@ -16,7 +18,7 @@ const UploadInstructorForm = () => {
     try {
       const formData = new FormData();
       formData.append("file", values.file);
-      const response = await fetch("/api/instructor/import", {
+      const response = await fetch("/api/course/import", {
         method: "POST",
         headers: {
           "X-Admin-Name": admin.username,
@@ -29,16 +31,15 @@ const UploadInstructorForm = () => {
       }
 
       actions.resetForm();
-      fetchInstructors();
-      alert("Instructor file uploaded successfully!");
+      alert("Course file uploaded successfully!");
 
       // Clear the file input
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
     } catch (error) {
-      console.error("Error uploading instructor file:", error);
-      alert("Error uploading instructor file. Please try again.");
+      console.error("Error uploading course file:", error);
+      alert("Error uploading course file. Please try again.");
     }
 
     actions.setSubmitting(false);
@@ -47,7 +48,7 @@ const UploadInstructorForm = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h1 className="text-2xl mb-6">Upload Instructors (CSV file only)</h1>
+        <h1 className="text-2xl mb-6">Upload Courses (CSV file only)</h1>
 
         <Formik initialValues={{ file: null }} onSubmit={handleSubmit}>
           {({ setFieldValue, isSubmitting }) => (
@@ -57,7 +58,7 @@ const UploadInstructorForm = () => {
                   htmlFor="file"
                   className="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  Upload CSV
+                  Upload CSV (Please follow the header format xxx)
                 </label>
                 <input
                   id="file"
@@ -75,7 +76,7 @@ const UploadInstructorForm = () => {
                 disabled={isSubmitting}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-                Upload Instructors
+                Upload Courses
               </button>
             </Form>
           )}
@@ -85,4 +86,4 @@ const UploadInstructorForm = () => {
   );
 };
 
-export default UploadInstructorForm;
+export default UploadCourseFileForm;

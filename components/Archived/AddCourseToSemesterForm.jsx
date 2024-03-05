@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Dropdown from "../Dropdown";
+import Dropdown from "../General/Dropdown";
 import { Formik, Form } from "formik";
-import { useMajor } from "../MajorProvider";
+import { useMajor } from "../General/MajorProvider";
 import Select from "react-select";
 
 const AddCourseToSemesterForm = () => {

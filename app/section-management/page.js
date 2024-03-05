@@ -1,20 +1,20 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import MainLayout from "../MainLayout";
-import SemesterCourseList from "@/components/SemesterCourseList";
-import Dropdown from "@/components/Dropdown";
-import CreateSemesterForm from "@/components/Forms/CreateSemesterForm";
-import AddCourseToSemesterForm from "@/components/Forms/AddCourseToSemesterForm";
-import SemesterInstructorList from "@/components/SemesterInstructorList"; // Step 1
-import { useMajor } from "@/components/MajorProvider";
-import AddInstructorToCourseForm from "@/components/Forms/AddInstructorToCourseForm";
-import CreateSectionForm from "@/components/Forms/CreateSectionForm";
-import SemesterSectionList from "@/components/SemesterSectionList";
-import '../custom.css';
+import Dropdown from "@/components/General/Dropdown";
+// import AddCourseToSemesterForm from "@/components/Forms/UpdateForms/AddCourseToSemesterForm";
+import { useMajor } from "@/components/General/MajorProvider";
+// import AddInstructorToCourseForm from "@/components/Forms/UpdateForms/AddInstructorToCourseForm";
+import CreateSectionForm from "@/components/Forms/CreateForms/CreateSectionForm";
+import DynamicCreateForm from "@/components/Forms/CreateForms/DynamicCreateForm";
+import DynamicSemesterInfoList from "@/components/DynamicSemesterInfoList";
+import DynamicAddToForm from "@/components/Forms/UpdateForms/DynamicAddToForm";
+import { semesterFormConfig, addCourseToSemesterConfig, addInstructorToCourseConfig} from "../config/formConfig";
+import { instructorColumns, courseColumns, sectionColumns } from "../config/columnConfig";
+import "../custom.css";
 
 const SectionManagement = () => {
-  const { updateProgram, program, fetchSemesterOnProgram } =
-    useMajor();
+  const { updateProgram, program, fetchSemesterOnProgram, fetchAllCourses } = useMajor();
   const [programs, setPrograms] = useState([]);
   const [activeTab, setActiveTab] = useState("createSemester");
 
@@ -36,35 +36,45 @@ const SectionManagement = () => {
     }
   };
 
+
   const renderActiveTab = () => {
     switch (activeTab) {
       case "createSemester":
+        return <DynamicCreateForm {...semesterFormConfig} />;
+
+      case "addCourseToSemester":
+        return <DynamicAddToForm {...addCourseToSemesterConfig} />;
+      case "addInstructorToCourse":
+        return <DynamicAddToForm {...addInstructorToCourseConfig} />;
+      case "courseList":
         return (
-          <CreateSemesterForm
-            programs={programs}
-            selectedProgram={program}
-            handleProgramChange={handleProgramChange}
+          <DynamicSemesterInfoList
+            ListType="courses"
+            ListColumns={courseColumns}
           />
         );
-      
-      case "addCourseToSemester":
-        return <AddCourseToSemesterForm />;
-      case "addInstructorToCourses":
-        return <AddInstructorToCourseForm/>;
-      case "courseList":
-        return <SemesterCourseList/>;
-      case "instructorList": 
-        return <SemesterInstructorList />; 
-        case "createSection":
-          return <CreateSectionForm/>;
+      case "instructorList":
+        return (
+          <DynamicSemesterInfoList
+            ListType="instructors"
+            ListColumns={instructorColumns}
+          />
+        );
+      case "createSection":
+        return <CreateSectionForm />;
       case "sectionInfo":
-        return <SemesterSectionList />; 
+        return (
+          <DynamicSemesterInfoList
+            ListType="sections"
+            ListColumns={sectionColumns}
+          />
+        );
       default:
         return null;
     }
   };
 
-  const tabClass = (tabName) => 
+  const tabClass = (tabName) =>
     `tab-button rounded-xl ${activeTab === tabName ? "active" : ""}`;
 
   return (
@@ -93,8 +103,8 @@ const SectionManagement = () => {
                 Add Courses To Semester
               </button>
               <button
-                className={tabClass("addInstructorToCourses")}
-                onClick={() => setActiveTab("addInstructorToCourses")}
+                className={tabClass("addInstructorToCourse")}
+                onClick={() => setActiveTab("addInstructorToCourse")}
               >
                 Add Instructor To Courses
               </button>
@@ -104,9 +114,9 @@ const SectionManagement = () => {
               >
                 Course List
               </button>
-              <button 
-                className={tabClass("instructorList")} 
-                onClick={() => setActiveTab("instructorList")} 
+              <button
+                className={tabClass("instructorList")}
+                onClick={() => setActiveTab("instructorList")}
               >
                 Instructor List
               </button>

@@ -1,7 +1,7 @@
 // components/Navbar.js
 "use client";
 import Link from "next/link";
-import { useMajor } from "@/components/MajorProvider";
+import { useMajor } from "@/components/General/MajorProvider";
 import { useRouter } from "next/navigation";
 
 const Nav = () => {

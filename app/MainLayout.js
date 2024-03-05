@@ -1,7 +1,7 @@
 // components/MainLayout.js
 
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import Nav from "@/components/General/Nav";
+import Footer from "@/components/General/Footer";
 
 const MainLayout = ({ children }) => {
     return (

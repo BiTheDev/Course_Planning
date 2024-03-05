@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 
-import { useMajor } from "./MajorProvider";
+import { useMajor } from "../General/MajorProvider";
 
 const SemesterCourseList = () => {
   const { allCourses, fetchAllCourses } = useMajor();

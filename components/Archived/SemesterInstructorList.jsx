@@ -1,4 +1,4 @@
-import { useMajor } from "./MajorProvider";
+import { useMajor } from "../General/MajorProvider";
 
 const SemesterInstructorList = () => {
   const { instructors } = useMajor(); // Assuming you have access to instructors data from the MajorProvider

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Formik, Form, Field } from "formik";
-import { useMajor } from "../MajorProvider";
+import { useMajor } from "./General/MajorProvider";
 import { useRouter } from "next/navigation";
 const LoginForm = () => {
   const { updateAdmin } = useMajor();
