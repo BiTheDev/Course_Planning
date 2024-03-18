@@ -2,36 +2,34 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const DynamicUpdateForm = ({
+export const handleUpdate = async (values, apiEndpoint) => {
+  try {
+    const response = await fetch(apiEndpoint, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+
+    if (!response.ok) throw new Error("Network response was not ok");
+
+    alert("Update successful");
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Update failed");
+  }
+};
+
+const DynamicUpdateListItem = ({
   formTitle,
   initialValues,
   validationSchema,
   fields,
   apiEndpoint,
-  successMessage,
-  errorMessage,
-  onFormSubmitted,
 }) => {
   const handleSubmit = async (values, actions) => {
-    try {
-      const response = await fetch(apiEndpoint, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
-
-      if (!response.ok) throw new Error("Network response was not ok");
-
-      if (onFormSubmitted) onFormSubmitted();
-      actions.resetForm();
-      alert(successMessage);
-    } catch (error) {
-      console.error("Error:", error);
-      alert(errorMessage);
-    }
-
+    await handleUpdate(values, apiEndpoint);
     actions.setSubmitting(false);
   };
 
@@ -42,7 +40,7 @@ const DynamicUpdateForm = ({
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={handleSubmit}
+          onSubmit={handleUpdate}
         >
           {({ isSubmitting }) => (
             <Form>
@@ -83,4 +81,4 @@ const DynamicUpdateForm = ({
   );
 };
 
-export default DynamicUpdateForm;
+export default DynamicUpdateListItem;

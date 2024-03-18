@@ -1,33 +1,28 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-const DynamicDeleteForm = ({
-  formTitle,
-  initialValues,
-  confirmationMessage,
-  apiEndpoint,
-  successMessage,
-  errorMessage,
-  onFormSubmitted,
-}) => {
+export const handleDelete = async (apiEndpoint) => {
+  const confirmed = window.confirm("Are you sure you want to delete?");
+  if (confirmed) {
+    try {
+      const response = await fetch(apiEndpoint, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) throw new Error("Network response was not ok");
+
+      alert("Delete successful");
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Delete failed");
+    }
+  }
+};
+
+const DynamicDeleteListItem = ({ formTitle, apiEndpoint }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const confirmed = window.confirm(confirmationMessage);
-    if (confirmed) {
-      try {
-        const response = await fetch(apiEndpoint, {
-          method: "DELETE",
-        });
-
-        if (!response.ok) throw new Error("Network response was not ok");
-
-        if (onFormSubmitted) onFormSubmitted();
-        alert(successMessage);
-      } catch (error) {
-        console.error("Error:", error);
-        alert(errorMessage);
-      }
-    }
+    await handleDelete(apiEndpoint);
   };
 
   return (
@@ -72,7 +67,7 @@ const DynamicDeleteForm = ({
                       ))}
                       <td className="px-6 py-4 whitespace-nowrap">
                         <button
-                          onClick={() => handleDelete(item.id)}
+                          onClick={() => handleSubmit(item.id)}
                           className="text-red-600 hover:text-red-900"
                         >
                           Delete
@@ -95,4 +90,4 @@ const DynamicDeleteForm = ({
   );
 };
 
-export default DynamicDeleteForm;
+export default DynamicDeleteListItem;
