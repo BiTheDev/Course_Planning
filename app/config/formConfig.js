@@ -103,3 +103,96 @@ export const addInstructorToCourseConfig = {
   successMessage: "Instructors added successfully to the course!",
   errorMessage: "Error adding instructors to course.",
 };
+
+export const courseUpdateFormConfig = {
+  formTitle: "Update Course",
+  initialValues: {
+    identifyCode: "",
+    maxSections: 1,
+  },
+  validationSchema: Yup.object({
+    identifyCode: Yup.string().required("Identify code is required"),
+    maxSections: Yup.number().required("Max sections are required").min(1),
+  }),
+  fields: [
+    { name: "identifyCode", type: "text", label: "Identify Code" },
+    { name: "maxSections", type: "number", label: "Max Sections" },
+  ],
+  apiEndpoint: "/api/course/update",
+  successMessage: "Course updated successfully!",
+  errorMessage: "Error updating course. Please try again.",
+};
+
+export const courseDeleteFormConfig = {
+  formTitle: "Delete Course",
+  confirmationMessage: "Are you sure you want to delete this course?",
+  apiEndpoint: "/api/course/delete",
+  successMessage: "Course deleted successfully!",
+  errorMessage: "Error deleting course. Please try again.",
+};
+
+export const instructorUpdateFormConfig = {
+  formTitle: "Update Instructor",
+  initialValues: {
+    name: "",
+    maxCourses: 1,
+    preferredTime: [],
+  },
+  validationSchema: Yup.object({
+    name: Yup.string().required("Instructor name is required"),
+    maxCourses: Yup.number().required("Max courses are required").min(1),
+  }),
+  fields: [
+    { name: "name", type: "text", label: "Name" },
+    { name: "maxCourses", type: "number", label: "Max Courses" },
+  ],
+  apiEndpoint: "/api/instructor/update",
+  successMessage: "Instructor updated successfully!",
+  errorMessage: "Error updating instructor. Please try again.",
+};
+
+export const instructorDeleteFormConfig = {
+  formTitle: "Delete Instructor",
+  confirmationMessage: "Are you sure you want to delete this instructor?",
+  apiEndpoint: "/api/instructor/delete",
+  successMessage: "Instructor deleted successfully!",
+  errorMessage: "Error deleting instructor. Please try again.",
+};
+
+export const sectionUpdateFormConfig = {
+  formTitle: "Update Section",
+  initialValues: {
+    courseCode: "",
+    professor: "",
+    lab: false,
+    duration: 0,
+    registrationCode: "",
+    students: 0,
+  },
+  validationSchema: Yup.object({
+    courseCode: Yup.string().required("Course code is required"),
+    professor: Yup.string().required("Professor name is required"),
+    duration: Yup.number().required("Duration is required").min(1),
+    registrationCode: Yup.string().required("Registration code is required"),
+    students: Yup.number().required("Number of students is required").min(0),
+  }),
+  fields: [
+    { name: "courseCode", type: "text", label: "Course Code" },
+    { name: "professor", type: "text", label: "Professor" },
+    { name: "lab", type: "checkbox", label: "Lab" },
+    { name: "duration", type: "number", label: "Duration (minutes)" },
+    { name: "registrationCode", type: "text", label: "Registration Code" },
+    { name: "students", type: "number", label: "Number of Students" },
+  ],
+  apiEndpoint: "/api/section/update",
+  successMessage: "Section updated successfully!",
+  errorMessage: "Error updating section. Please try again.",
+};
+
+export const sectionDeleteFormConfig = {
+  formTitle: "Delete Section",
+  confirmationMessage: "Are you sure you want to delete this section?",
+  apiEndpoint: "/api/section/delete",
+  successMessage: "Section deleted successfully!",
+  errorMessage: "Error deleting section. Please try again.",
+};
