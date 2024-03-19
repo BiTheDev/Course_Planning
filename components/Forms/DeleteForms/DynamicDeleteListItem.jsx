@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 export const handleDelete = async (apiEndpoint) => {
-  const confirmed = window.confirm("Are you sure you want to delete?");
+  const confirmed = window.confirm(confirmationMessage);
   if (confirmed) {
     try {
       const response = await fetch(apiEndpoint, {
@@ -11,10 +11,10 @@ export const handleDelete = async (apiEndpoint) => {
 
       if (!response.ok) throw new Error("Network response was not ok");
 
-      alert("Delete successful");
+      alert(successMessage);
     } catch (error) {
       console.error("Error:", error);
-      alert("Delete failed");
+      alert(errorMessage);
     }
   }
 };

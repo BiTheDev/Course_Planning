@@ -2,7 +2,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { useMajor } from "./General/MajorProvider";
-import { handleUpdate } from "./Forms/UpdateForms/DynamicUpdateListItem";
+import { handleSubmit } from "./Forms/UpdateForms/DynamicUpdateListItem";
 import { handleDelete } from "./Forms/DeleteForms/DynamicDeleteListItem";
 
 const DynamicSemesterInfoList = ({ ListType, ListColumns }) => {
@@ -73,7 +73,7 @@ const DynamicSemesterInfoList = ({ ListType, ListColumns }) => {
                   ))}
                   <td className="px-6 py-4 whitespace-nowrap">
                     <button
-                      onClick={() => handleUpdate(item._id)}
+                      onClick={() => handleSubmit(item._id)}
                       className="text-blue-600 hover:text-blue-900 mr-2"
                     >
                       Edit
