@@ -9,7 +9,7 @@ import CreateSectionForm from "@/components/Forms/CreateForms/CreateSectionForm"
 import DynamicCreateForm from "@/components/Forms/CreateForms/DynamicCreateForm";
 import DynamicSemesterInfoList from "@/components/DynamicSemesterInfoList";
 import DynamicAddToForm from "@/components/Forms/UpdateForms/DynamicAddToForm";
-import { semesterFormConfig, addCourseToSemesterConfig, addInstructorToCourseConfig} from "../config/formConfig";
+import { semesterFormConfig, addCourseToSemesterConfig, addInstructorToCourseConfig, instructorDeleteFormConfig, sectionDeleteFormConfig,courseDeleteFormConfig} from "../config/formConfig";
 import { instructorColumns, courseColumns, sectionColumns } from "../config/columnConfig";
 import "../custom.css";
 
@@ -51,6 +51,7 @@ const SectionManagement = () => {
           <DynamicSemesterInfoList
             ListType="courses"
             ListColumns={courseColumns}
+            {...courseDeleteFormConfig}
           />
         );
       case "instructorList":
@@ -58,6 +59,7 @@ const SectionManagement = () => {
           <DynamicSemesterInfoList
             ListType="instructors"
             ListColumns={instructorColumns}
+            {...instructorDeleteFormConfig}
           />
         );
       case "createSection":
@@ -67,6 +69,7 @@ const SectionManagement = () => {
           <DynamicSemesterInfoList
             ListType="sections"
             ListColumns={sectionColumns}
+            {...sectionDeleteFormConfig}
           />
         );
       default:
