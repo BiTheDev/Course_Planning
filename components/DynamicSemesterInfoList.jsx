@@ -2,10 +2,15 @@
 "use client";
 import React, { useEffect } from "react";
 import { useMajor } from "./General/MajorProvider";
-import { handleSubmit } from "./Forms/UpdateForms/DynamicUpdateListItem";
-import { handleDelete } from "./Forms/DeleteForms/DynamicDeleteListItem";
 
-const DynamicSemesterInfoList = ({ ListType, ListColumns }) => {
+const DynamicSemesterInfoList = ({
+  ListType,
+  ListColumns,
+  deleteUrl,
+  confirmationMessage,
+  successMessage,
+  errorMessage,
+}) => {
   const {
     allCourses,
     instructors,
@@ -31,6 +36,23 @@ const DynamicSemesterInfoList = ({ ListType, ListColumns }) => {
     data = semesterSections;
   }
 
+  const handleDelete = async (deleteUrl) => {
+    const confirmed = window.confirm(confirmationMessage);
+    if (confirmed) {
+      try {
+        const response = await fetch(deleteUrl, {
+          method: "DELETE",
+        });
+
+        if (!response.ok) throw new Error("Network response was not ok");
+
+        alert(successMessage);
+      } catch (error) {
+        console.error("Error:", error);
+        alert(errorMessage);
+      }
+    }
+  };
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-semibold mb-4">

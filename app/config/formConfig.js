@@ -124,9 +124,7 @@ export const courseUpdateFormConfig = {
 };
 
 export const courseDeleteFormConfig = {
-  formTitle: "Delete Course",
   confirmationMessage: "Are you sure you want to delete this course?",
-  apiEndpoint: "/api/course/delete",
   successMessage: "Course deleted successfully!",
   errorMessage: "Error deleting course. Please try again.",
 };
@@ -152,9 +150,7 @@ export const instructorUpdateFormConfig = {
 };
 
 export const instructorDeleteFormConfig = {
-  formTitle: "Delete Instructor",
   confirmationMessage: "Are you sure you want to delete this instructor?",
-  apiEndpoint: "/api/instructor/delete",
   successMessage: "Instructor deleted successfully!",
   errorMessage: "Error deleting instructor. Please try again.",
 };
@@ -190,9 +186,7 @@ export const sectionUpdateFormConfig = {
 };
 
 export const sectionDeleteFormConfig = {
-  formTitle: "Delete Section",
   confirmationMessage: "Are you sure you want to delete this section?",
-  apiEndpoint: "/api/section/delete",
   successMessage: "Section deleted successfully!",
   errorMessage: "Error deleting section. Please try again.",
 };
