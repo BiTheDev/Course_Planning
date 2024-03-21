@@ -90,7 +90,6 @@ erDiagram
         string course_name
     }
 
-    Course }|--|{ Instructor: TaughtBy
 
     Classroom{
         string building_number
