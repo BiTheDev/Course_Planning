@@ -41,14 +41,16 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 erDiagram
     AcademicYear{
         string Year
+        Program[] programs_offered
     }
-    AcademicYear || -- |{ Semester: ConsistsOf
 
-    Semester ||--|{ Program: ConsistsOf
+    AcademicYear || -- |{ Program: ConsistsOf
+
+    Semester ||--|{ Section: ConsistsOf
 
     Semester {
         string  semester_name
-        Program[] programs
+        Section[] sections
     }
 
     Program {
