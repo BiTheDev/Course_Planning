@@ -2,11 +2,11 @@
 
 import React, { useRef } from "react";
 import { Formik, Form } from "formik";
-import { useMajor } from "@/components/MajorProvider";
+import { useMajor } from "@/components/General/MajorProvider";
 
-const UploadCourseFileForm = () => {
-  const { admin, fetchCourses } = useMajor();
-  const fileInputRef = useRef(); // Create a ref for the file input
+const UploadForm = ({ formText, errorFormText, apiRoute, HeaderFormat }) => {
+  const { admin, fetchInstructors, fetchAllCourses } = useMajor();
+  const fileInputRef = useRef();
 
   const handleSubmit = async (values, actions) => {
     if (!admin) {
@@ -18,7 +18,7 @@ const UploadCourseFileForm = () => {
     try {
       const formData = new FormData();
       formData.append("file", values.file);
-      const response = await fetch("/api/course/import", {
+      const response = await fetch(apiRoute, {
         method: "POST",
         headers: {
           "X-Admin-Name": admin.username,
@@ -31,16 +31,20 @@ const UploadCourseFileForm = () => {
       }
 
       actions.resetForm();
-      fetchCourses();
-      alert("Course file uploaded successfully!");
+      if(formText == "Instructors"){
+        fetchInstructors();
+      }else if(formText == "Courses"){
+        fetchAllCourses();
+      }
+      alert(`${formText} file uploaded successfully!`);
 
       // Clear the file input
       if (fileInputRef.current) {
         fileInputRef.current.value = "";
       }
     } catch (error) {
-      console.error("Error uploading course file:", error);
-      alert("Error uploading course file. Please try again.");
+      console.error(`Error uploading ${errorFormText} file:`, error);
+      alert(`Error uploading ${errorFormText} file. Please try again.`);
     }
 
     actions.setSubmitting(false);
@@ -49,7 +53,7 @@ const UploadCourseFileForm = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <h1 className="text-2xl mb-6">Upload Courses (CSV file only)</h1>
+        <h1 className="text-2xl mb-6">Upload {formText} File (CSV file only)</h1>
 
         <Formik initialValues={{ file: null }} onSubmit={handleSubmit}>
           {({ setFieldValue, isSubmitting }) => (
@@ -59,7 +63,7 @@ const UploadCourseFileForm = () => {
                   htmlFor="file"
                   className="block text-gray-700 text-sm font-bold mb-2"
                 >
-                  Upload CSV (Please follow the header format xxx)
+                  Upload CSV {HeaderFormat}
                 </label>
                 <input
                   id="file"
@@ -87,4 +91,4 @@ const UploadCourseFileForm = () => {
   );
 };
 
-export default UploadCourseFileForm;
+export default UploadForm;

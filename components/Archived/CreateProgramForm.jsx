@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Formik, Form, Field } from 'formik';
-import { useMajor } from '@/components/MajorProvider'; // Adjust the path as necessary
+import { useMajor } from '@/components/General/MajorProvider'; // Adjust the path as necessary
 
 const CreateProgramForm = ( { onProgramCreated }) => {
   const { admin } = useMajor(); // Access the admin object from the context

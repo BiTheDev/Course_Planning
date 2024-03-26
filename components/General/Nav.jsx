@@ -1,7 +1,7 @@
 // components/Navbar.js
 "use client";
 import Link from "next/link";
-import { useMajor } from "@/components/MajorProvider";
+import { useMajor } from "@/components/General/MajorProvider";
 import { useRouter } from "next/navigation";
 
 const Nav = () => {
@@ -19,8 +19,8 @@ const Nav = () => {
           NEU
         </Link>
         <div className="hidden md:flex space-x-4">
-          <Link href="/program-overview" className="hover:text-gray-300">
-            Program Overview
+          <Link href="/schedule-management" className="hover:text-gray-300">
+            Schedule Management
           </Link>
           {admin && (
             <Link href="/section-management" className="hover:text-gray-300">
@@ -32,12 +32,23 @@ const Nav = () => {
               Instructor Management
             </Link>
           )}
-          {/* <Link href="/classroom-allocation" className="hover:text-gray-300">
-            Classroom Allocation
-          </Link> */}
-          <Link href="/master-schedule" className="hover:text-gray-300">
-            Master Schedule
-          </Link>
+
+          {/*<Link href="/master-schedule" className="hover:text-gray-300">*/}
+          {/*  Master Schedule*/}
+          {/*</Link>*/}
+
+          {admin && (
+              <Link href="/course-management" className="hover:text-gray-300">
+                Course Management
+              </Link>
+          )}
+
+          {admin && (
+              <Link href="/classroom-allocation" className="hover:text-gray-300">
+                Classroom Overview(*)
+              </Link>
+          )}
+
           {admin && (
             <Link href="/settings" className="hover:text-gray-300">
               Settings

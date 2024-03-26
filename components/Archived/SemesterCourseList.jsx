@@ -1,11 +1,10 @@
 "use client";
 import { useEffect } from "react";
 
-import { useMajor } from "./MajorProvider";
+import { useMajor } from "../General/MajorProvider";
 
 const SemesterCourseList = () => {
   const { allCourses, fetchAllCourses } = useMajor();
-  
 
   useEffect(() => {
     fetchAllCourses();
@@ -76,8 +75,8 @@ const SemesterCourseList = () => {
                 </td> */}
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="text-sm text-gray-500">
-                    {course.teachableInstructor
-                      ?.map((instructor) => instructor.title)
+                    {course.teachableInstructors
+                      ?.map((instructor) => instructor.name)
                       .join(", ")}
                   </div>
                 </td>
