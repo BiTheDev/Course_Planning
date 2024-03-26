@@ -11,6 +11,7 @@ export const MajorProvider = ({ children }) => {
   const [program, setProgram] = useState(null); // This can be used to store the selected program object
   const [admin, setAdmin] = useState(null);
   const [allCourses, setAllCourses] = useState([]);
+  const [allClassrooms, setAllClassrooms] = useState([]);
   const [semesters, setSemesters] = useState(null);
   const [semesterCourses, setSemesterCourses] = useState(null);
   const [courseInstructors, setCourseInstructors] = useState(null);
@@ -26,6 +27,7 @@ export const MajorProvider = ({ children }) => {
     }
     fetchAllCourses();
     fetchAllInstructors(); // Fetch instructors when the component mounts
+    fetchAllClassrooms();
   }, []);
 
   const fetchAllCourses = async () => {
@@ -56,6 +58,20 @@ export const MajorProvider = ({ children }) => {
       setSemesterSections(data.sections);
     } else {
       console.error("Failed to fetch sections");
+    }
+  };
+
+  const fetchAllClassrooms = async () => {
+    try {
+      const response = await fetch("/api/classroom");
+      if (response.ok) {
+        const data = await response.json();
+        setAllClassrooms(data);
+      } else {
+        console.error("Failed to fetch classrooms");
+      }
+    } catch (error) {
+      console.error("Error fetching classrooms:", error);
     }
   };
 
@@ -108,6 +124,8 @@ export const MajorProvider = ({ children }) => {
         fetchAllCourses,
         instructors,
         fetchAllInstructors,
+        allClassrooms,
+        fetchAllClassrooms,
         clearEditingCourse,
         fetchSemesterOnProgram,
         fetchCoursesOnSemester,

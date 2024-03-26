@@ -35,8 +35,8 @@ const Nav = () => {
           {/* <Link href="/classroom-allocation" className="hover:text-gray-300">
             Classroom Allocation
           </Link> */}
-          <Link href="/master-schedule" className="hover:text-gray-300">
-            Master Schedule
+          <Link href="/classroom-overview" className="hover:text-gray-300">
+            Classroom Overview
           </Link>
           {admin && (
             <Link href="/settings" className="hover:text-gray-300">

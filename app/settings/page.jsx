@@ -11,6 +11,8 @@ import {
   courseFormConfig,
   instructorFormConfig,
 } from "../config/formConfig";
+import UploadClassroomFileForm from "@/components/Archived/UploadClassroomFileForm";
+
 const Settings = () => {
   const afterCreateProgram = async () => {
     // Fetch programs again to get the updated list including the newly created one
@@ -44,6 +46,7 @@ const Settings = () => {
               apiRoute="/api/instructor/import"
               HeaderFormat="(Please follow the header format xxx)"
             />
+            <UploadClassroomFileForm />
           </div>
         </div>
       </div>
