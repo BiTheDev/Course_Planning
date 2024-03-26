@@ -1,9 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
 const SectionSchema = new Schema({
-    course:{
-      type :String
-    },
+    courseCode: {type: String},
     professor:{
       type: String
     },
@@ -15,10 +13,13 @@ const SectionSchema = new Schema({
       required: true,
     },
     duration: {
-      type: number,
+      type: Number,
       required: true,
     },
-    student:{
+    registrationCode:{
+      type: String
+    },
+    students:{
       type:Number
     },
     createdBy: { type: Schema.Types.ObjectId, ref: "Admin" },

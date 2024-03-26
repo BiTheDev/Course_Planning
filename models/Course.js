@@ -11,7 +11,7 @@ const CourseSchema = new Schema({
   maxSections:{
     type: Number
   },
-  teachableInstructor: [
+  teachableInstructors: [
     {
       type: Schema.Types.ObjectId,
       ref: "Instructor",
