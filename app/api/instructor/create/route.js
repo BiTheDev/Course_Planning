@@ -30,4 +30,6 @@ export const POST = async (request) => {
         console.error(error);
         return new Response(JSON.stringify({ error: 'Server error' }), { status: 500 });
     }
+    
 };
+

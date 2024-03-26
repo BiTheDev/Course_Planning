@@ -25,7 +25,7 @@ const ClassroomAllocationPage = () => {
     <MainLayout>
       <div>
         <h1>Classroom Allocation</h1>
-        {/* Display detailed information of classroom capacity, room number, and assigned courses */}
+        {/* ----------------------classrooms list------------------------------ */}
         <ul>
           {classrooms.map((classroom) => (
             <li key={classroom.id}>

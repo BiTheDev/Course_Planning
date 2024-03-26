@@ -3,8 +3,8 @@ import Program from "@/models/Program";
 import Admin from "@/models/Admin";
 
 export const POST = async (request) => {
-    const { title, semesters, adminName } = await request.json();
-
+    const { title, adminName } = await request.json();
+    console.log(title);
     try {
         await connectToDB();
 
@@ -16,10 +16,11 @@ export const POST = async (request) => {
 
         const newProgram = await Program.create({
             title,
-            semesters,
             createdBy: admin._id,
             updatedBy: admin._id,
         });
+
+        console.log(newProgram);
 
         return new Response(JSON.stringify(newProgram), { status: 201 });
     } catch (error) {

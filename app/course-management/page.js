@@ -1,12 +1,13 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import InstructorUpdateForm from "@/components/Forms/UpdateForms/InstructorUpdateForm";
-import CreateInstructorForm from "@/components/Archived/CreateInstructorForm";
 import MainLayout from "../MainLayout";
+import {courseColumns} from "@/app/config/columnConfig";
+import DynamicSemesterInfoList from "@/components/DynamicSemesterInfoList";
+import {addCourseToSemesterConfig, courseFormConfig} from "@/app/config/formConfig";
+import DynamicAddToForm from "@/components/Forms/UpdateForms/DynamicAddToForm";
 import DynamicCreateForm from "@/components/Forms/CreateForms/DynamicCreateForm";
-import {instructorFormConfig} from "@/app/config/formConfig";
 import UploadForm from "@/components/UploadForm";
-const InstructorManagementPage = () => {
+const CourseManagementPage = () => {
   const [instructors, setInstructors] = useState([]);
 
   // Fetch instructors data from the server or database
@@ -47,31 +48,28 @@ const InstructorManagementPage = () => {
   return (
     <MainLayout>
       <div>
-        {/* -----------------Create new Instructor------------- */}
-        <div className="flex-1 mb-8 md:mb-0 flex flex-col">
-          <DynamicCreateForm {...instructorFormConfig} />
+        {/*------------------create a course----------------*/}
+        <DynamicCreateForm {...courseFormConfig} />
+        {/*<DynamicAddToForm {...addCourseToSemesterConfig} />*/}
 
-          {/* ----------------upload Instructors from CSV------------- */}
-          <UploadForm
-              formText="Instructors"
-              errorFormText="instructors"
-              apiRoute="/api/instructor/import"
-              HeaderFormat="(Please follow the header format xxx)"
-          />
-        </div>
+        {/*------------------upload courses from CSV----------------*/}
+        <UploadForm
+            formText="Courses"
+            errorFormText="courses"
+            apiRoute="/api/course/import"
+            HeaderFormat="(Please follow the header format xxx)"
+        />
 
-        {/*---------------instructors list----------------*/}
-        <ul>
-          {instructors.map((instructor) => (
-              <li key={instructor.id}>{instructor.name}</li>
-          ))}
-        </ul>
+        {/*------------------courses list----------------*/}
+        <DynamicSemesterInfoList
+            ListType="courses"
+            ListColumns={courseColumns}
+        />
+        {/*------------------delete and update button for each course----------------*/}
 
-        {/*--------------- DELETE button and an UPDATE button for each instructor---------*/}
-        {/*<InstructorUpdateForm onInstructorUpdate={handleInstructorUpdate}/>*/}
       </div>
     </MainLayout>
   );
 };
 
-export default InstructorManagementPage;
+export default CourseManagementPage;
