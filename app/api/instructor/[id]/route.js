@@ -2,7 +2,7 @@ import { connectToDB } from "@/utils/mongodbUtil";
 import Instructor from "@/models/Instructor";
 
 export const PATCH = async (request, { params }) => {
-    const { name, teachableCourses, maxCourse, preferenceTime, instructorType, adminId } = await request.json();
+    const { name, teachableCourses, maxCourse, preferenceTime, preferenceDay, instructorType, adminId } = await request.json();
     try {
         await connectToDB();
 
@@ -11,6 +11,7 @@ export const PATCH = async (request, { params }) => {
             teachableCourses,
             maxCourse,
             preferenceTime,
+            preferenceDay,
             instructorType,
             updatedBy: adminId,
         }, { new: true });

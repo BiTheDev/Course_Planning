@@ -38,15 +38,21 @@ export const instructorFormConfig = {
   initialValues: {
     name: "",
     maxCourses: 1,
-    preferredTime: [],
+    // preferredTime: [],
+    preferenceTime:"",
+    preferenceDay:"",
   },
   validationSchema: Yup.object({
     name: Yup.string().required("Instructor name is required"),
     maxCourses: Yup.number().required("Max courses are required").min(1),
+
   }),
   fields: [
     { name: "name", type: "text", label: "Name" },
     { name: "maxCourses", type: "number", label: "Max Courses" },
+    { name: "preferenceTime", type: "text", label: "Preference Time" },
+    { name: "preferenceDay", type: "text", label: "Preference Day" },
+    // { name: "preferenceDayValue", type: "text", label: "Preference Day" },
   ],
   apiEndpoint: "/api/instructor/create",
   successMessage: "Instructor created successfully!",
