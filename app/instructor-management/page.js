@@ -5,7 +5,9 @@ import CreateInstructorForm from "@/components/Archived/CreateInstructorForm";
 import MainLayout from "../MainLayout";
 import DynamicCreateForm from "@/components/Forms/CreateForms/DynamicCreateForm";
 import {addInstructorToCourseConfig, instructorFormConfig} from "@/app/config/formConfig";
+import DynamicSemesterInfoList from "@/components/DynamicSemesterInfoList";
 import UploadForm from "@/components/UploadForm";
+import { instructorColumns } from "../config/columnConfig";
 const InstructorManagementPage = () => {
   const [instructors, setInstructors] = useState([]);
 
@@ -61,11 +63,10 @@ const InstructorManagementPage = () => {
         </div>
 
         {/*---------------instructors list----------------*/}
-        <ul>
-          {instructors.map((instructor) => (
-              <li key={instructor.id}>{instructor.name}</li>
-          ))}
-        </ul>
+        <DynamicSemesterInfoList
+            ListType="instructors"
+            ListColumns={instructorColumns}
+          />
 
         {/*--------------- DELETE button and an UPDATE button for each instructor---------*/}
         {/*<InstructorUpdateForm onInstructorUpdate={handleInstructorUpdate}/>*/}
