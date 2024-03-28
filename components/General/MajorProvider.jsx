@@ -18,7 +18,8 @@ export const MajorProvider = ({ children }) => {
   const [courseInstructors, setCourseInstructors] = useState(null);
   const [instructors, setInstructors] = useState([]);
   const [setEditingCourse] = useState(null);
-  const [semesterSections, setSemesterSections] = useState(null); // New state for semester sections
+  const [semesterSections, setSemesterSections] = useState(null);
+  const [allSections, setAllSections] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -56,11 +57,21 @@ export const MajorProvider = ({ children }) => {
     const response = await fetch("/api/section");
     if (response.ok) {
       const data = await response.json();
-      setSemesterSections(data.sections);
+      setAllSections(data.sections);
     } else {
       console.error("Failed to fetch sections");
     }
   };
+
+  const fetchSectionsOnSemester = async (semesterId) =>{
+    const response = await fetch(`/api/semester/${semesterId}/sections`);
+    if (response.ok) {
+      const data = await response.json();
+      setSemesterSections(data.semesterSections.sections);
+    } else {
+      console.error("Failed to fetch sections");
+    }
+  }
 
   const fetchAllClassrooms = async () => {
     try {
@@ -135,9 +146,11 @@ export const MajorProvider = ({ children }) => {
         fetchCoursesOnSemester,
         fetchInstructorsOnCourse,
         courseInstructors,
+        allSections,
         semesterCourses,
         semesters,
         semesterSections,
+        fetchSectionsOnSemester,
         updateSemester,
         semester,
         fetchAllSections, // Add fetchAllSections to the context

@@ -29,8 +29,9 @@ const SectionManagement = () => {
     fetchSemesterOnProgram,
     fetchAllCourses,
     semesters,
-    semester,
+    fetchSectionsOnSemester,
     updateSemester,
+    semester,
   } = useMajor();
   const [programs, setPrograms] = useState([]);
   const [activeTab, setActiveTab] = useState("createSemester");
@@ -61,6 +62,7 @@ const SectionManagement = () => {
       );
       console.log(selectedSemester);
       updateSemester(selectedSemester);
+      fetchSectionsOnSemester(selectedSemesterId);
     }
   };
 
@@ -133,7 +135,7 @@ const SectionManagement = () => {
               HeaderFormat="(Please follow the header format xxx)"
             />
             <DynamicSemesterInfoList
-              ListType="sections"
+              ListType="semesterSections"
               ListColumns={sectionColumns}
             />
           </>

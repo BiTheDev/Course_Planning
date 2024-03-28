@@ -14,6 +14,7 @@ const DynamicSemesterInfoList = ({
   const {
     allCourses,
     instructors,
+    allSections,
     semesterSections,
     fetchAllCourses,
     fetchAllSections,
@@ -33,6 +34,8 @@ const DynamicSemesterInfoList = ({
   } else if (ListType === "instructors") {
     data = instructors;
   } else if (ListType === "sections") {
+    data = allSections;
+  } else if (ListType === "semesterSections"){
     data = semesterSections;
   }
 
