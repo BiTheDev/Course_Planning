@@ -1,22 +1,18 @@
 export const instructorColumns = [
     { key: "name", header: "Name" },
-    {
-      key: "teachableCourses",
-      header: "Teachable Courses",
-      render: (item) =>
-        item.teachableCourses.map((course) => course.identifyCode).join(", "),
-    },
-    { key: "maxCourse", header: "Max Courses" },
-    {
-      key: "preferenceTime",
-      header: "Preference Time",
-      render: (item) => item.preferenceTime.join(", "),
-    },
-    { key: "instructorType", header: "Instructor Type" },
-    {
-      key: "actions", header: "Actions",
-      deleteUrl: (instructorId) => `/api/instructor/${instructorId}/delete`,
-    }
+    // {
+    //   key: "teachableCourses",
+    //   header: "Teachable Courses",
+    //   render: (item) =>
+    //     item.teachableCourses.map((course) => course.identifyCode).join(", "),
+    // },
+    // { key: "maxCourse", header: "Max Courses" },
+    // {
+    //   key: "preferenceTime",
+    //   header: "Preference Time",
+    //   render: (item) => item.preferenceTime.join(", "),
+    // },
+    // { key: "instructorType", header: "Instructor Type" },
   ];
 
   export const courseColumns = [
@@ -53,6 +49,6 @@ export const instructorColumns = [
       header: "Duration",
       render: (item) => `${item.duration} minutes`,
     },
-    { key: "registrationCode", header: "Registration Code" },
-    { key: "students", header: "Number of Students" },
+    { key: "registrationCode", header: "CRN" },
+    { key: "students", header: "Capacity" },
   ];
