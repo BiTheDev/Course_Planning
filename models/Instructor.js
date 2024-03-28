@@ -19,6 +19,13 @@ const InstructorSchema = new Schema({
       type: String,
     },
   ],
+
+  preferenceDay: [
+    {
+      type: String,
+    },
+  ],
+
   instructorType: {
     type: String,
     enum: ["Full-Time", "Part-Time"],

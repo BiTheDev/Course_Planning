@@ -2,10 +2,14 @@ import { Schema, model, models } from "mongoose";
 
 const SectionSchema = new Schema({
     courseCode: {type: String},
+    courseTitle:{type: String},
     professor:{
       type: String
     },
     preference:{
+      type:Array
+    },
+    day_pref:{
       type:Array
     },
     lab: {
