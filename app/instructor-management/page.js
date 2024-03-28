@@ -4,7 +4,7 @@ import InstructorUpdateForm from "@/components/Forms/UpdateForms/InstructorUpdat
 import CreateInstructorForm from "@/components/Archived/CreateInstructorForm";
 import MainLayout from "../MainLayout";
 import DynamicCreateForm from "@/components/Forms/CreateForms/DynamicCreateForm";
-import {instructorFormConfig} from "@/app/config/formConfig";
+import {addInstructorToCourseConfig, instructorFormConfig} from "@/app/config/formConfig";
 import UploadForm from "@/components/UploadForm";
 const InstructorManagementPage = () => {
   const [instructors, setInstructors] = useState([]);
