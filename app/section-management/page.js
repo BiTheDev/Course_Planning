@@ -15,6 +15,7 @@ import "../custom.css";
 
 const SectionManagement = () => {
   const { updateProgram, program, fetchSemesterOnProgram, fetchAllCourses } = useMajor();
+  const { updateProgram, program, fetchSemesterOnProgram, fetchAllCourses } = useMajor();
   const [programs, setPrograms] = useState([]);
   const [activeTab, setActiveTab] = useState("createSemester");
 
@@ -35,6 +36,7 @@ const SectionManagement = () => {
       fetchSemesterOnProgram(selectedProgram._id);
     }
   };
+
 
 
   const renderActiveTab = () => {
@@ -60,6 +62,8 @@ const SectionManagement = () => {
             ListColumns={instructorColumns}
           />
         );
+      case "createSection":
+        return <CreateSectionForm />;
       case "createSection":
         return <CreateSectionForm />;
       case "sectionInfo":

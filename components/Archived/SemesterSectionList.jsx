@@ -2,11 +2,35 @@ import React, { useEffect } from "react";
 import { useMajor } from "../General/MajorProvider";
 
 const SemesterSectionList = () => {
-  const { semesterSections, fetchAllSections } = useMajor();
+  const { semesterSections, fetchAllSections, deleteSection } = useMajor();
+  const [editingSection, setEditingSection] = useState(null);
 
   useEffect(() => {
     fetchAllSections();
   }, []);
+
+  const handleEdit = (section) => {
+    setEditingSection(section);
+  };
+
+  const handleDelete = async (sectionId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this section?"
+    );
+    if (confirmed) {
+      try {
+        // Perform delete logic here
+        const success = await deleteSection(sectionId);
+        if (success) {
+          console.log("Section deleted successfully!");
+        } else {
+          console.error("Failed to delete section!");
+        }
+      } catch (error) {
+        console.error("Error deleting section:", error);
+      }
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -51,6 +75,12 @@ const SemesterSectionList = () => {
               >
                 Number of Students
               </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+              >
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -86,6 +116,12 @@ const SemesterSectionList = () => {
                     <div className="text-sm text-gray-500">
                       {section.students}
                     </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <button onClick={() => handleEdit(section)}>Edit</button>
+                    <button onClick={() => handleDelete(section._id)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
