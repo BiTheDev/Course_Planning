@@ -15,7 +15,7 @@ const InstructorManagementPage = () => {
     // Update the state with the fetched instructors
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/instructors");
+        const response = await fetch("/api/instructor");
         const data = await response.json();
         setInstructors(data);
       } catch (error) {
