@@ -2,7 +2,6 @@
 "use client";
 import Link from "next/link";
 import { useMajor } from "@/components/General/MajorProvider";
-import { useMajor } from "@/components/General/MajorProvider";
 import { useRouter } from "next/navigation";
 
 const Nav = () => {
@@ -45,8 +44,8 @@ const Nav = () => {
           )}
 
           {admin && (
-            <Link href="/classroom-allocation" className="hover:text-gray-300">
-              Classroom Overview(*)
+            <Link href="/classroom-overview" className="hover:text-gray-300">
+              Classroom Overview
             </Link>
           )}
 

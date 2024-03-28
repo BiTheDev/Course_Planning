@@ -15,7 +15,6 @@ import "../custom.css";
 
 const SectionManagement = () => {
   const { updateProgram, program, fetchSemesterOnProgram, fetchAllCourses } = useMajor();
-  const { updateProgram, program, fetchSemesterOnProgram, fetchAllCourses } = useMajor();
   const [programs, setPrograms] = useState([]);
   const [activeTab, setActiveTab] = useState("createSemester");
 
@@ -64,8 +63,7 @@ const SectionManagement = () => {
         );
       case "createSection":
         return <CreateSectionForm />;
-      case "createSection":
-        return <CreateSectionForm />;
+
       case "sectionInfo":
         return (
           <DynamicSemesterInfoList
@@ -78,15 +76,10 @@ const SectionManagement = () => {
     }
   };
 
-  const tabClass = (tabName) =>
-    `tab-button rounded-xl ${activeTab === tabName ? "active" : ""}`;
 
   return (
     <MainLayout>
       <div className="flex flex-col space-y-4">
-
-        {/*---------------create a section--------------*/}
-        <CreateSectionForm/>
 
         {/*---------------upload sections from CSV button--------------*/}
 
@@ -98,6 +91,8 @@ const SectionManagement = () => {
             dropDownType="Program"
             labelProperty="title"
         />
+        {/*---------------create a section--------------*/}
+        <CreateSectionForm/>
 
         {/*---------------sections list----------------------*/}
         <DynamicSemesterInfoList
