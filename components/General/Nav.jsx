@@ -19,9 +19,11 @@ const Nav = () => {
           NEU
         </Link>
         <div className="hidden md:flex space-x-4">
-          <Link href="/schedule-management" className="hover:text-gray-300">
-            Schedule Management
-          </Link>
+          {admin && (
+            <Link href="/schedule-management" className="hover:text-gray-300">
+              Schedule Management
+            </Link>
+          )}
           {admin && (
             <Link href="/section-management" className="hover:text-gray-300">
               Section Management
