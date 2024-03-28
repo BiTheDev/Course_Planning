@@ -1,4 +1,3 @@
-
 export const instructorColumns = [
     { key: "name", header: "Name" },
     {
@@ -14,6 +13,10 @@ export const instructorColumns = [
       render: (item) => item.preferenceTime.join(", "),
     },
     { key: "instructorType", header: "Instructor Type" },
+    {
+      key: "actions", header: "Actions",
+      deleteUrl: (instructorId) => `/api/instructor/${instructorId}/delete`,
+    }
   ];
 
   export const courseColumns = [
@@ -34,10 +37,15 @@ export const instructorColumns = [
       render: (item) =>
         item.semesters.map((semester) => semester.term).join(", "),
     },
+    {
+      key: "actions", header: "Actions",
+      deleteUrl: (courseId) => `/api/course/${courseId}/delete`
+    }
   ];
 
   export const sectionColumns = [
     { key: "courseCode", header: "Course Code" },
+    { key: "courseTitle", header: "Course Title" },
     { key: "professor", header: "Professor" },
     { key: "lab", header: "Lab", render: (item) => (item.lab ? "Yes" : "No") },
     {

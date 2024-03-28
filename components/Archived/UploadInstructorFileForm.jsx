@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef } from "react";
 import { Formik, Form } from "formik";
 import { useMajor } from "@/components/General/MajorProvider";
