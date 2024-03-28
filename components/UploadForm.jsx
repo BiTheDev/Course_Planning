@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { useMajor } from "@/components/General/MajorProvider";
 
 const UploadForm = ({ formText, errorFormText, apiRoute, HeaderFormat }) => {
-  const { admin, fetchInstructors, fetchAllCourses } = useMajor();
+  const { admin, fetchInstructors, fetchAllCourses, semester } = useMajor();
   const fileInputRef = useRef();
 
   const handleSubmit = async (values, actions) => {
@@ -22,6 +22,7 @@ const UploadForm = ({ formText, errorFormText, apiRoute, HeaderFormat }) => {
         method: "POST",
         headers: {
           "X-Admin-Name": admin.username,
+          "semester" : semester.term
         },
         body: formData,
       });

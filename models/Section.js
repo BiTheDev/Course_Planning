@@ -8,6 +8,9 @@ const SectionSchema = new Schema({
     preference:{
       type:Array
     },
+    day_pref:{
+      type:Array
+    },
     lab: {
       type: Boolean,
       required: true,

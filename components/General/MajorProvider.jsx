@@ -13,6 +13,7 @@ export const MajorProvider = ({ children }) => {
   const [allCourses, setAllCourses] = useState([]);
   const [allClassrooms, setAllClassrooms] = useState([]);
   const [semesters, setSemesters] = useState(null);
+  const [semester, setSemester] = useState(null);
   const [semesterCourses, setSemesterCourses] = useState(null);
   const [courseInstructors, setCourseInstructors] = useState(null);
   const [instructors, setInstructors] = useState([]);
@@ -103,6 +104,9 @@ export const MajorProvider = ({ children }) => {
   const updateProgram = (newProgram) => {
     setProgram(newProgram);
   };
+  const updateSemester = (newSemester) => {
+    setSemester(newSemester);
+  };
 
   const updateAdmin = (newAdmin) => {
     setAdmin(newAdmin);
@@ -133,7 +137,9 @@ export const MajorProvider = ({ children }) => {
         courseInstructors,
         semesterCourses,
         semesters,
-        semesterSections, // Add semesterSections to the context
+        semesterSections,
+        updateSemester,
+        semester,
         fetchAllSections, // Add fetchAllSections to the context
       }}
     >
