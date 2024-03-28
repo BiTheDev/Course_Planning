@@ -139,12 +139,14 @@ async function processRow(data, admin) {
 
     // Create the section with references to the course and instructor
     const section = await Section.create({
-      course: course._id,
-      instructor: instructor._id,
+      courseCode: data['Course #'],
+      courseTitle: data['Course Title'],
+      professor: data["Prof"],
       preference: timePreferences,
       day_pref: dayPreferences,
       lab:isLab,
       duration:duration,
+      students: data['Cap'],
       createdBy: admin._id,
       updatedBy:admin._id
     });

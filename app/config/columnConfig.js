@@ -45,6 +45,7 @@ export const instructorColumns = [
 
   export const sectionColumns = [
     { key: "courseCode", header: "Course Code" },
+    { key: "courseTitle", header: "Course Title" },
     { key: "professor", header: "Professor" },
     { key: "lab", header: "Lab", render: (item) => (item.lab ? "Yes" : "No") },
     {
@@ -54,8 +55,4 @@ export const instructorColumns = [
     },
     { key: "registrationCode", header: "Registration Code" },
     { key: "students", header: "Number of Students" },
-    {
-      key: "actions", header: "Actions",
-      deleteUrl: (sectionId) => `/api/section/${sectionId}/delete`
-    }
   ];
