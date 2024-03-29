@@ -6,10 +6,10 @@ const SectionSchema = new Schema({
     professor:{
       type: String
     },
-    preference:{
+    pref_time:{
       type:Array
     },
-    day_pref:{
+    pref_day:{
       type:Array
     },
     lab: {
