@@ -43,6 +43,8 @@ export const instructorColumns = [
     { key: "courseCode", header: "Course Code" },
     { key: "courseTitle", header: "Course Title" },
     { key: "professor", header: "Professor" },
+    { key: "pref_time", header: "Preference Time" },
+    { key: "pref_day", header: "Preference Day" },
     { key: "lab", header: "Lab", render: (item) => (item.lab ? "Yes" : "No") },
     {
       key: "duration",

@@ -13,21 +13,24 @@ export const POST = async (request) => {
     await connectToDB();
     const headersList = nextHeaders();
     const adminName = headersList.get("x-admin-name");
-    const semesterInfo = headersList.get("semester");
     const admin = await Admin.findOne({ username: adminName });
     if (!admin) {
       return new Response(JSON.stringify({ error: "Admin not found" }), {
         status: 404,
       });
     }
-    const semester = await Semester.findOne({term: semesterInfo});
-    if (!semester) {
-        console.error("Semester not found or specified logic to identify semester is missing.");
-        return new Response(JSON.stringify({ error: "Semester not found" }), { status: 404 });
-      }
-
-
     const form = await request.formData();
+    const semesterId = form.get("semesterId");
+    const semester = await Semester.findById(semesterId);
+    if (!semester) {
+      console.error(
+        "Semester not found or specified logic to identify semester is missing."
+      );
+      return new Response(JSON.stringify({ error: "Semester not found" }), {
+        status: 404,
+      });
+    }
+
     const file = form.get("file");
     console.log("Received file:", file);
 
@@ -56,15 +59,15 @@ export const POST = async (request) => {
         .pipe(csv())
         .on("data", (data) => {
           // Process each row by pushing its operation (as a promise) into the rowOperations array
-          const operation = processRow(data, admin);
+          const operation = processRow(data, admin, semesterId);
           rowOperations.push(operation);
         })
         .on("end", () => {
           // After all rows have been processed, wait for all operations to complete
           Promise.all(rowOperations)
-            .then(async(sections) => {
-                semester.sections.push(...sections.map(s => s._id));
-                await semester.save();
+            .then(async (sections) => {
+              semester.sections.push(...sections.map((s) => s._id));
+              await semester.save();
               console.log("All rows have been processed successfully.");
               resolve(
                 new Response(
@@ -96,7 +99,7 @@ export const POST = async (request) => {
         });
     });
   } catch (error) {
-    console.error("Error uploading course file:", error);
+    console.error("Error uploading file:", error);
     return new Response(JSON.stringify({ error: "Server error" }), {
       status: 500,
     });
@@ -104,57 +107,85 @@ export const POST = async (request) => {
 };
 
 // Define processRow to process each CSV row
-async function processRow(data, admin) {
+async function processRow(data, admin, semesterId) {
   try {
-    // Check if the course exists, if not, add it
-    let course = await Course.findOne({ identifyCode: data["Course #"] });
-    if (!course) {
-      course = await Course.create({
-        title: data["Course title"],
-        identifyCode: data["Course #"],
-        // Add other course details here
-        createdBy: admin._id,
-        updatedBy: admin._id,
-      });
-    }
+    // Update or create the instructor with preferenceTime and preferenceDay
+    let instructor = await Instructor.findOneAndUpdate(
+      { name: data.Prof.trim() },
+      {
+        $setOnInsert: {
+          name: data.Prof.trim(),
+          createdBy: admin._id,
+          updatedBy: admin._id,
+        },
+        $addToSet: {
+          preferenceTime: {
+            $each: data.Time.split(",").map((time) => time.trim()),
+          },
+          preferenceDay: {
+            $each: data.Day.split(",").map((day) => day.trim()),
+          },
+        },
+      },
+      {
+        new: true,
+        upsert: true,
+        setDefaultsOnInsert: true,
+      }
+    );
 
-    // Check if the instructor exists, if not, add them
-    let instructor = await Instructor.findOne({ name: data.Prof.trim() });
-    if (!instructor) {
-      instructor = await Instructor.create({
-        name: data.Prof.trim(),
-        // Add other instructor details here
-        createdBy: admin._id,
-        updatedBy: admin._id,
-      });
-    }
+    // Update or create the course and link it with the instructor and semester
+    let course = await Course.findOneAndUpdate(
+      { identifyCode: data["Course #"].trim() },
+      {
+        $setOnInsert: {
+          title: data["Course title"],
+          identifyCode: data["Course #"].trim(),
+          createdBy: admin._id,
+          updatedBy: admin._id,
+        },
+        $addToSet: {
+          teachableInstructors: instructor._id,
+          semesters: semesterId,
+        },
+      },
+      {
+        new: true,
+        upsert: true,
+        setDefaultsOnInsert: true,
+      }
+    );
 
-    const timePreferences = data.Time.split(',').map(time => time.trim());
-    const dayPreferences = data.Day.split(',').map(day=> day.trim());
+    // Ensuring instructor is linked to the course
+    await Instructor.updateOne(
+      { _id: instructor._id },
+      { $addToSet: { teachableCourses: course._id } }
+    );
+
+    const timePreferences = data.Time.split(",").map((time) => time.trim());
+    const dayPreferences = data.Day.split(",").map((day) => day.trim());
 
     // Determine if the course title contains "Recitation"
-    const isLab = data['Course Title'].includes('Recitation');
+    const isLab = data["Course Title"].includes("Recitation");
     // Set duration based on whether it's a lab
     const duration = isLab ? 100 : 200;
 
     // Create the section with references to the course and instructor
     const section = await Section.create({
-      courseCode: data['Course #'],
-      courseTitle: data['Course Title'],
+      courseCode: data["Course #"],
+      courseTitle: data["Course Title"],
       professor: data["Prof"],
-      preference: timePreferences,
-      day_pref: dayPreferences,
-      lab:isLab,
-      duration:duration,
-      students: data['Cap'],
+      pref_time: timePreferences,
+      pref_day: dayPreferences,
+      lab: isLab,
+      duration: duration,
+      students: data["Cap"],
       createdBy: admin._id,
-      updatedBy:admin._id
+      updatedBy: admin._id,
     });
 
-    // Return the section for logging or further processing if needed
     return section;
   } catch (error) {
-    // If an error occurs, log it and throw to allow the calling function to handle it
     console.error("Error processing row:", error);
     throw error;
   }

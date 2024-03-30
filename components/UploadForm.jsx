@@ -18,11 +18,11 @@ const UploadForm = ({ formText, errorFormText, apiRoute, HeaderFormat }) => {
     try {
       const formData = new FormData();
       formData.append("file", values.file);
+      formData.append("semesterId", semester._id); 
       const response = await fetch(apiRoute, {
         method: "POST",
         headers: {
           "X-Admin-Name": admin.username,
-          "semester" : semester.term
         },
         body: formData,
       });
@@ -82,7 +82,7 @@ const UploadForm = ({ formText, errorFormText, apiRoute, HeaderFormat }) => {
                 disabled={isSubmitting}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-                Upload Courses
+                Upload
               </button>
             </Form>
           )}
