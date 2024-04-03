@@ -1,6 +1,9 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useMajor } from "@/components/General/MajorProvider";
+import Select from "react-select"; // Import React Select library
+import { dayOptions, timeOptions } from "@/app/config/formConfig";
+
 const DynamicCreateForm = ({
   formTitle,
   initialValues,
@@ -69,7 +72,7 @@ const DynamicCreateForm = ({
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, setFieldValue }) => (
             <Form>
               {fields.map((field) => (
                 <div key={field.name} className="mb-4">
@@ -79,13 +82,34 @@ const DynamicCreateForm = ({
                   >
                     {field.label}
                   </label>
-                  <Field
-                    id={field.name}
-                    name={field.name}
-                    type={field.type}
-                    placeholder={field?.placeholder}
-                    className="py-2 px-4 border border-gray-300 rounded-md shadow-sm w-full"
-                  />
+                  {field.name === "preferenceTime" ||
+                  field.name === "preferenceDay" ? (
+                    <Field name={field.name}>
+                      {({ field }) => (
+                        <Select
+                          {...field}
+                          options={
+                            field.name === "preferenceTime"
+                              ? timeOptions
+                              : dayOptions
+                          }
+                          isMulti
+                          onBlur={() => setFieldValue(field.name, field.value)}
+                          onChange={(option) =>
+                            setFieldValue(field.name, option)
+                          }
+                        />
+                      )}
+                    </Field>
+                  ) : (
+                    <Field
+                      id={field.name}
+                      name={field.name}
+                      type={field.type}
+                      placeholder={field?.placeholder}
+                      className="py-2 px-4 border border-gray-300 rounded-md shadow-sm w-full"
+                    />
+                  )}
                   <ErrorMessage
                     name={field.name}
                     component="div"
