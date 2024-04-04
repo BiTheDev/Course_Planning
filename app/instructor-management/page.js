@@ -8,6 +8,7 @@ import {addInstructorToCourseConfig, instructorFormConfig} from "@/app/config/fo
 import DynamicSemesterInfoList from "@/components/DynamicSemesterInfoList";
 import UploadForm from "@/components/UploadForm";
 import { instructorColumns } from "../config/columnConfig";
+import DynamicAddToForm from "@/components/Forms/UpdateForms/DynamicAddToForm";
 const InstructorManagementPage = () => {
   const [instructors, setInstructors] = useState([]);
 
@@ -60,6 +61,11 @@ const InstructorManagementPage = () => {
               apiRoute="/api/instructor/import"
               HeaderFormat="(Please follow the header format xxx)"
           />
+          {/* ----------------Assign instructor to course------------- */}
+          <div className="container px-20 text-2xl font-semibold mb-4">
+          Add Instructor to Course
+          </div>
+          <DynamicAddToForm {...addInstructorToCourseConfig} />
         </div>
 
         {/*---------------instructors list----------------*/}

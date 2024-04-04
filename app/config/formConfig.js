@@ -37,27 +37,39 @@ export const instructorFormConfig = {
   formTitle: "Create Instructor",
   initialValues: {
     name: "",
-    maxCourses: 1,
-    // preferredTime: [],
-    preferenceTime:"",
-    preferenceDay:"",
+    //maxCourses: 1,
+    preferenceTime: [],
+    preferenceDay: [],
   },
   validationSchema: Yup.object({
     name: Yup.string().required("Instructor name is required"),
-    maxCourses: Yup.number().required("Max courses are required").min(1),
-
+    // maxCourses: Yup.number().required("Max courses are required").min(1),
   }),
   fields: [
     { name: "name", type: "text", label: "Name" },
-    { name: "maxCourses", type: "number", label: "Max Courses" },
+    //{ name: "maxCourses", type: "number", label: "Max Courses" },
     { name: "preferenceTime", type: "text", label: "Preference Time" },
     { name: "preferenceDay", type: "text", label: "Preference Day" },
-    // { name: "preferenceDayValue", type: "text", label: "Preference Day" },
   ],
   apiEndpoint: "/api/instructor/create",
   successMessage: "Instructor created successfully!",
   errorMessage: "Error creating instructor. Please try again.",
 };
+
+export const timeOptions = [
+  { value: "Morning", label: "Morning" },
+  { value: "Afternoon", label: "Afternoon" },
+  { value: "Evening", label: "Evening" },
+];
+
+export const dayOptions = [
+  { value: "Monday", label: "Monday" },
+  { value: "Tuesday", label: "Tuesday" },
+  { value: "Wednesday", label: "Wednesday" },
+  { value: "Thursday", label: "Thursday" },
+  { value: "Friday", label: "Friday" },
+  { value: "Saturday", label: "Saturday" },
+];
 
 export const semesterFormConfig = {
   formTitle: "Create Semester",
@@ -76,7 +88,7 @@ export const semesterFormConfig = {
 
 export const addCourseToSemesterConfig = {
   formType: "AddCourseToSemester",
-  fetchRelatedDataUrl: (semesterId) => `/api/semester/${semesterId}/courses`, // Adjust the endpoint as needed
+  fetchRelatedDataUrl: (semesterId) => `/api/semester/${semesterId}/courses`, 
   submitUrl: (semesterId) => `/api/semester/${semesterId}/addCourses`,
   relatedAvailableIds: (data)=> new Set(data.courses.map((c) => c._id)),
   filteredRelatedIds :(allCourses, semesterCoursesIds) => allCourses.filter(
