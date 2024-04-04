@@ -3,7 +3,7 @@ import Instructor from "@/models/Instructor";
 import Admin from "@/models/Admin";
 
 export const POST = async (request)  => {
-    const { name, teachableCourses, maxCourse, preferenceTime, preferenceDay, instructorType, adminName } = await request.json();
+    const { name, teachableCourses, preferenceTime, preferenceDay, instructorType, adminName } = await request.json();
 
 
     try {
@@ -22,7 +22,7 @@ export const POST = async (request)  => {
         const newInstructor = await Instructor.create({
             name,
             teachableCourses,
-            maxCourse,
+            //maxCourse,
             preferenceTime:preferenceTimeList,
             preferenceDay:preferenceDayList,
             instructorType,

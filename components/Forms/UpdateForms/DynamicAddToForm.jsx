@@ -32,19 +32,19 @@ const DynamicAddToForm = ({
 
   useEffect(() => {
     if (prevFormTypeRef.current !== formType) {
-        // Only reset states if formType has changed
-        setSelectedItem(null);
-        setRelatedAvailableDataList([]);
-        setSelectedRelatedDataList([]);
-        // Update the ref to the new formType
-        prevFormTypeRef.current = formType;
-  
-        // Fetch data based on the new formType
-        if (formType === "AddInstructorToCourse") {
-          fetchAllInstructors();
-        }
-          fetchAllCourses();
+      // Only reset states if formType has changed
+      setSelectedItem(null);
+      setRelatedAvailableDataList([]);
+      setSelectedRelatedDataList([]);
+      // Update the ref to the new formType
+      prevFormTypeRef.current = formType;
+
+      // Fetch data based on the new formType
+      if (formType === "AddInstructorToCourse") {
+        fetchAllInstructors();
       }
+      fetchAllCourses();
+    }
     // Ensure to clear the state when formType changes
   }, [formType, fetchAllCourses, fetchAllInstructors]);
 
@@ -53,15 +53,15 @@ const DynamicAddToForm = ({
       fetch(fetchRelatedDataUrl(selectedItem._id))
         .then((response) => response.json())
         .then((data) => {
-            let availableIds = relatedAvailableIds(data);
-            let filteredIds;
-            if (formType === "AddCourseToSemester") {
-                filteredIds = filteredRelatedIds(allCourses, availableIds);
-              } else if (formType === "AddInstructorToCourse") {
-                filteredIds = filteredRelatedIds(instructors, availableIds);
-              }
-            setRelatedAvailableDataList(filteredIds);
-            console.log(filteredIds);
+          let availableIds = relatedAvailableIds(data);
+          let filteredIds;
+          if (formType === "AddCourseToSemester") {
+            filteredIds = filteredRelatedIds(allCourses, availableIds);
+          } else if (formType === "AddInstructorToCourse") {
+            filteredIds = filteredRelatedIds(instructors, availableIds);
+          }
+          setRelatedAvailableDataList(filteredIds);
+          console.log(filteredIds);
         })
         .catch((error) =>
           console.error("Fetching related data failed:", error)
@@ -72,11 +72,11 @@ const DynamicAddToForm = ({
     }
   }, [selectedItem, fetchRelatedDataUrl, dropdownLabelProperty]);
 
-  const dropdownData = formType === "AddInstructorToCourse" ? allCourses : semesters;
+  const dropdownData =
+    formType === "AddInstructorToCourse" ? allCourses : semesters;
 
-console.log(relatedAvailableDataList);
+  console.log(relatedAvailableDataList);
   let mappedOptions = filteredOptions(relatedAvailableDataList);
-
 
   const handleChangeDropdown = (selectedId) => {
     const foundItem = dropdownData.find((item) => item._id === selectedId);
@@ -84,12 +84,10 @@ console.log(relatedAvailableDataList);
     setSelectedRelatedDataList([]);
   };
 
-
-
-
   const handleSubmit = async (values, { resetForm }) => {
     const payload = {
-      [formType === "AddInstructorToCourse" ? "instructors" : "courses"]: values.selectedRelatedData.map((d) => d.value),
+      [formType === "AddInstructorToCourse" ? "instructors" : "courses"]:
+        values.selectedRelatedData.map((d) => d.value),
     };
 
     try {
@@ -122,7 +120,10 @@ console.log(relatedAvailableDataList);
         labelProperty={dropdownLabelProperty}
       />
       {selectedItem && (
-        <Formik initialValues={{ selectedRelatedData: [] }} onSubmit={handleSubmit}>
+        <Formik
+          initialValues={{ selectedRelatedData: [] }}
+          onSubmit={handleSubmit}
+        >
           {({ setFieldValue }) => (
             <Form>
               <Select
@@ -137,7 +138,10 @@ console.log(relatedAvailableDataList);
                   setFieldValue("selectedRelatedData", selectedOptions);
                 }}
               />
-              <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+              <button
+                type="submit"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              >
                 Submit
               </button>
             </Form>

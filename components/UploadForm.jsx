@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import { useMajor } from "@/components/General/MajorProvider";
 
 const UploadForm = ({ formText, errorFormText, apiRoute, HeaderFormat }) => {
-  const { admin, fetchInstructors, fetchAllCourses } = useMajor();
+  const { admin, fetchInstructors, fetchAllCourses, semester } = useMajor();
   const fileInputRef = useRef();
 
   const handleSubmit = async (values, actions) => {
@@ -18,6 +18,7 @@ const UploadForm = ({ formText, errorFormText, apiRoute, HeaderFormat }) => {
     try {
       const formData = new FormData();
       formData.append("file", values.file);
+      formData.append("semesterId", semester._id); 
       const response = await fetch(apiRoute, {
         method: "POST",
         headers: {
@@ -81,7 +82,7 @@ const UploadForm = ({ formText, errorFormText, apiRoute, HeaderFormat }) => {
                 disabled={isSubmitting}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-                Upload Courses
+                Upload
               </button>
             </Form>
           )}

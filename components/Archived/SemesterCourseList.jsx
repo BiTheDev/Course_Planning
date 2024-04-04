@@ -4,11 +4,36 @@ import { useEffect } from "react";
 import { useMajor } from "../General/MajorProvider";
 
 const SemesterCourseList = () => {
-  const { allCourses, fetchAllCourses } = useMajor();
+  const { allCourses, fetchAllCourses, deleteCourse } = useMajor();
+  const [editedCourse, setEditedCourse] = useState(null);
 
   useEffect(() => {
     fetchAllCourses();
   }, []);
+
+  const handleEdit = (course) => {
+    // Set the course to be edited in the state
+    setEditedCourse(course);
+  };
+
+  const handleDelete = async (courseId) => {
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this course?"
+    );
+    if (confirmed) {
+      try {
+        // Perform delete logic here
+        const success = await deleteCourse(courseId);
+        if (success) {
+          console.log("Course deleted successfully!");
+        } else {
+          console.error("Failed to delete course!");
+        }
+      } catch (error) {
+        console.error("Error deleting course:", error);
+      }
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
@@ -92,6 +117,12 @@ const SemesterCourseList = () => {
               Edit
             </button>
           </td> */}
+                <td>
+                  <button onClick={() => handleEdit(course)}>Edit</button>
+                  <button onClick={() => handleDelete(course._id)}>
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

@@ -5,7 +5,11 @@ import CreateInstructorForm from "@/components/Archived/CreateInstructorForm";
 import MainLayout from "../MainLayout";
 import DynamicCreateForm from "@/components/Forms/CreateForms/DynamicCreateForm";
 import {addInstructorToCourseConfig, instructorFormConfig} from "@/app/config/formConfig";
+import DynamicSemesterInfoList from "@/components/DynamicSemesterInfoList";
 import UploadForm from "@/components/UploadForm";
+import { instructorColumns } from "../config/columnConfig";
+import DynamicAddToForm from "@/components/Forms/UpdateForms/DynamicAddToForm";
+
 const InstructorManagementPage = () => {
   const [instructors, setInstructors] = useState([]);
 
@@ -15,7 +19,7 @@ const InstructorManagementPage = () => {
     // Update the state with the fetched instructors
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/instructors");
+        const response = await fetch("/api/instructor");
         const data = await response.json();
         setInstructors(data);
       } catch (error) {
@@ -58,14 +62,18 @@ const InstructorManagementPage = () => {
               apiRoute="/api/instructor/import"
               HeaderFormat="(Please follow the header format xxx)"
           />
+          {/* ----------------Assign instructor to course------------- */}
+          <div className="container px-20 text-2xl font-semibold mb-4">
+          Add Instructor to Course
+          </div>
+          <DynamicAddToForm {...addInstructorToCourseConfig} />
         </div>
 
         {/*---------------instructors list----------------*/}
-        <ul>
-          {instructors.map((instructor) => (
-              <li key={instructor.id}>{instructor.name}</li>
-          ))}
-        </ul>
+        <DynamicSemesterInfoList
+            ListType="instructors"
+            ListColumns={instructorColumns}
+          />
 
         {/*--------------- DELETE button and an UPDATE button for each instructor---------*/}
         {/*<InstructorUpdateForm onInstructorUpdate={handleInstructorUpdate}/>*/}
