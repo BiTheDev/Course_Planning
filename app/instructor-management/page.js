@@ -9,7 +9,6 @@ import DynamicSemesterInfoList from "@/components/DynamicSemesterInfoList";
 import UploadForm from "@/components/UploadForm";
 import { instructorColumns } from "../config/columnConfig";
 import DynamicAddToForm from "@/components/Forms/UpdateForms/DynamicAddToForm";
-
 const InstructorManagementPage = () => {
   const [instructors, setInstructors] = useState([]);
 
