@@ -1,6 +1,9 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useMajor } from "@/components/General/MajorProvider";
+import Select from "react-select"; // Import React Select library
+import { dayOptions, timeOptions } from "@/app/config/formConfig";
+
 const DynamicCreateForm = ({
   formTitle,
   initialValues,
@@ -34,6 +37,8 @@ const DynamicCreateForm = ({
     }
 
     try {
+      data.preferenceDay = data.preferenceDay.map(item => item.value).join(' ');
+      data.preferenceTime = data.preferenceTime.map(item => item.value).join(' ');
       const response = await fetch(apiEndpoint, {
         method: "POST",
         headers: {
@@ -69,34 +74,59 @@ const DynamicCreateForm = ({
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, setFieldValue }) => (
             <Form>
               {fields.map((field) => (
-                <div key={field.name} className="mb-4">
-                  <label
-                    htmlFor={field.name}
-                    className="block text-gray-700 text-sm font-bold mb-2"
-                  >
-                    {field.label}
-                  </label>
-                  <Field
-                    id={field.name}
-                    name={field.name}
-                    type={field.type}
-                    placeholder={field?.placeholder}
-                    className="py-2 px-4 border border-gray-300 rounded-md shadow-sm w-full"
-                  />
-                  <ErrorMessage
-                    name={field.name}
-                    component="div"
-                    className="text-red-500"
-                  />
-                </div>
+                  <div key={field.name} className="mb-4">
+                    <label
+                        htmlFor={field.name}
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                    >
+                      {field.label}
+                    </label>
+
+                    {field.name === "preferenceTime" ||
+                    field.name === "preferenceDay" ? (
+                        <Field name={field.name}>
+                          {({field}) => (
+                              <Select
+                                  {...field}
+                                  options={
+                                    field.name === "preferenceTime"
+                                        ? timeOptions
+                                        : dayOptions
+                                  }
+                                  isMulti
+                                  onBlur={() => setFieldValue(field.name, field.value)}
+                                  onChange={(option) =>
+                                      setFieldValue(field.name, option)
+                                    // setFieldValue(field.name, option)
+                                  }
+                              />
+                          )}
+                        </Field>
+                    ) : (
+                        <Field
+                            id={field.name}
+                            name={field.name}
+                            type={field.type}
+                            placeholder={field?.placeholder}
+                            className="py-2 px-4 border border-gray-300 rounded-md shadow-sm w-full"
+                        />
+                    )}
+
+
+                    <ErrorMessage
+                        name={field.name}
+                        component="div"
+                        className="text-red-500"
+                    />
+                  </div>
               ))}
               <button
-                type="submit"
-                disabled={isSubmitting}
-                className="py-2 px-4 bg-blue-500 text-white rounded-md shadow mt-4"
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="py-2 px-4 bg-blue-500 text-white rounded-md shadow mt-4"
               >
                 Submit
               </button>

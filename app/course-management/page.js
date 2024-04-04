@@ -59,6 +59,11 @@ const CourseManagementPage = () => {
             apiRoute="/api/course/import"
             HeaderFormat="(Please follow the header format xxx)"
         />
+        {/*------------------Add course to semester form----------------*/}
+        <div className="container px-20 text-2xl font-semibold mb-4">
+          Add Course to Semester
+        </div>
+        <DynamicAddToForm {...addCourseToSemesterConfig} />;
 
         {/*------------------courses list----------------*/}
         <DynamicSemesterInfoList
