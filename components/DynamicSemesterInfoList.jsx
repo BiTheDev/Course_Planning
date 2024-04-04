@@ -18,6 +18,7 @@ const DynamicSemesterInfoList = ({
     semesterSections,
     fetchAllCourses,
     fetchAllSections,
+    allClassrooms,
   } = useMajor();
 
   useEffect(() => {
@@ -35,7 +36,7 @@ const DynamicSemesterInfoList = ({
     data = instructors;
   } else if (ListType === "sections") {
     data = allSections;
-  } else if (ListType === "semesterSections"){
+  } else if (ListType === "semesterSections") {
     data = semesterSections;
   }
 
@@ -56,11 +57,113 @@ const DynamicSemesterInfoList = ({
       }
     }
   };
+  const handleGenerate = async () => {
+    // Assuming `semesterSections` and `allClassrooms` contain the data in MongoDB format
+    const sections = semesterSections.map((section) => ({
+      course: section.courseCode,
+      professor: section.professor,
+      pref_time: section.pref_time,
+      pref_day: section.pref_day,
+      is_lab: section.lab,
+      duration: section.duration,
+      students: section.students,
+    }));
+
+    const rooms = allClassrooms.map((room) => ({
+      name: `${room.building}${room.roomNumber}`,
+      size: room.capacity,
+    }));
+
+    const payload = [
+      ...sections.map((section) => ({ section })),
+      ...rooms.map((room) => ({ room })),
+    ];
+
+    console.log(payload);
+
+    try {
+      const postResponse = await fetch("/api/proxy", {
+        // Replace 'API_ENDPOINT' with your actual API endpoint
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!postResponse.ok) throw new Error(" POST Network response was not ok");
+
+      // Optionally process the POST response
+      const postResult = await postResponse.json();
+      console.log(postResult); // You might want to do something with this result
+
+      // GET request
+      const getResponse = await fetch("api/proxy", {
+        // Replace 'API_GET_ENDPOINT' with your actual API GET endpoint
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!getResponse.ok) throw new Error("GET Network response was not ok");
+
+      const getResult = await getResponse.json();
+      console.log(getResult); // Process the GET response
+
+      // Here you can update your state or UI based on the getResult
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleGetNewSchedule = async() =>{
+    try {
+      // GET request
+      const getResponse = await fetch("api/proxy", {
+        // Replace 'API_GET_ENDPOINT' with your actual API GET endpoint
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (!getResponse.ok) throw new Error("GET Network response was not ok");
+
+      const getResult = await getResponse.json();
+      console.log(getResult); // Process the GET response
+
+      // Here you can update your state or UI based on the getResult
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-semibold mb-4">
         {ListType.charAt(0).toUpperCase() + ListType.slice(1)} Information
       </h2>
+      {ListType === "semesterSections" && (
+        <div>
+          <button
+            onClick={() => handleGenerate(data)}
+            className="text-blue-600 hover:text-blue-900 mr-2"
+          >
+            First time Generate
+          </button>
+        </div>
+      )}
+      {ListType === "semesterSections" && (
+        <div>
+          <button
+            onClick={() => handleGetNewSchedule()}
+            className="text-blue-600 hover:text-blue-900 mr-2"
+          >
+            Get New Schedule
+          </button>
+        </div>
+      )}
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
