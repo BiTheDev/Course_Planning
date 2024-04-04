@@ -70,7 +70,7 @@ const DynamicSemesterInfoList = ({
     }));
 
     const rooms = allClassrooms.map((room) => ({
-      name: `${room.building}${room.roomNumber}`,
+      name: `${room.building}-${room.roomNumber}`,
       size: room.capacity,
     }));
 
