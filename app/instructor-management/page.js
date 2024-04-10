@@ -62,6 +62,7 @@ const InstructorManagementPage = () => {
               apiRoute="/api/instructor/import"
               HeaderFormat="(Please follow the header format xxx)"
           />
+          
           {/* ----------------Assign instructor to course------------- */}
           <div className="container px-20 text-2xl font-semibold mb-4">
           Add Instructor to Course
