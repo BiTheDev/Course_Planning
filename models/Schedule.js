@@ -2,17 +2,15 @@ import { Schema, model, models } from 'mongoose';
 
 const ScheduleSchema = new Schema({
   course: {
-    type: Schema.Types.ObjectId,
-    ref: "Course",
+    type:String
   },
   professor: {
-    type: Schema.Types.ObjectId,
-    ref: "Instructor",
+    type:String
   },
   startDay: {
     type: String,
     required: true
-  },
+  }, 
   startTime: {
     type: String,
     required: true
