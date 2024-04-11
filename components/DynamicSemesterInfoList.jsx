@@ -1,6 +1,6 @@
 // DynamicSemesterInfoList.js
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useMajor } from "./General/MajorProvider";
 
 const DynamicSemesterInfoList = ({
@@ -19,7 +19,23 @@ const DynamicSemesterInfoList = ({
     fetchAllCourses,
     fetchAllSections,
     allClassrooms,
+    semester,
+    program,
   } = useMajor();
+  const [isLoading, setIsLoading] = useState(false);
+  const [scheduleData, setScheduleData] = useState([]); // 存储 GET 请求结果
+  const scheduleHeaders = [
+    "Section ID",
+    "Course Title",
+    "Professor",
+    "Day",
+    "Start Time",
+    "End Time",
+    "Room Number",
+    "Duration(min)",
+    "Relative Start",
+    "Conflict",
+  ];
 
   useEffect(() => {
     if (ListType === "courses") {
@@ -58,6 +74,7 @@ const DynamicSemesterInfoList = ({
     }
   };
   const handleGenerate = async () => {
+    setIsLoading(true);
     // Assuming `semesterSections` and `allClassrooms` contain the data in MongoDB format
     const sections = semesterSections.map((section) => ({
       course: section.courseCode,
@@ -91,7 +108,8 @@ const DynamicSemesterInfoList = ({
         body: JSON.stringify(payload),
       });
 
-      if (!postResponse.ok) throw new Error(" POST Network response was not ok");
+      if (!postResponse.ok)
+        throw new Error(" POST Network response was not ok");
 
       // Optionally process the POST response
       const postResult = await postResponse.json();
@@ -109,15 +127,18 @@ const DynamicSemesterInfoList = ({
       if (!getResponse.ok) throw new Error("GET Network response was not ok");
 
       const getResult = await getResponse.json();
-      console.log(getResult); // Process the GET response
-
-      // Here you can update your state or UI based on the getResult
+      console.log(getResult);
+      setIsLoading(false);
+      handleStoreToDatabase(getResult);
+      // setScheduleData(getResult);
     } catch (error) {
       console.error("Error:", error);
+      setIsLoading(false);
     }
   };
 
-  const handleGetNewSchedule = async() =>{
+  const handleGetNewSchedule = async () => {
+    setIsLoading(true);
     try {
       // GET request
       const getResponse = await fetch("api/proxy", {
@@ -131,39 +152,49 @@ const DynamicSemesterInfoList = ({
       if (!getResponse.ok) throw new Error("GET Network response was not ok");
 
       const getResult = await getResponse.json();
-      console.log(getResult); // Process the GET response
-
-      // Here you can update your state or UI based on the getResult
+      console.log(getResult);
+      setIsLoading(false);
+      handleStoreToDatabase(getResult);
+      setScheduleData(getResult);
     } catch (error) {
       console.error("Error:", error);
+      alert("Error generating schedule. Please try again.");
+      setIsLoading(false);
     }
-  }
+  };
+
+  const handleStoreToDatabase = async (getResult) => {
+    try {
+      const storeResponse = await fetch("/api/createScheduleSet", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          programId: program._id,
+          semesterId: semester._id,
+          generatedSchedules: getResult,
+        }),
+      });
+      if (!storeResponse.ok)
+        throw new Error(
+          "POST Network response was not ok when storing schedule"
+        );
+
+      const result = await storeResponse.json();
+      console.log(result); // Process/store this result as necessary
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error generating schedule. Please try again.");
+    }
+  };
 
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-2xl font-semibold mb-4">
         {ListType.charAt(0).toUpperCase() + ListType.slice(1)} Information
       </h2>
-      {ListType === "semesterSections" && (
-        <div>
-          <button
-            onClick={() => handleGenerate(data)}
-            className="text-blue-600 hover:text-blue-900 mr-2"
-          >
-            First time Generate
-          </button>
-        </div>
-      )}
-      {ListType === "semesterSections" && (
-        <div>
-          <button
-            onClick={() => handleGetNewSchedule()}
-            className="text-blue-600 hover:text-blue-900 mr-2"
-          >
-            Get New Schedule
-          </button>
-        </div>
-      )}
+      {/*----------------- show semester sections info--------------*/}
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
@@ -221,6 +252,84 @@ const DynamicSemesterInfoList = ({
       {(!data || data.length === 0) && (
         <div className="text-center py-4">
           <p className="text-gray-500">No {ListType} found.</p>
+        </div>
+      )}
+
+      {/*-------------generate schedule buttons------------*/}
+
+      {ListType === "semesterSections" && (
+        <div className="mb-4">
+          <button
+            onClick={() => handleGenerate(data)}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            {/*First time Generate*/}
+            Send Data
+          </button>
+        </div>
+      )}
+      {ListType === "semesterSections" && (
+        <div className="mb-4">
+          <button
+            onClick={() => handleGetNewSchedule()}
+            className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Get New Schedule
+          </button>
+        </div>
+      )}
+
+      {isLoading && (
+        <div className="text-center">
+          <p>Loading schedules...</p>
+          {/* Or insert a spinner/loader component here */}
+        </div>
+      )}
+
+      {/*------------ show the generated schedule------------*/}
+      {ListType === "semesterSections" && (
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                {scheduleHeaders.map((header, index) => (
+                  <th
+                    key={index}
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {scheduleData.map((item, index) => (
+                <tr key={index}>
+                  {Object.entries(item).map(([key, value], idx, array) => (
+                    <td
+                      key={idx}
+                      className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
+                    >
+                      {/* 检查是否是最后一列 */}
+                      {
+                        idx === array.length - 1 ? (
+                          value === false ? (
+                            <span className="text-red-600">conflict</span> // 如果值为false，则显示红色的"conflict"
+                          ) : (
+                            ""
+                          ) // 如果值为true，则不显示任何内容
+                        ) : typeof value === "boolean" ? (
+                          value.toString() // 如果值是布尔类型，则将其转换为字符串
+                        ) : (
+                          value
+                        ) // 其他情况正常显示值
+                      }
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

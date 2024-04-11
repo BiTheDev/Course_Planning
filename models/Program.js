@@ -9,10 +9,6 @@ const ProgramSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Semester',
   }],
-  scheduleSet: [{
-    type: Schema.Types.ObjectId,
-    ref: 'ScheduleSet',
-  }],
   createdBy: { type: Schema.Types.ObjectId, ref: "Admin" },
   updatedBy: { type: Schema.Types.ObjectId, ref: "Admin" },
 });
