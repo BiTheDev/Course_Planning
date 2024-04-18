@@ -13,7 +13,7 @@ export const GET = async (request) => {
     await connectToDB();
 
     // Fetch all ScheduleSets for the given program and semester
-    const scheduleSets = await ScheduleSet.find({
+    /* const scheduleSets = await ScheduleSet.find({
       program: programId,
       semester: semesterId,
     })
@@ -26,7 +26,20 @@ export const GET = async (request) => {
           { path: "classroom", model: "Classroom" },
         ],
       })
-      .exec();
+      .exec(); */
+    const scheduleSets = await ScheduleSet.find({
+    program: programId,
+    semester: semesterId,
+    })
+    .populate({
+        path: "schedules",
+        model: "Schedule",
+    })
+    .populate({
+        path: "schedules.classroom",
+        model: "Classroom",
+    })
+    .exec();
 
     return new Response(JSON.stringify({ scheduleSets }), { status: 200 });
   } catch (error) {

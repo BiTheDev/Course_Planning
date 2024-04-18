@@ -4,6 +4,7 @@ import MainLayout from "../MainLayout";
 import { useMajor } from "@/components/General/MajorProvider";
 import Dropdown from "@/components/General/Dropdown";
 import Calendar from "@/components/Calendar";
+import ScheduleSetsViewer from "@/components/ScheduleSetViewer";
 import {red} from "next/dist/lib/picocolors"; // Import the new component
 
 const scheduleManagement = () => {
@@ -29,7 +30,9 @@ const scheduleManagement = () => {
   };
 
   const handleSemesterChange = (selectedSemesterId) => {
-    console.log(selectedSemesterId);
+    // console.log(selectedSemesterId);
+    const selectedSemester = semesters.find((semester) => semester._id === selectedSemesterId);
+    setSemester(selectedSemester);
   };
 
 
@@ -64,6 +67,7 @@ const scheduleManagement = () => {
         )}
       </div>
       <h1 align="center">we will hava button here to another page of generating alternative schedules for the term</h1>
+      <ScheduleSetsViewer/>
       <Calendar/>
     </MainLayout>
   );
