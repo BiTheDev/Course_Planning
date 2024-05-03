@@ -1,5 +1,6 @@
 import { connectToDB } from "@/utils/mongodbUtil";
 import Semester from "@/models/Semester";
+import Course from "@/models/Course";
 export const GET = async (request, {params}) =>{
     try {
         await connectToDB();

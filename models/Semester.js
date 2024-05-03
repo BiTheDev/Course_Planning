@@ -13,6 +13,16 @@ const SemesterSchema = new Schema({
       ref: "Course",
     },
   ],
+  sections:[
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Section",
+    },
+  ],
+  scheduleSet: [{
+    type: Schema.Types.ObjectId,
+    ref: 'ScheduleSet',
+  }],
 });
 const Semester = models.Semester || model("Semester", SemesterSchema);
 export default Semester;

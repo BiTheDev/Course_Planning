@@ -1,8 +1,15 @@
 "use client";
-import { useState, useEffect } from "react";
-import InstructorUpdateForm from "@/components/Forms/InstructorUpdateForm";
-import CreateInstructorForm from "@/components/Forms/CreateInstructorForm";
+import React, { useState, useEffect } from "react";
+import InstructorUpdateForm from "@/components/Forms/UpdateForms/InstructorUpdateForm";
+import CreateInstructorForm from "@/components/Archived/CreateInstructorForm";
 import MainLayout from "../MainLayout";
+import DynamicCreateForm from "@/components/Forms/CreateForms/DynamicCreateForm";
+import {addInstructorToCourseConfig, instructorFormConfig} from "@/app/config/formConfig";
+import DynamicSemesterInfoList from "@/components/DynamicSemesterInfoList";
+import UploadForm from "@/components/UploadForm";
+import { instructorColumns } from "../config/columnConfig";
+import DynamicAddToForm from "@/components/Forms/UpdateForms/DynamicAddToForm";
+
 const InstructorManagementPage = () => {
   const [instructors, setInstructors] = useState([]);
 
@@ -12,7 +19,7 @@ const InstructorManagementPage = () => {
     // Update the state with the fetched instructors
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/instructors");
+        const response = await fetch("/api/instructor");
         const data = await response.json();
         setInstructors(data);
       } catch (error) {
@@ -44,19 +51,33 @@ const InstructorManagementPage = () => {
   return (
     <MainLayout>
       <div>
-        <h1>Instructor Management</h1>
-        {/* Display detailed instructor information */}
-        <ul>
-          {instructors.map((instructor) => (
-            <li key={instructor.id}>{instructor.name}</li>
-          ))}
-        </ul>
+        {/* -----------------Create new Instructor------------- */}
+        <div className="flex-1 mb-8 md:mb-0 flex flex-col">
+          <DynamicCreateForm {...instructorFormConfig} />
 
-        {/* Instructor Update Form */}
-        <InstructorUpdateForm onInstructorUpdate={handleInstructorUpdate} />
+          {/* ----------------upload Instructors from CSV------------- */}
+          <UploadForm
+              formText="Instructors"
+              errorFormText="instructors"
+              apiRoute="/api/instructor/import"
+              HeaderFormat="(Please follow the header format xxx)"
+          />
+          
+          {/* ----------------Assign instructor to course------------- */}
+          <div className="container px-20 text-2xl font-semibold mb-4">
+          Add Instructor to Course
+          </div>
+          <DynamicAddToForm {...addInstructorToCourseConfig} />
+        </div>
 
-        {/* Create Instructor Form */}
-        <CreateInstructorForm onInstructorAddition={handleInstructorAddition} />
+        {/*---------------instructors list----------------*/}
+        <DynamicSemesterInfoList
+            ListType="instructors"
+            ListColumns={instructorColumns}
+          />
+
+        {/*--------------- DELETE button and an UPDATE button for each instructor---------*/}
+        {/*<InstructorUpdateForm onInstructorUpdate={handleInstructorUpdate}/>*/}
       </div>
     </MainLayout>
   );

@@ -1,18 +1,23 @@
 "use client";
 import React from "react";
 import MainLayout from "../MainLayout";
-import CreateProgramForm from "@/components/Forms/CreateProgramForm";
-import CreateCourseForm from "@/components/Forms/CreateCourseForm";
-import UploadCourseFileForm from "@/components/Forms/UploadCourseFileForm";
-import UploadInstructorFileForm from "@/components/Forms/UploadInstructorFileForm";
-import CreateInstructorForm from "@/components/Forms/CreateInstructorForm";
+// import CreateProgramForm from "@/components/Forms/CreateForms/CreateProgramForm";
+// import CreateCourseForm from "@/components/Forms/CreateForms/CreateCourseForm";
+// import CreateInstructorForm from "@/components/Forms/CreateForms/CreateInstructorForm";
+import UploadForm from "@/components/UploadForm";
+import DynamicCreateForm from "@/components/Forms/CreateForms/DynamicCreateForm";
+import {
+  programFormConfig,
+  courseFormConfig,
+  instructorFormConfig,
+} from "../config/formConfig";
+import UploadClassroomFileForm from "@/components/Archived/UploadClassroomFileForm";
 
 const Settings = () => {
   const afterCreateProgram = async () => {
     // Fetch programs again to get the updated list including the newly created one
     const response = await fetch("/api/program");
     const data = await response.json();
-    setPrograms(data);
   };
 
   return (
@@ -20,15 +25,28 @@ const Settings = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row md:justify-between">
           <div className="flex-1 mb-8 md:mb-0">
-            <CreateProgramForm onProgramCreated={afterCreateProgram} />
-            <CreateCourseForm />
-            <UploadCourseFileForm />
-            <UploadInstructorFileForm />
+            <DynamicCreateForm
+              {...programFormConfig}
+              onFormSubmitted={afterCreateProgram}
+            />
+
+            <DynamicCreateForm {...courseFormConfig} />
+            <UploadForm
+              formText="Courses"
+              errorFormText="courses"
+              apiRoute="/api/course/import"
+              HeaderFormat="(Please follow the header format xxx)"
+            />
           </div>
-          {/* Group ProgramDropdown and CreateSemesterForm together in a flex column */}
           <div className="flex-1 mb-8 md:mb-0 flex flex-col">
-          <CreateInstructorForm />
-          <UploadInstructorFileForm />
+            <DynamicCreateForm {...instructorFormConfig} />
+            <UploadForm
+              formText="Instructors"
+              errorFormText="instructors"
+              apiRoute="/api/instructor/import"
+              HeaderFormat="(Please follow the header format xxx)"
+            />
+            <UploadClassroomFileForm />
           </div>
         </div>
       </div>

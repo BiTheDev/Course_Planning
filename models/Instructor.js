@@ -4,6 +4,7 @@ const InstructorSchema = new Schema({
   name: {
     type: String,
     required: true,
+    // unique: true
   },
   teachableCourses: [
     {
@@ -11,19 +12,17 @@ const InstructorSchema = new Schema({
       ref: "Course",
     },
   ],
-  maxCourse: {
-    type: Number,
-  },
   preferenceTime: [
     {
       type: String,
     },
   ],
-  instructorType: {
-    type: String,
-    enum: ["Full-Time", "Part-Time"],
-    default: "Full-Time",
-  },
+  preferenceDay: [
+    {
+      type: String,
+    },
+  ],
+
   createdBy: { type: Schema.Types.ObjectId, ref: "Admin" },
   updatedBy: { type: Schema.Types.ObjectId, ref: "Admin" },
 });
